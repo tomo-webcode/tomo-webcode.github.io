@@ -1,6 +1,6 @@
 /* 演出の長さ（ここを変えると速さが変わります） */
 :root {
-  --turn-duration: 0.9s; /* 振り向く */
+  --turn-duration: 1.4s; /* 振り向く（白くなって、白から現れる） */
   --zoom-duration: 0.8s; /* 近づく・下がる */
 }
 
@@ -80,6 +80,16 @@ body {
   color: black;
 }
 
+/* 画面の左上に置く小さめのボタン */
+.nav-back {
+  top: calc(20px + env(safe-area-inset-top, 0px));
+  bottom: auto;
+  left: 20px;
+  transform: none;
+  font-size: 14px;
+  padding: 8px 18px;
+}
+
 /* ================= シーン切り替えの演出 =================
    -from = 今の場面（去っていく側）
    -to   = 次の場面（入ってくる側）
@@ -113,27 +123,29 @@ body {
 }
 
 /* ---------- くるりと振り向く ---------- */
-/* 今の場面は左へ流れ去り、次の場面が右から入ってくる */
+/* 前半：今の場面が左へ流れながら白くなる
+   後半：白の中から、次の場面が右から現れてくる */
 .turn-from {
-  animation: turn-out var(--turn-duration) ease-in-out forwards;
+  animation: turn-out var(--turn-duration) ease-in-out both;
 }
 .turn-to {
-  animation: turn-in var(--turn-duration) ease-in-out forwards;
+  animation: turn-in var(--turn-duration) ease-in-out both;
 }
 
 @keyframes turn-out {
-  from { transform: translateX(0); filter: blur(0); }
-  50%  { filter: blur(4px); } /* 動いている最中だけ少しぼかす */
-  to   { transform: translateX(-100%); filter: blur(0); }
+  0%     { transform: translateX(0); filter: blur(0); opacity: 1; }
+  50%    { transform: translateX(-40%); filter: blur(4px); opacity: 1; }
+  50.01% { opacity: 0; } /* 真っ白になった瞬間に見えなくする */
+  100%   { transform: translateX(-40%); filter: blur(4px); opacity: 0; }
 }
 
 @keyframes turn-in {
-  from { transform: translateX(100%); filter: blur(0); }
-  50%  { filter: blur(4px); }
-  to   { transform: translateX(0); filter: blur(0); }
+  0%   { transform: translateX(40%); filter: blur(4px); opacity: 0; }
+  50%  { transform: translateX(40%); filter: blur(4px); opacity: 0; }
+  100% { transform: translateX(0); filter: blur(0); opacity: 1; }
 }
 
-/* 振り向くときに重ねる白いフェード（真ん中でいちばん白くなる） */
+/* 白いフェード：しだいに真っ白になり、少し保ってから、ゆっくり晴れていく */
 #flash-overlay {
   position: fixed;
   inset: 0;
@@ -149,14 +161,19 @@ body {
 
 @keyframes whiteout {
   0%   { opacity: 0; }
-  50%  { opacity: 0.9; }
+  45%  { opacity: 1; }
+  55%  { opacity: 1; }
   100% { opacity: 0; }
 }
 
-/* ---------- テーブルに近づく ---------- */
+/* ---------- 近づく（扉・テーブル） ---------- */
+/* 拡大の中心：廊下は扉、ゲストルームはテーブルのあたり */
+#scene-1 .scene-stage { --zoom-origin: 50% 50%; }
+#scene-2 .scene-stage { --zoom-origin: 40% 70%; }
+
 /* 部屋がテーブルの位置に向かって拡大し、その上にテーブルが浮かび上がる */
 .approach-from .scene-stage {
-  transform-origin: 40% 70%; /* テーブルのクリック範囲の中心あたり */
+  transform-origin: var(--zoom-origin, 50% 50%);
   animation: zoom-away var(--zoom-duration) ease-in forwards;
 }
 .approach-to {
@@ -175,7 +192,7 @@ body {
   to   { transform: scale(1); }
 }
 
-/* ---------- 一歩下がって部屋を見渡す ---------- */
+/* ---------- 下がる（部屋を見渡す・廊下に戻る） ---------- */
 /* テーブルが少し縮み、部屋が引きの位置に落ち着く */
 .retreat-from .scene-stage {
   animation: shrink-away var(--zoom-duration) ease-in forwards;
