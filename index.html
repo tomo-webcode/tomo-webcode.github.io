@@ -6,26 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title>My Hideaway | 私の秘密の隠れ家</title>
-    <meta name="description" content="廊下の奥にある、小さな秘密の隠れ家。" />
-    <meta property="og:title" content="My Hideaway | 私の秘密の隠れ家" />
-
-    <meta
-      property="og:description"
-      content="廊下の奥にある、小さな秘密の部屋へ。"
-    />
-
-    <meta property="og:type" content="website" />
-
-    <meta property="og:url" content="https://tomo-webcode.github.io/" />
-
-    <meta
-      property="og:image"
-      content="https://tomo-webcode.github.io/img/1-corridor.jpeg"
-    />
-
-    <meta property="og:locale" content="ja_JP" />
-
+    <title>My Hideaway</title>
     <!-- 本のページ用の文字（筆記体・手書き風） -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -169,47 +150,74 @@
 
     <script>
       // 長女の部屋：額縁の左端から合言葉で入室
-      document
-        .getElementById("daughter-btn")
-        ?.addEventListener("click", function () {
-          const answer = window.prompt("あなたの好きなものは？");
-          if (answer === null) return;
-          const normalized = answer.trim().replace(/\s+/g, "");
-          if (
-            [
-              "アニメ",
-              "漫画",
-              "まんが",
-              "マンガ",
-              "アニメや漫画",
-              "アニメと漫画",
-              "アニメ・漫画",
-            ].includes(normalized)
-          ) {
-            window.location.href = "anime.html";
-          } else {
-            window.alert("あなたの好みにはあわないから、またね～ばいばい");
-          }
-        });
+      document.getElementById("daughter-btn")?.addEventListener("click", function () {
+        const answer = window.prompt("あなたの好きなものは？");
+        if (answer === null) return;
+        const normalized = answer.trim().replace(/\s+/g, "");
+        if (["アニメ", "漫画", "まんが", "マンガ", "アニメや漫画", "アニメと漫画", "アニメ・漫画"].includes(normalized)) {
+          window.location.href = "anime.html";
+        } else {
+          window.alert("あなたの好みにはあわないから、またね～ばいばい");
+        }
+      });
 
       // 大博士の部屋：ソファの部屋から合言葉で入室
-      document
-        .getElementById("son-btn")
-        ?.addEventListener("click", function () {
-          const answer = window.prompt(
-            "大ちゃんの後ろについている人は誰でしょう？",
-          );
-          if (answer === null) return;
-          if (answer.trim() === "大博士") {
-            window.location.href = "scientists.html";
-          } else {
-            window.alert("違いま～す！");
-          }
-        });
+      document.getElementById("son-btn")?.addEventListener("click", function () {
+        const answer = window.prompt("大ちゃんの後ろについている人は誰でしょう？");
+        if (answer === null) return;
+        if (answer.trim() === "大博士") {
+          window.location.href = "scientists.html";
+        } else {
+          window.alert("違いま～す！");
+        }
+      });
     </script>
 
     <script src="js/books.js"></script>
     <script src="js/book.js"></script>
     <script src="js/main.js"></script>
-  </body>
+  
+<script>
+  async function sha256Hex(text) {
+    const data = new TextEncoder().encode(text.normalize("NFKC").trim());
+    const digest = await crypto.subtle.digest("SHA-256", data);
+    return Array.from(new Uint8Array(digest))
+      .map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  async function enterScientists() {
+    const answer = prompt("大ちゃんの後ろについている人は誰でしょう？");
+    if (answer === null) return;
+    const hash = await sha256Hex(answer);
+    if (hash === "879cf198bfb55d6b9d5f7123b11be6eb52e16c1f6cccc1c7adde329e18f7529d") {
+      sessionStorage.setItem("hideaway_scientists_key", "ok");
+      location.href = "scientists.html";
+    } else {
+      alert("違いま～す！");
+    }
+  }
+
+  async function enterAnime() {
+    const answer = prompt("あなたの好きなものは？");
+    if (answer === null) return;
+    let normalized = answer.normalize("NFKC").trim()
+      .replace(/[・･、,。!！?？\s]/g, "");
+    // 「アニメや漫画」「漫画とアニメ」なども、答えそのものはソースに置かず
+    // 含まれる語をハッシュで判定する。
+    const candidates = [
+      normalized,
+      ...normalized.split(/や|と|＆|&|または/)
+    ].filter(Boolean);
+    const hashes = await Promise.all(candidates.map(sha256Hex));
+    const allowed = ["77affb05948a7dacda062e8e1a3ce008f1c3e1ed4b7f1f5ecfb515d47879b9f2", "8447fb0532d16687bebe7947f907803697130be1fd667f3d938626dbae1d2250", "0728628c3446ecfcd5b5238a5bcd58c59ccc6f7ceabb2dd00ebc5d9c9b3a39ad"];
+    if (hashes.some(h => allowed.includes(h))) {
+      sessionStorage.setItem("hideaway_anime_key", "ok");
+      location.href = "anime.html";
+    } else {
+      alert("あなたの好みにはあわないから、またね～ばいばい");
+    }
+  }
+</script>
+
+</body>
 </html>
