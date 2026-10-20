@@ -59,7 +59,7 @@ function changeScene(sceneId, effect) {
 
 // 合言葉のチェック（正解なら本の画面へ）
 function checkPassword() {
-  const input = prompt("秘密の部屋の鍵（合言葉）を入力してください：");
+  const input = prompt("秘密の本を開く合言葉を入力してください：");
   if (input === null || input === "") return;
 
   // 全角・半角や、大文字・小文字の違いは気にしない（スマホで打ちやすいように）
