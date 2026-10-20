@@ -1,6 +1,20 @@
-// シーンを切り替える（effect が "turn" のときは振り向く演出つき）
 let isTransitioning = false; // 演出中の連打を防ぐ
 
+// 白いフェードを最初から再生する
+function playFlash() {
+  const overlay = document.getElementById("flash-overlay");
+  overlay.classList.remove("flash");
+  void overlay.offsetWidth; // 再生をやり直すためのおまじない
+  overlay.classList.add("flash");
+  overlay.addEventListener(
+    "animationend",
+    () => overlay.classList.remove("flash"),
+    { once: true }
+  );
+}
+
+// シーンを切り替える
+// effect: "turn"（振り向く）/ "approach"（近づく）/ "retreat"（下がる）/ 省略（すぐ切り替え）
 function changeScene(sceneId, effect) {
   const current = document.querySelector(".scene-container.active");
   const next = document.getElementById(sceneId);
@@ -11,24 +25,32 @@ function changeScene(sceneId, effect) {
     "(prefers-reduced-motion: reduce)"
   ).matches;
 
-  if (effect === "turn" && current && !reduceMotion) {
+  if (effect && current && !reduceMotion) {
     isTransitioning = true;
-    current.classList.add("turn-out");
-    next.classList.add("turn-in");
-    next.addEventListener(
-      "animationend",
-      () => {
-        current.classList.remove("active", "turn-out");
-        next.classList.remove("turn-in");
-        next.classList.add("active");
-        isTransitioning = false;
-      },
-      { once: true }
-    );
+    current.classList.add(`${effect}-from`);
+    next.classList.add(`${effect}-to`);
+    if (effect === "turn") playFlash();
+
+    let finished = false;
+    const finish = () => {
+      if (finished) return;
+      finished = true;
+      next.removeEventListener("animationend", onEnd);
+      current.classList.remove("active", `${effect}-from`);
+      next.classList.remove(`${effect}-to`);
+      next.classList.add("active");
+      isTransitioning = false;
+    };
+    // 中の要素のアニメーション終了も届くので、次の場面本体のものだけ見る
+    const onEnd = (e) => {
+      if (e.target === next) finish();
+    };
+    next.addEventListener("animationend", onEnd);
+    setTimeout(finish, 2000); // 念のための保険
     return;
   }
 
-  // 演出なし（今までと同じ切り替え）
+  // 演出なし
   document.querySelectorAll(".scene-container").forEach((scene) => {
     scene.classList.remove("active");
   });

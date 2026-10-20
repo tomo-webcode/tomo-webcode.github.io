@@ -1,3 +1,9 @@
+/* 演出の長さ（ここを変えると速さが変わります） */
+:root {
+  --turn-duration: 0.9s; /* 振り向く */
+  --zoom-duration: 0.8s; /* 近づく・下がる */
+}
+
 html,
 body {
   margin: 0;
@@ -74,15 +80,45 @@ body {
   color: black;
 }
 
-/* ---------- 「くるりと振り向く」演出 ---------- */
-/* 今の場面は左へ流れ去り、次の場面が右から入ってくる */
-.scene-container.turn-out {
-  animation: turn-out 0.9s ease-in-out forwards;
+/* ================= シーン切り替えの演出 =================
+   -from = 今の場面（去っていく側）
+   -to   = 次の場面（入ってくる側）
+   ======================================================= */
+
+/* 演出中は、次の場面も表示する */
+.turn-to,
+.approach-to,
+.retreat-to {
+  display: flex;
 }
 
-.scene-container.turn-in {
-  display: flex;
-  animation: turn-in 0.9s ease-in-out forwards;
+/* 近づく・下がるでは、入ってくる場面を手前に重ねる */
+.approach-from,
+.retreat-from {
+  z-index: 1;
+}
+.approach-to,
+.retreat-to {
+  z-index: 2;
+}
+
+/* 去っていく場面のボタンは、すぐ消す */
+.approach-from .nav-btn,
+.retreat-from .nav-btn {
+  animation: quick-fade 0.25s ease-out forwards;
+}
+
+@keyframes quick-fade {
+  to { opacity: 0; }
+}
+
+/* ---------- くるりと振り向く ---------- */
+/* 今の場面は左へ流れ去り、次の場面が右から入ってくる */
+.turn-from {
+  animation: turn-out var(--turn-duration) ease-in-out forwards;
+}
+.turn-to {
+  animation: turn-in var(--turn-duration) ease-in-out forwards;
 }
 
 @keyframes turn-out {
@@ -95,4 +131,72 @@ body {
   from { transform: translateX(100%); filter: blur(0); }
   50%  { filter: blur(4px); }
   to   { transform: translateX(0); filter: blur(0); }
+}
+
+/* 振り向くときに重ねる白いフェード（真ん中でいちばん白くなる） */
+#flash-overlay {
+  position: fixed;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none; /* ボタン操作のじゃまをしない */
+  z-index: 100;
+}
+
+#flash-overlay.flash {
+  animation: whiteout var(--turn-duration) ease-in-out;
+}
+
+@keyframes whiteout {
+  0%   { opacity: 0; }
+  50%  { opacity: 0.9; }
+  100% { opacity: 0; }
+}
+
+/* ---------- テーブルに近づく ---------- */
+/* 部屋がテーブルの位置に向かって拡大し、その上にテーブルが浮かび上がる */
+.approach-from .scene-stage {
+  transform-origin: 40% 70%; /* テーブルのクリック範囲の中心あたり */
+  animation: zoom-away var(--zoom-duration) ease-in forwards;
+}
+.approach-to {
+  animation: fade-in var(--zoom-duration) ease-out forwards;
+}
+.approach-to .scene-stage {
+  animation: grow-in var(--zoom-duration) ease-out forwards;
+}
+
+@keyframes zoom-away {
+  from { transform: scale(1); }
+  to   { transform: scale(1.8); }
+}
+@keyframes grow-in {
+  from { transform: scale(0.85); }
+  to   { transform: scale(1); }
+}
+
+/* ---------- 一歩下がって部屋を見渡す ---------- */
+/* テーブルが少し縮み、部屋が引きの位置に落ち着く */
+.retreat-from .scene-stage {
+  animation: shrink-away var(--zoom-duration) ease-in forwards;
+}
+.retreat-to {
+  animation: fade-in var(--zoom-duration) ease-out forwards;
+}
+.retreat-to .scene-stage {
+  animation: settle-back var(--zoom-duration) ease-out forwards;
+}
+
+@keyframes shrink-away {
+  from { transform: scale(1); }
+  to   { transform: scale(0.75); }
+}
+@keyframes settle-back {
+  from { transform: scale(1.25); }
+  to   { transform: scale(1); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }

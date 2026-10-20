@@ -6,7 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title>私のお城</title>
+    <title>My Hideaway</title>
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -32,6 +32,7 @@
           class="click-area"
           style="top: 50%; left: 25%; width: 30%; height: 40%"
           data-scene="scene-3"
+          data-effect="approach"
           title="テーブルに近づく"
         ></button>
       </div>
@@ -45,7 +46,7 @@
       <div class="scene-stage">
         <img src="img/3-cake-table.png" alt="ケーキのテーブル" class="scene-image" />
       </div>
-      <button class="nav-btn" data-scene="scene-2">
+      <button class="nav-btn" data-scene="scene-2" data-effect="retreat">
         一歩下がって部屋を見渡す
       </button>
     </div>
@@ -65,6 +66,9 @@
         くるりと後ろを振り向く
       </button>
     </div>
+
+    <!-- 振り向くときに重ねる白いフェード用 -->
+    <div id="flash-overlay"></div>
 
     <script src="js/main.js"></script>
   </body>
