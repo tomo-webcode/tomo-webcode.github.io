@@ -1,170 +1,753 @@
 <!doctype html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#f2faff">
-  <title>アニメと漫画のときめき部屋</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <style>
-    :root{--ink:#3f5368;--pink:#8fcdf4;--pink-dark:#398fc8;--lav:#d4dcff;--mint:#c9f0ec;--cream:#fbfdff;--yellow:#fff0b8;--line:#d9eaf6}
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;background:radial-gradient(circle at 8% 8%,#d9f1ff 0,transparent 25%),radial-gradient(circle at 95% 30%,#e4eaff 0,transparent 24%),var(--cream);color:var(--ink);font-family:"M PLUS Rounded 1c",sans-serif;line-height:1.85}
-    a{color:#347eae;text-underline-offset:3px}
-    header{position:relative;overflow:hidden;text-align:center;padding:72px 20px 50px;background:linear-gradient(135deg,#dff4ff,#e9edff 52%,#e0f8f4);border-bottom:2px solid white}
-    header:before,header:after{content:"✦";position:absolute;color:#fff;font-size:4rem;opacity:.8}header:before{top:18px;left:8%}header:after{right:9%;bottom:20px}
-    .eyebrow{margin:0 0 8px;letter-spacing:.16em;font-size:.8rem;font-weight:800;color:#4d8db8}
-    h1{margin:0;font-size:clamp(2rem,6vw,3.7rem);line-height:1.3;color:#426987;text-shadow:2px 3px 0 white}
-    .lead{max-width:650px;margin:18px auto 0;font-size:1rem}
-    .sparkles{font-size:1.4rem;letter-spacing:.5em;margin-top:14px;color:#65add9}
-    nav{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;padding:20px 16px}
-    nav a{background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 16px;text-decoration:none;font-size:.9rem;font-weight:700;box-shadow:0 4px 12px #527fa012;transition:transform .2s,background .2s}
-    nav a:hover{transform:translateY(-3px);background:#eef8ff}
-    main{width:min(1050px,calc(100% - 32px));margin:16px auto 70px;display:grid;gap:34px}
-    .section-title{text-align:center;margin:0 0 18px;font-size:clamp(1.45rem,4vw,2rem);color:#4d7598}
-    .section-title span{display:block;font-size:.78rem;letter-spacing:.15em;color:#79a9cb;font-weight:700}
-    .work-card{background:#fff;border:2px solid white;border-radius:26px;overflow:hidden;box-shadow:0 12px 32px #5d8ca51a;position:relative}
-    .work-card:before{content:"";position:absolute;inset:0 0 auto;height:7px;background:linear-gradient(90deg,var(--pink),var(--lav),var(--mint))}
-    .card-inner{display:grid;grid-template-columns:240px minmax(0,1fr);gap:28px;padding:34px;align-items:start}
-    .cover{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:18px;background:linear-gradient(145deg,#dff3ff,#e6eaff);border:1px solid #d9eaf6;display:block}
-    .cover-placeholder{width:100%;aspect-ratio:4/5;border-radius:18px;background:linear-gradient(145deg,#e0f4ff,#e6eaff 55%,#ddf8f0);display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;color:#5b91b3;font-size:1.25rem;font-weight:800;border:1px solid #d9eaf6}
-    .kind{display:inline-block;background:#eef8ff;color:#397fae;border-radius:999px;padding:3px 12px;font-size:.76rem;font-weight:800;margin-bottom:8px}
-    h3{font-size:1.55rem;line-height:1.45;margin:0 0 12px;color:#3f6687}
-    .desc{margin:0 0 16px}
-    .info{background:#f4faff;border:1px dashed #b9dcef;border-radius:16px;padding:14px 17px;margin:16px 0}
-    .info p{margin:4px 0}
-    .label{display:inline-block;min-width:5.5em;font-weight:800;color:#4d8db8}
-    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
-    .btn{display:inline-block;padding:9px 16px;border-radius:999px;background:#78bce8;color:#fff;text-decoration:none;font-weight:800;font-size:.9rem;box-shadow:0 4px 0 #4f9acb;transition:transform .15s}
-    .btn:hover{transform:translateY(2px);box-shadow:0 2px 0 #4f9acb}
-    .btn.alt{background:#a9b8f0;box-shadow:0 4px 0 #8597d2}.btn.mint{background:#70c9bd;box-shadow:0 4px 0 #4aa99b}
-    .movie-list{display:grid;gap:12px;margin-top:18px}
-    .movie{display:grid;grid-template-columns:58px 1fr;gap:14px;align-items:start;padding:15px;border-radius:17px;background:#f2f9ff;border:1px solid #d8eaf6}
-    .movie-num{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;background:#dff2ff;color:#347fae;font-weight:800}
-    .movie h4{margin:0 0 3px;font-size:1.05rem;color:#456987}.movie p{margin:0;font-size:.92rem}
-    .note{font-size:.82rem;color:#728ba0;margin:12px 0 0}
-    .back-link{position:absolute;top:20px;left:20px;z-index:10;color:#4d7598;text-decoration:none;font-size:.9rem;padding:8px 16px;border:1px solid #b9dcef;border-radius:999px;background:rgba(255,255,255,.82);box-shadow:0 5px 18px #5d8ca51a;backdrop-filter:blur(6px);transition:transform .15s,background .15s}
-    .back-link:hover{transform:translateY(-1px);background:#fff}
-    footer{text-align:center;padding:28px 16px 42px;background:#eaf7ff;color:#6688a4;font-size:.85rem}
-    .footer-heart{font-size:1.3rem;color:#6eb5df}
-    @media(max-width:700px){header{padding:62px 18px 40px}.card-inner{grid-template-columns:1fr;padding:24px 20px;gap:18px}.cover,.cover-placeholder{width:min(230px,75%);margin:auto}.movie{grid-template-columns:46px 1fr;padding:12px}.movie-num{width:42px;height:42px;border-radius:13px}.lead{font-size:.92rem}}
-  </style>
-</head>
-<body>
-  <a href="index.html#scene-4" class="back-link">‹ ソファの部屋へ戻る</a>
-  <header>
-    <p class="eyebrow">MY FAVOURITE STORIES ✿</p>
-    <h1>アニメと漫画の<br>ときめき部屋</h1>
-    <p class="lead">大好きな物語と、何度でも会いたいキャラクターたち。<br>お気に入りを少しずつ集めていく、わたしだけの小さな本棚。</p>
-    <div class="sparkles" aria-hidden="true">♡ ✧ ♡</div>
-  </header>
-  <nav aria-label="ページ内メニュー">
-    <a href="#kusuriya">📚 薬屋のひとりごと</a>
-    <a href="#kimetsu">🎬 鬼滅の刃</a>
-    <a href="#kemono">🦊 怪物事変</a>
-    <a href="#medalist">⛸️ メダリスト</a>
-    <a href="#bungo">📖 文豪ストレイドッグス</a>
-    <a href="#frieren">🪄 葬送のフリーレン</a>
-  </nav>
-  <main>
-    <section id="kusuriya">
-      <h2 class="section-title"><span>MY FAVOURITE NOVEL</span>📚 薬屋のひとりごと</h2>
-      <article class="work-card"><div class="card-inner">
-        <img class="cover" src="img/anime/kusuriya.jpg" alt="薬屋のひとりごと" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="cover-placeholder" hidden>猫猫の謎解き帖<br>✿ ✧ ✿<br><small>画像を img/anime/kusuriya.jpg に入れてね</small></div>
-        <div>
-          <span class="kind">お気に入りの小説</span>
-          <h3>薬屋のひとりごと</h3>
-          <p class="desc">薬と毒にくわしい少女・猫猫が、後宮で起こる不思議な事件を鮮やかに解き明かしていく物語。謎解きも、宮廷の人間模様も楽しめる！</p>
-          <div class="info">
-            <p><span class="label">著者</span>日向 夏</p>
-            <p><span class="label">イラスト</span>しのとうこ</p>
-            <p><span class="label">発売状況</span>小説版 1～16巻 好評発売中（2026年10月確認）</p>
-            <p><span class="label">次巻</span>17巻の発売日は、公式書籍案内で未発表</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f2faff" />
+    <title>アニメと漫画のときめき部屋</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #3f5368;
+        --pink: #8fcdf4;
+        --pink-dark: #398fc8;
+        --lav: #d4dcff;
+        --mint: #c9f0ec;
+        --cream: #fbfdff;
+        --yellow: #fff0b8;
+        --line: #d9eaf6;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background:
+          radial-gradient(circle at 8% 8%, #d9f1ff 0, transparent 25%),
+          radial-gradient(circle at 95% 30%, #e4eaff 0, transparent 24%),
+          var(--cream);
+        color: var(--ink);
+        font-family: "M PLUS Rounded 1c", sans-serif;
+        line-height: 1.85;
+      }
+      a {
+        color: #347eae;
+        text-underline-offset: 3px;
+      }
+      header {
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        padding: 72px 20px 50px;
+        background: linear-gradient(135deg, #dff4ff, #e9edff 52%, #e0f8f4);
+        border-bottom: 2px solid white;
+      }
+      header:before,
+      header:after {
+        content: "✦";
+        position: absolute;
+        color: #fff;
+        font-size: 4rem;
+        opacity: 0.8;
+      }
+      header:before {
+        top: 18px;
+        left: 8%;
+      }
+      header:after {
+        right: 9%;
+        bottom: 20px;
+      }
+      .eyebrow {
+        margin: 0 0 8px;
+        letter-spacing: 0.16em;
+        font-size: 0.8rem;
+        font-weight: 800;
+        color: #4d8db8;
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(2rem, 6vw, 3.7rem);
+        line-height: 1.3;
+        color: #426987;
+        text-shadow: 2px 3px 0 white;
+      }
+      .lead {
+        max-width: 650px;
+        margin: 18px auto 0;
+        font-size: 1rem;
+      }
+      .sparkles {
+        font-size: 1.4rem;
+        letter-spacing: 0.5em;
+        margin-top: 14px;
+        color: #65add9;
+      }
+      nav {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 20px 16px;
+      }
+      nav a {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 16px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 700;
+        box-shadow: 0 4px 12px #527fa012;
+        transition:
+          transform 0.2s,
+          background 0.2s;
+      }
+      nav a:hover {
+        transform: translateY(-3px);
+        background: #eef8ff;
+      }
+      main {
+        width: min(1050px, calc(100% - 32px));
+        margin: 16px auto 70px;
+        display: grid;
+        gap: 34px;
+      }
+      .section-title {
+        text-align: center;
+        margin: 0 0 18px;
+        font-size: clamp(1.45rem, 4vw, 2rem);
+        color: #4d7598;
+      }
+      .section-title span {
+        display: block;
+        font-size: 0.78rem;
+        letter-spacing: 0.15em;
+        color: #79a9cb;
+        font-weight: 700;
+      }
+      .work-card {
+        background: #fff;
+        border: 2px solid white;
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: 0 12px 32px #5d8ca51a;
+        position: relative;
+      }
+      .work-card:before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 7px;
+        background: linear-gradient(
+          90deg,
+          var(--pink),
+          var(--lav),
+          var(--mint)
+        );
+      }
+      .card-inner {
+        display: grid;
+        grid-template-columns: 240px minmax(0, 1fr);
+        gap: 28px;
+        padding: 34px;
+        align-items: start;
+      }
+      .cover {
+        width: 100%;
+        aspect-ratio: 4/5;
+        object-fit: cover;
+        border-radius: 18px;
+        background: linear-gradient(145deg, #dff3ff, #e6eaff);
+        border: 1px solid #d9eaf6;
+        display: block;
+      }
+      .cover-placeholder {
+        width: 100%;
+        aspect-ratio: 4/5;
+        border-radius: 18px;
+        background: linear-gradient(145deg, #e0f4ff, #e6eaff 55%, #ddf8f0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        color: #5b91b3;
+        font-size: 1.25rem;
+        font-weight: 800;
+        border: 1px solid #d9eaf6;
+      }
+      .kind {
+        display: inline-block;
+        background: #eef8ff;
+        color: #397fae;
+        border-radius: 999px;
+        padding: 3px 12px;
+        font-size: 0.76rem;
+        font-weight: 800;
+        margin-bottom: 8px;
+      }
+      h3 {
+        font-size: 1.55rem;
+        line-height: 1.45;
+        margin: 0 0 12px;
+        color: #3f6687;
+      }
+      .desc {
+        margin: 0 0 16px;
+      }
+      .info {
+        background: #f4faff;
+        border: 1px dashed #b9dcef;
+        border-radius: 16px;
+        padding: 14px 17px;
+        margin: 16px 0;
+      }
+      .info p {
+        margin: 4px 0;
+      }
+      .label {
+        display: inline-block;
+        min-width: 5.5em;
+        font-weight: 800;
+        color: #4d8db8;
+      }
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 9px 16px;
+        border-radius: 999px;
+        background: #78bce8;
+        color: #fff;
+        text-decoration: none;
+        font-weight: 800;
+        font-size: 0.9rem;
+        box-shadow: 0 4px 0 #4f9acb;
+        transition: transform 0.15s;
+      }
+      .btn:hover {
+        transform: translateY(2px);
+        box-shadow: 0 2px 0 #4f9acb;
+      }
+      .btn.alt {
+        background: #a9b8f0;
+        box-shadow: 0 4px 0 #8597d2;
+      }
+      .btn.mint {
+        background: #70c9bd;
+        box-shadow: 0 4px 0 #4aa99b;
+      }
+      .movie-list {
+        display: grid;
+        gap: 12px;
+        margin-top: 18px;
+      }
+      .movie {
+        display: grid;
+        grid-template-columns: 58px 1fr;
+        gap: 14px;
+        align-items: start;
+        padding: 15px;
+        border-radius: 17px;
+        background: #f2f9ff;
+        border: 1px solid #d8eaf6;
+      }
+      .movie-num {
+        width: 52px;
+        height: 52px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        background: #dff2ff;
+        color: #347fae;
+        font-weight: 800;
+      }
+      .movie h4 {
+        margin: 0 0 3px;
+        font-size: 1.05rem;
+        color: #456987;
+      }
+      .movie p {
+        margin: 0;
+        font-size: 0.92rem;
+      }
+      .note {
+        font-size: 0.82rem;
+        color: #728ba0;
+        margin: 12px 0 0;
+      }
+      .back-link {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 10;
+        color: #4d7598;
+        text-decoration: none;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        border: 1px solid #b9dcef;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.82);
+        box-shadow: 0 5px 18px #5d8ca51a;
+        backdrop-filter: blur(6px);
+        transition:
+          transform 0.15s,
+          background 0.15s;
+      }
+      .back-link:hover {
+        transform: translateY(-1px);
+        background: #fff;
+      }
+      footer {
+        text-align: center;
+        padding: 28px 16px 42px;
+        background: #eaf7ff;
+        color: #6688a4;
+        font-size: 0.85rem;
+      }
+      .footer-heart {
+        font-size: 1.3rem;
+        color: #6eb5df;
+      }
+      @media (max-width: 700px) {
+        header {
+          padding: 62px 18px 40px;
+        }
+        .card-inner {
+          grid-template-columns: 1fr;
+          padding: 24px 20px;
+          gap: 18px;
+        }
+        .cover,
+        .cover-placeholder {
+          width: min(230px, 75%);
+          margin: auto;
+        }
+        .movie {
+          grid-template-columns: 46px 1fr;
+          padding: 12px;
+        }
+        .movie-num {
+          width: 42px;
+          height: 42px;
+          border-radius: 13px;
+        }
+        .lead {
+          font-size: 0.92rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="index.html#scene-4" class="back-link">‹ ソファの部屋へ戻る</a>
+    <header>
+      <p class="eyebrow">MY FAVOURITE STORIES ✿</p>
+      <h1>アニメと漫画の<br />ときめき部屋</h1>
+      <p class="lead">
+        大好きな物語と、何度でも会いたいキャラクターたち。<br />お気に入りを少しずつ集めていく、わたしだけの小さな本棚。
+      </p>
+      <div class="sparkles" aria-hidden="true">♡ ✧ ♡</div>
+    </header>
+    <nav aria-label="ページ内メニュー">
+      <a href="#kusuriya">📚 薬屋のひとりごと</a>
+      <a href="#kimetsu">🎬 鬼滅の刃</a>
+      <a href="#kemono">🦊 怪物事変</a>
+      <a href="#medalist">⛸️ メダリスト</a>
+      <a href="#bungo">📖 文豪ストレイドッグス</a>
+      <a href="#frieren">🪄 葬送のフリーレン</a>
+    </nav>
+    <main>
+      <section id="kusuriya">
+        <h2 class="section-title">
+          <span>MY FAVOURITE NOVEL</span>📚 薬屋のひとりごと
+        </h2>
+        <article class="work-card">
+          <div class="card-inner">
+            <img
+              class="cover"
+              src="img/anime/kusuriya.jpg"
+              alt="薬屋のひとりごと"
+              onerror="
+                this.hidden = true;
+                this.nextElementSibling.hidden = false;
+              "
+            />
+            <div class="cover-placeholder" hidden>
+              猫猫の謎解き帖<br />✿ ✧ ✿<br /><small
+                >画像を img/anime/kusuriya.jpg に入れてね</small
+              >
+            </div>
+            <div>
+              <span class="kind">お気に入りの小説</span>
+              <h3>薬屋のひとりごと</h3>
+              <p class="desc">
+                薬と毒にくわしい少女・猫猫が、後宮で起こる不思議な事件を鮮やかに解き明かしていく物語。謎解きも、宮廷の人間模様も楽しめる！
+              </p>
+              <div class="info">
+                <p><span class="label">著者</span>日向 夏</p>
+                <p><span class="label">イラスト</span>しのとうこ</p>
+                <p>
+                  <span class="label">発売状況</span>小説版 1～16巻
+                  好評発売中（2026年10月確認）
+                </p>
+                <p>
+                  <span class="label">次巻</span
+                  >17巻の発売日は、公式書籍案内で未発表
+                </p>
+              </div>
+              <p>
+                巻ごとの副題一覧ではなく、公式書籍案内に掲載されている巻数を表示しているよ。新刊情報は公式ページでチェック！
+              </p>
+              <div class="actions">
+                <a
+                  class="btn"
+                  href="https://kusuriyanohitorigoto.jp/books/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >公式・書籍情報へ ↗</a
+                ><a
+                  class="btn alt"
+                  href="https://kusuriyanohitorigoto.jp/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >作品公式サイト ↗</a
+                >
+              </div>
+            </div>
           </div>
-          <p>巻ごとの副題一覧ではなく、公式書籍案内に掲載されている巻数を表示しているよ。新刊情報は公式ページでチェック！</p>
-          <div class="actions"><a class="btn" href="https://kusuriyanohitorigoto.jp/books/" target="_blank" rel="noopener noreferrer">公式・書籍情報へ ↗</a><a class="btn alt" href="https://kusuriyanohitorigoto.jp/" target="_blank" rel="noopener noreferrer">作品公式サイト ↗</a></div>
-        </div>
-      </div></article>
-    </section>
+        </article>
+      </section>
 
-    <section id="kimetsu">
-      <h2 class="section-title"><span>THE MOVIE TRILOGY</span>🎬 劇場版「鬼滅の刃」無限城編</h2>
-      <article class="work-card"><div class="card-inner">
-        <img class="cover" src="img/anime/kimetsu.jpg" alt="鬼滅の刃" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="cover-placeholder" hidden>鬼殺隊の物語<br>✦ ⚔ ✦<br><small>画像を img/anime/kimetsu.jpg に入れてね</small></div>
-        <div>
-          <span class="kind">劇場版・三部作</span>
-          <h3>無限城編</h3>
-          <p class="desc">ついに始まる無限城での決戦。劇場版三部作として制作が発表されているよ！</p>
-          <div class="movie-list">
-            <div class="movie"><div class="movie-num">第一章</div><div><h4>猗窩座再来</h4><p>2025年7月18日 公開</p><div class="actions"><a class="btn" href="https://kimetsu.com/anime/mugenjyohen_movie/" target="_blank" rel="noopener noreferrer">第一章 公式サイト ↗</a></div></div></div>
-            <div class="movie"><div class="movie-num">第二章</div><div><h4>無限城編 第二章</h4><p>公開時期は公式未発表。発表があり次第、ここを更新しよう。</p><div class="actions"><a class="btn alt" href="https://kimetsu.com/" target="_blank" rel="noopener noreferrer">鬼滅の刃 公式ポータル ↗</a></div></div></div>
-            <div class="movie"><div class="movie-num">第三章</div><div><h4>無限城編 第三章</h4><p>公開時期は公式未発表。発表があり次第、ここを更新しよう。</p><div class="actions"><a class="btn alt" href="https://kimetsu.com/" target="_blank" rel="noopener noreferrer">鬼滅の刃 公式ポータル ↗</a></div></div></div>
+      <section id="kimetsu">
+        <h2 class="section-title">
+          <span>THE MOVIE TRILOGY</span>🎬 劇場版「鬼滅の刃」無限城編
+        </h2>
+        <article class="work-card">
+          <div class="card-inner">
+            <img
+              class="cover"
+              src="img/anime/kimetsu.jpg"
+              alt="鬼滅の刃"
+              onerror="
+                this.hidden = true;
+                this.nextElementSibling.hidden = false;
+              "
+            />
+            <div class="cover-placeholder" hidden>
+              鬼殺隊の物語<br />✦ ⚔ ✦<br /><small
+                >画像を img/anime/kimetsu.jpg に入れてね</small
+              >
+            </div>
+            <div>
+              <span class="kind">劇場版・三部作</span>
+              <h3>無限城編</h3>
+              <p class="desc">
+                ついに始まる無限城での決戦。劇場版三部作として制作が発表されているよ！
+              </p>
+              <div class="movie-list">
+                <div class="movie">
+                  <div class="movie-num">第一章</div>
+                  <div>
+                    <h4>猗窩座再来</h4>
+                    <p>2025年7月18日 公開</p>
+                    <div class="actions">
+                      <a
+                        class="btn"
+                        href="https://kimetsu.com/anime/mugenjyohen_movie/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >第一章 公式サイト ↗</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="movie">
+                  <div class="movie-num">第二章</div>
+                  <div>
+                    <h4>無限城編 第二章</h4>
+                    <p>
+                      公開時期は公式未発表。発表があり次第、ここを更新しよう。
+                    </p>
+                    <div class="actions">
+                      <a
+                        class="btn alt"
+                        href="https://kimetsu.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >鬼滅の刃 公式ポータル ↗</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="movie">
+                  <div class="movie-num">第三章</div>
+                  <div>
+                    <h4>無限城編 第三章</h4>
+                    <p>
+                      公開時期は公式未発表。発表があり次第、ここを更新しよう。
+                    </p>
+                    <div class="actions">
+                      <a
+                        class="btn alt"
+                        href="https://kimetsu.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >鬼滅の刃 公式ポータル ↗</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="note">
+                ※三部作の制作決定は公式発表済み。第二章・第三章の公開日や個別公式サイトは、確認時点では発表を確認できなかったため、予想の日付は書いていません。
+              </p>
+            </div>
           </div>
-          <p class="note">※三部作の制作決定は公式発表済み。第二章・第三章の公開日や個別公式サイトは、確認時点では発表を確認できなかったため、予想の日付は書いていません。</p>
-        </div>
-      </div></article>
-    </section>
+        </article>
+      </section>
 
-    <section id="kemono">
-      <h2 class="section-title"><span>MY FAVOURITE MANGA</span>🦊 怪物事変</h2>
-      <article class="work-card"><div class="card-inner">
-        <img class="cover" src="img/anime/kemonojihen.jpg" alt="怪物事変" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="cover-placeholder" hidden>怪物たちの物語<br>✧ 🦊 ✧<br><small>画像を img/anime/kemonojihen.jpg に入れてね</small></div>
-        <div>
-          <span class="kind">漫画</span>
-          <h3>怪物事変</h3>
-          <p class="desc">人と怪物が交わる世界で、夏羽たちが不思議な事件や自分自身の運命に向き合っていく物語。</p>
-          <div class="info">
-            <p><span class="label">作者</span>藍本 松</p>
-            <p><span class="label">掲載誌</span>ジャンプSQ.</p>
-            <p><span class="label">発売状況</span>コミックス 1～25巻（2026年10月確認）</p>
-            <p><span class="label">最新刊</span>25巻は2026年8月4日発売</p>
+      <section id="kemono">
+        <h2 class="section-title">
+          <span>MY FAVOURITE MANGA</span>🦊 怪物事変
+        </h2>
+        <article class="work-card">
+          <div class="card-inner">
+            <img
+              class="cover"
+              src="img/anime/kemonojihen.jpg"
+              alt="怪物事変"
+              onerror="
+                this.hidden = true;
+                this.nextElementSibling.hidden = false;
+              "
+            />
+            <div class="cover-placeholder" hidden>
+              怪物たちの物語<br />✧ 🦊 ✧<br /><small
+                >画像を img/anime/kemonojihen.jpg に入れてね</small
+              >
+            </div>
+            <div>
+              <span class="kind">漫画</span>
+              <h3>怪物事変</h3>
+              <p class="desc">
+                人と怪物が交わる世界で、夏羽たちが不思議な事件や自分自身の運命に向き合っていく物語。
+              </p>
+              <div class="info">
+                <p><span class="label">作者</span>藍本 松</p>
+                <p><span class="label">掲載誌</span>ジャンプSQ.</p>
+                <p>
+                  <span class="label">発売状況</span>コミックス
+                  1～25巻（2026年10月確認）
+                </p>
+                <p><span class="label">最新刊</span>25巻は2026年8月4日発売</p>
+              </div>
+              <div class="actions">
+                <a
+                  class="btn mint"
+                  href="https://jumpsq.shueisha.co.jp/rensai/kemonojihen/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >ジャンプSQ. 作品ページ ↗</a
+                ><a
+                  class="btn alt"
+                  href="https://www.s-manga.net/items/contents.html?isbn=9784088850467"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >25巻の書誌情報 ↗</a
+                >
+              </div>
+            </div>
           </div>
-          <div class="actions"><a class="btn mint" href="https://jumpsq.shueisha.co.jp/rensai/kemonojihen/" target="_blank" rel="noopener noreferrer">ジャンプSQ. 作品ページ ↗</a><a class="btn alt" href="https://www.s-manga.net/items/contents.html?isbn=9784088850467" target="_blank" rel="noopener noreferrer">25巻の書誌情報 ↗</a></div>
-        </div>
-      </div></article>
-    </section>
+        </article>
+      </section>
 
+      <section id="medalist">
+        <h2 class="section-title">
+          <span>MY FAVOURITE ANIME & MANGA</span>⛸️ メダリスト
+        </h2>
+        <article class="work-card">
+          <div class="card-inner">
+            <img
+              class="cover"
+              src="img/anime/medalist.jpg"
+              alt="メダリスト"
+              onerror="
+                this.hidden = true;
+                this.nextElementSibling.hidden = false;
+              "
+            />
+            <div class="cover-placeholder" hidden>
+              氷の上の夢<br />✧ ⛸️ ✧<br /><small
+                >画像を img/anime/medalist.jpg に入れてね</small
+              >
+            </div>
+            <div>
+              <span class="kind">漫画・アニメ</span>
+              <h3>メダリスト</h3>
+              <p class="desc">
+                夢破れた青年・明浦路司と、フィギュアスケートに強く憧れる少女・結束いのり。氷の上で出会った二人が、世界を目指して進んでいく物語。
+              </p>
+              <div class="info">
+                <p><span class="label">作者</span>つるまいかだ</p>
+                <p><span class="label">連載</span>月刊アフタヌーン</p>
+                <p>
+                  <span class="label">コミックス</span
+                  >15巻まで発売（2026年10月確認）
+                </p>
+                <p>
+                  <span class="label">アニメ</span
+                  >TVアニメ第2期まで放送。劇場版は2027年2月19日公開予定
+                </p>
+              </div>
+              <div class="actions">
+                <a
+                  class="btn mint"
+                  href="https://afternoon.kodansha.co.jp/c/medalist/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >原作公式ページ ↗</a
+                ><a
+                  class="btn alt"
+                  href="https://medalist-pr.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >アニメ公式サイト ↗</a
+                >
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
 
-    <section id="medalist">
-      <h2 class="section-title"><span>MY FAVOURITE ANIME & MANGA</span>⛸️ メダリスト</h2>
-      <article class="work-card"><div class="card-inner">
-        <img class="cover" src="img/anime/medalist.jpg" alt="メダリスト" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="cover-placeholder" hidden>氷の上の夢<br>✧ ⛸️ ✧<br><small>画像を img/anime/medalist.jpg に入れてね</small></div>
-        <div><span class="kind">漫画・アニメ</span><h3>メダリスト</h3>
-          <p class="desc">夢破れた青年・明浦路司と、フィギュアスケートに強く憧れる少女・結束いのり。氷の上で出会った二人が、世界を目指して進んでいく物語。</p>
-          <div class="info"><p><span class="label">作者</span>つるまいかだ</p><p><span class="label">連載</span>月刊アフタヌーン</p><p><span class="label">コミックス</span>15巻まで発売（2026年10月確認）</p><p><span class="label">アニメ</span>TVアニメ第2期まで放送。劇場版は2027年2月19日公開予定</p></div>
-          <div class="actions"><a class="btn mint" href="https://afternoon.kodansha.co.jp/c/medalist/" target="_blank" rel="noopener noreferrer">原作公式ページ ↗</a><a class="btn alt" href="https://medalist-pr.com/" target="_blank" rel="noopener noreferrer">アニメ公式サイト ↗</a></div>
-        </div>
-      </div></article>
-    </section>
+      <section id="bungo">
+        <h2 class="section-title">
+          <span>MY FAVOURITE ANIME & MANGA</span>📖 文豪ストレイドッグス
+        </h2>
+        <article class="work-card">
+          <div class="card-inner">
+            <img
+              class="cover"
+              src="img/anime/bungo.jpg"
+              alt="文豪ストレイドッグス"
+              onerror="
+                this.hidden = true;
+                this.nextElementSibling.hidden = false;
+              "
+            />
+            <div class="cover-placeholder" hidden>
+              文豪×異能力<br />✦ 📖 ✦<br /><small
+                >画像を img/anime/bungo.jpg に入れてね</small
+              >
+            </div>
+            <div>
+              <span class="kind">漫画・アニメ</span>
+              <h3>文豪ストレイドッグス</h3>
+              <p class="desc">
+                中島敦、太宰治、国木田独歩。文豪の名を持つ者たちが、それぞれの異能力を武器にヨコハマを駆ける異能力バトル。
+              </p>
+              <div class="info">
+                <p><span class="label">原作</span>朝霧カフカ</p>
+                <p><span class="label">漫画</span>春河35</p>
+                <p>
+                  <span class="label">コミックス</span
+                  >28巻まで発売（2026年10月確認）
+                </p>
+                <p>
+                  <span class="label">アニメ</span>TVアニメ第5シーズンまで放送
+                </p>
+              </div>
+              <div class="actions">
+                <a
+                  class="btn"
+                  href="https://bungosd.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >アニメ公式サイト ↗</a
+                ><a
+                  class="btn alt"
+                  href="https://www.kadokawa.co.jp/product/321212000112/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >KADOKAWA 作品情報 ↗</a
+                >
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
 
-    <section id="bungo">
-      <h2 class="section-title"><span>MY FAVOURITE ANIME & MANGA</span>📖 文豪ストレイドッグス</h2>
-      <article class="work-card"><div class="card-inner">
-        <img class="cover" src="img/anime/bungo.jpg" alt="文豪ストレイドッグス" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="cover-placeholder" hidden>文豪×異能力<br>✦ 📖 ✦<br><small>画像を img/anime/bungo.jpg に入れてね</small></div>
-        <div><span class="kind">漫画・アニメ</span><h3>文豪ストレイドッグス</h3>
-          <p class="desc">中島敦、太宰治、国木田独歩。文豪の名を持つ者たちが、それぞれの異能力を武器にヨコハマを駆ける異能力バトル。</p>
-          <div class="info"><p><span class="label">原作</span>朝霧カフカ</p><p><span class="label">漫画</span>春河35</p><p><span class="label">コミックス</span>28巻まで発売（2026年10月確認）</p><p><span class="label">アニメ</span>TVアニメ第5シーズンまで放送</p></div>
-          <div class="actions"><a class="btn" href="https://bungosd.com/" target="_blank" rel="noopener noreferrer">アニメ公式サイト ↗</a><a class="btn alt" href="https://www.kadokawa.co.jp/product/321212000112/" target="_blank" rel="noopener noreferrer">KADOKAWA 作品情報 ↗</a></div>
-        </div>
-      </div></article>
-    </section>
-
-    <section id="frieren">
-      <h2 class="section-title"><span>MY FAVOURITE ANIME & MANGA</span>🪄 葬送のフリーレン</h2>
-      <article class="work-card"><div class="card-inner">
-        <img class="cover" src="img/anime/frieren.jpg" alt="葬送のフリーレン" onerror="this.hidden=true;this.nextElementSibling.hidden=false"><div class="cover-placeholder" hidden>人の心を知る旅<br>✧ 🪄 ✧<br><small>画像を img/anime/frieren.jpg に入れてね</small></div>
-        <div><span class="kind">漫画・アニメ</span><h3>葬送のフリーレン</h3>
-          <p class="desc">魔王を倒した勇者一行の、その後から始まる物語。長い時を生きるエルフの魔法使いフリーレンが、人との出会いと別れをたどりながら「人を知る」旅を続けていく。</p>
-          <div class="info"><p><span class="label">原作</span>山田鐘人</p><p><span class="label">作画</span>アベツカサ</p><p><span class="label">掲載誌</span>週刊少年サンデー</p><p><span class="label">コミックス</span>15巻まで（2026年10月確認）</p></div>
-          <div class="actions"><a class="btn mint" href="https://e-comi.shogakukan.co.jp/books/098543460000d0000000" target="_blank" rel="noopener noreferrer">小学館・コミックス情報 ↗</a><a class="btn alt" href="https://frieren-pr.com/" target="_blank" rel="noopener noreferrer">アニメ公式サイト ↗</a></div>
-        </div>
-      </div></article>
-    </section>
-
-  </main>
-  <footer><div class="footer-heart">♡ ✧ ♡</div><p>MY LITTLE STORY SHELF</p><p>好きな物語は、毎日をちょっと特別にしてくれる。</p></footer>
-</body>
+      <section id="frieren">
+        <h2 class="section-title">
+          <span>MY FAVOURITE ANIME & MANGA</span>🪄 葬送のフリーレン
+        </h2>
+        <article class="work-card">
+          <div class="card-inner">
+            <img
+              class="cover"
+              src="img/anime/frieren.jpg"
+              alt="葬送のフリーレン"
+              onerror="
+                this.hidden = true;
+                this.nextElementSibling.hidden = false;
+              "
+            />
+            <div class="cover-placeholder" hidden>
+              人の心を知る旅<br />✧ 🪄 ✧<br /><small
+                >画像を img/anime/frieren.jpg に入れてね</small
+              >
+            </div>
+            <div>
+              <span class="kind">漫画・アニメ</span>
+              <h3>葬送のフリーレン</h3>
+              <p class="desc">
+                魔王を倒した勇者一行の、その後から始まる物語。長い時を生きるエルフの魔法使いフリーレンが、人との出会いと別れをたどりながら「人を知る」旅を続けていく。
+              </p>
+              <div class="info">
+                <p><span class="label">原作</span>山田鐘人</p>
+                <p><span class="label">作画</span>アベツカサ</p>
+                <p><span class="label">掲載誌</span>週刊少年サンデー</p>
+                <p>
+                  <span class="label">コミックス</span
+                  >15巻まで（2026年10月確認）
+                </p>
+              </div>
+              <div class="actions">
+                <a
+                  class="btn mint"
+                  href="https://e-comi.shogakukan.co.jp/books/098543460000d0000000"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >小学館・コミックス情報 ↗</a
+                ><a
+                  class="btn alt"
+                  href="https://frieren-anime.jp/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >アニメ公式サイト ↗</a
+                >
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+    <footer>
+      <div class="footer-heart">♡ ✧ ♡</div>
+      <p>MY LITTLE STORY SHELF</p>
+      <p>好きな物語は、毎日をちょっと特別にしてくれる。</p>
+    </footer>
+  </body>
 </html>
