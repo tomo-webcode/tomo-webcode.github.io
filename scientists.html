@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="ja">
   <head>
+<script>
+  if (sessionStorage.getItem("hideaway_scientists_key") !== "ok") {
+    location.replace("index.html#scene-4");
+  }
+</script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>大博士の独り言 | 古今東西の偉大なる科学者8人</title>
@@ -544,7 +550,7 @@
   </head>
   <body>
     <header>
-      <a href="index.html#scene-4" class="back-link">‹ ソファの部屋へ戻る</a>
+      <a href="index.html#scene-4" class="back-link" onclick="sessionStorage.removeItem('hideaway_scientists_key')">‹ ソファの部屋へ戻る</a>
       <p class="header-en">SOLILOQUIES OF THE GREAT DOCTORS</p>
       <h1>大博士の独り言</h1>
       <p class="header-desc">
