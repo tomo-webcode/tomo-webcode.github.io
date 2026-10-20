@@ -73,3 +73,26 @@ body {
   background: rgba(255, 255, 255, 0.9);
   color: black;
 }
+
+/* ---------- 「くるりと振り向く」演出 ---------- */
+/* 今の場面は左へ流れ去り、次の場面が右から入ってくる */
+.scene-container.turn-out {
+  animation: turn-out 0.9s ease-in-out forwards;
+}
+
+.scene-container.turn-in {
+  display: flex;
+  animation: turn-in 0.9s ease-in-out forwards;
+}
+
+@keyframes turn-out {
+  from { transform: translateX(0); filter: blur(0); }
+  50%  { filter: blur(4px); } /* 動いている最中だけ少しぼかす */
+  to   { transform: translateX(-100%); filter: blur(0); }
+}
+
+@keyframes turn-in {
+  from { transform: translateX(100%); filter: blur(0); }
+  50%  { filter: blur(4px); }
+  to   { transform: translateX(0); filter: blur(0); }
+}
