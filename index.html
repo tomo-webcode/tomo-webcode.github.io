@@ -6,7 +6,26 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-    <title>My Hideaway</title>
+    <title>My Hideaway | 私の秘密の隠れ家</title>
+    <meta name="description" content="廊下の奥にある、小さな秘密の隠れ家。" />
+    <meta property="og:title" content="My Hideaway | 私の秘密の隠れ家" />
+
+    <meta
+      property="og:description"
+      content="廊下の奥にある、小さな秘密の部屋へ。"
+    />
+
+    <meta property="og:type" content="website" />
+
+    <meta property="og:url" content="https://tomo-webcode.github.io/" />
+
+    <meta
+      property="og:image"
+      content="https://tomo-webcode.github.io/img/1-corridor.jpeg"
+    />
+
+    <meta property="og:locale" content="ja_JP" />
+
     <!-- 本のページ用の文字（筆記体・手書き風） -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -150,27 +169,43 @@
 
     <script>
       // 長女の部屋：額縁の左端から合言葉で入室
-      document.getElementById("daughter-btn")?.addEventListener("click", function () {
-        const answer = window.prompt("あなたの好きなものは？");
-        if (answer === null) return;
-        const normalized = answer.trim().replace(/\s+/g, "");
-        if (["アニメ", "漫画", "まんが", "マンガ", "アニメや漫画", "アニメと漫画", "アニメ・漫画"].includes(normalized)) {
-          window.location.href = "anime.html";
-        } else {
-          window.alert("あなたの好みにはあわないから、またね～ばいばい");
-        }
-      });
+      document
+        .getElementById("daughter-btn")
+        ?.addEventListener("click", function () {
+          const answer = window.prompt("あなたの好きなものは？");
+          if (answer === null) return;
+          const normalized = answer.trim().replace(/\s+/g, "");
+          if (
+            [
+              "アニメ",
+              "漫画",
+              "まんが",
+              "マンガ",
+              "アニメや漫画",
+              "アニメと漫画",
+              "アニメ・漫画",
+            ].includes(normalized)
+          ) {
+            window.location.href = "anime.html";
+          } else {
+            window.alert("あなたの好みにはあわないから、またね～ばいばい");
+          }
+        });
 
       // 大博士の部屋：ソファの部屋から合言葉で入室
-      document.getElementById("son-btn")?.addEventListener("click", function () {
-        const answer = window.prompt("大ちゃんの後ろについている人は誰でしょう？");
-        if (answer === null) return;
-        if (answer.trim() === "大博士") {
-          window.location.href = "scientists.html";
-        } else {
-          window.alert("違いま～す！");
-        }
-      });
+      document
+        .getElementById("son-btn")
+        ?.addEventListener("click", function () {
+          const answer = window.prompt(
+            "大ちゃんの後ろについている人は誰でしょう？",
+          );
+          if (answer === null) return;
+          if (answer.trim() === "大博士") {
+            window.location.href = "scientists.html";
+          } else {
+            window.alert("違いま～す！");
+          }
+        });
     </script>
 
     <script src="js/books.js"></script>
