@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-
     <!-- １：廊下のシーン -->
     <div id="scene-1" class="scene-container active">
       <div class="scene-stage">
@@ -35,7 +34,11 @@
     <!-- ２：ゲストルーム（全体）のシーン -->
     <div id="scene-2" class="scene-container">
       <div class="scene-stage">
-        <img src="img/2-guest-room.jpeg" alt="ゲストルーム" class="scene-image" />
+        <img
+          src="img/2-guest-room.jpeg"
+          alt="ゲストルーム"
+          class="scene-image"
+        />
         <button
           class="click-area"
           style="top: 50%; left: 25%; width: 30%; height: 40%"
@@ -47,7 +50,11 @@
       <button class="nav-btn" data-scene="scene-4" data-effect="turn">
         くるりと後ろを振り向く
       </button>
-      <button class="nav-btn nav-back" data-scene="scene-1" data-effect="retreat">
+      <button
+        class="nav-btn nav-back"
+        data-scene="scene-1"
+        data-effect="retreat"
+      >
         廊下に戻る
       </button>
     </div>
@@ -56,9 +63,17 @@
     <div id="scene-3" class="scene-container">
       <div class="scene-stage">
         <!-- ふだんの猫（座っている画像） -->
-        <img src="img/3-cake-table.jpeg" alt="ケーキのテーブル" class="scene-image" />
+        <img
+          src="img/3-cake-table.jpeg"
+          alt="ケーキのテーブル"
+          class="scene-image"
+        />
         <!-- へそ天の猫（上に重ねておく画像） -->
-        <img src="img/3-cake-table2.jpeg" alt="へそ天の猫" class="scene-image cat-belly-image" />
+        <img
+          src="img/3-cake-table2.jpeg"
+          alt="へそ天の猫"
+          class="scene-image cat-belly-image"
+        />
         <!-- 猫をクリックする透明なボタン -->
         <button
           class="click-area"
@@ -76,6 +91,22 @@
     <div id="scene-4" class="scene-container">
       <div class="scene-stage">
         <img src="img/4-couch.png" alt="ソファ" class="scene-image" />
+
+        <!-- ★追加：額縁の右端（長男）をクリックして科学者ページへ -->
+        <a
+          href="scientists.html"
+          class="click-area"
+          id="son-btn"
+          style="
+            top: 12%;
+            left: 54%;
+            width: 10%;
+            height: 22%;
+            background: rgba(255, 0, 0, 0.4);
+          "
+          title="科学者たちの肖像画廊へ"
+        ></a>
+
         <button
           class="click-area"
           id="book-btn"
@@ -93,13 +124,21 @@
       <div id="book-wrap" class="book-wrap">
         <div id="book" class="book"></div>
       </div>
-      <button class="nav-btn nav-back" data-scene="scene-4" data-effect="retreat">
+      <button
+        class="nav-btn nav-back"
+        data-scene="scene-4"
+        data-effect="retreat"
+      >
         本を閉じる
       </button>
       <div class="book-controls">
-        <button id="book-prev" class="nav-btn nav-inline" type="button">‹ 前のページ</button>
+        <button id="book-prev" class="nav-btn nav-inline" type="button">
+          ‹ 前のページ
+        </button>
         <span id="book-page-info" class="book-page-info"></span>
-        <button id="book-next" class="nav-btn nav-inline" type="button">次のページ ›</button>
+        <button id="book-next" class="nav-btn nav-inline" type="button">
+          次のページ ›
+        </button>
       </div>
     </div>
 
