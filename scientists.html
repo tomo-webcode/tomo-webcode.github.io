@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hall of Natural Philosophers | 古今東西の偉大なる科学者10選</title>
+    <title>大博士の独り言 | 古今東西の偉大なる科学者8人</title>
     <!-- フォントの読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -397,259 +397,43 @@
           margin-bottom: 20px;
         }
       }
-    </style>
+    
+      .stage{display:flex;gap:30px;align-items:center;padding:34px 36px 10px}
+      .stage .portrait-frame{flex:none;margin:0}
+      .bubble{position:relative;flex:1;background:var(--parchment);color:var(--ink);border-radius:20px;padding:22px 26px 14px;box-shadow:0 8px 20px rgba(0,0,0,.55)}
+      .bubble::before{content:"";position:absolute;left:-18px;top:50%;margin-top:-14px;border-style:solid;border-width:14px 18px 14px 0;border-color:transparent var(--parchment) transparent transparent}
+      .bub-lang{font-size:.72rem;color:#7a6440;letter-spacing:.08em}
+      .q-orig{font-family:"IM Fell English","Noto Serif JP",serif;font-size:1.2rem;font-style:italic;line-height:1.6;margin:2px 0 8px}
+      .q-orig[lang=el]{font-style:normal}
+      .q-ja{font-size:.98rem;font-weight:600}
+      .q-src{margin-top:10px;padding-top:8px;border-top:1px dashed #b9a27a;font-size:.78rem;color:#5b4727;line-height:1.6}
+      .q-kind{display:inline-block;font-size:.7rem;padding:1px 9px;border-radius:10px;margin-right:6px;color:#fff;background:#8c2d2d}
+      .q-kind.k1{background:#2f6b3a}.q-kind.k2{background:#8a6a1f}
+      .q-nav{display:flex;justify-content:flex-end;align-items:center;gap:8px;margin-top:6px;font-size:.8rem;color:#7a6440}
+      .q-nav button{font:inherit;border:1px solid #b9a27a;background:transparent;color:var(--ink);border-radius:14px;padding:2px 12px;cursor:pointer}
+      .q-nav button:hover{background:var(--gold)}
+      .info{display:grid;grid-template-columns:260px 1fr;gap:32px;padding:20px 36px 36px}
+      .origin-note{margin-top:10px;font-size:.78rem;color:var(--parchment-dim);text-align:left;line-height:1.6}
+      .legend{max-width:1060px;margin:-40px auto 60px;padding:0 20px;font-size:.8rem;color:var(--parchment-dim)}
+      @media(max-width:720px){.stage{flex-direction:column;padding:28px 18px 6px}.bubble::before{left:50%;top:-18px;margin:0 0 0 -14px;border-width:0 14px 18px;border-color:transparent transparent var(--parchment)}.info{grid-template-columns:1fr;padding:16px 18px 28px}}
+
+  </style>
   </head>
   <body>
     <header>
       <a href="index.html#scene-4" class="back-link">‹ ソファの部屋へ戻る</a>
-      <p class="header-en">HALL OF NATURAL PHILOSOPHERS</p>
-      <h1>古今東西の偉大なる科学者 10選</h1>
-      <p class="header-desc">
-        人類の知の地平を切り拓き、宇宙と自然の法則を数理の言葉で記述した10人の巨星たち。<br />
-        その厳密なる功績と、真理への渇望に満ちた生涯の記録。
-      </p>
-
+      <p class="header-en">SOLILOQUIES OF THE GREAT DOCTORS</p>
+      <h1>大博士の独り言</h1>
+      <p class="header-desc">数理の言葉で自然の法則を書き記した8人の大博士たち。<br />写真から立ちのぼる吹き出しは、本人が実際に書き残した（または言ったと記録された）言葉の原文と出典です。</p>
       <nav class="toc-nav" id="toc"></nav>
     </header>
-
     <main id="scientists-container"></main>
-
-    <footer>
-      <p>My Hideaway — Archives of Science &amp; Mathematics</p>
-    </footer>
-
+    <p class="legend">【言葉の信頼度】<span class="q-kind k1">一次</span>本人の著作・書簡　<span class="q-kind k2">記録</span>本人の発言を第三者が記録した資料　<span class="q-kind">伝承</span>後世の伝承（真偽に議論あり）。原文の綴りや句読点は版により異なります。</p>
+    <footer><p>My Hideaway — Soliloquies of the Great Doctors</p></footer>
     <script>
-      // =========================================================================
-      // 科学者10人の詳細データ
-      // 画像は img/scientists/ フォルダの中に、それぞれのファイル名で配置してください。
-      // =========================================================================
-      const SCIENTISTS = [
-        {
-          id: "archimedes",
-          rank: "I",
-          name: "アルキメデス",
-          enName: "Archimedes of Syracuse",
-          image: "img/scientists/archimedes.jpg",
-          birth: "紀元前287年頃（シラクサ）",
-          death: "紀元前212年（シラクサ / 享年約75）",
-          fields: ["数学", "古典力学", "流体静力学"],
-          formulaTitle: "取り尽くし法による放物線切片の求積・浮力の原理",
-          formula:
-            "$$S = \\sum_{n=0}^{\\infty} \\frac{A}{4^n} = \\frac{4}{3}A, \\qquad F_{\\text{buoyancy}} = \\rho_{\\text{fluid}} V_{\\text{displaced}} g$$",
-          achievements: [
-            "<strong>取り尽くし法（Method of Exhaustion）と積分法の先駆：</strong> ニュートンやライプニッツに約2000年先駆け、無限小の概念を用いた「方法（The Method）」によって放物線の切片の面積が内接三角形の $4/3$ 倍になること、および球の体積と表面積が外接円柱の $2/3$ 倍になること（$V=\\frac{4}{3}\\pi r^3, S=4\\pi r^2$）を厳密な二重帰謬法（背理法）で証明した。",
-            "<strong>円周率 $\\pi$ の厳密な上下界評価：</strong> 円に内接・外接する正96角形の周長を計算し、$3 + \\frac{10}{71} < \\pi < 3 + \\frac{1}{7}$ （小数で $3.1408 < \\pi < 3.1429$）という極めて精度の高い不等式を導出した。",
-            "<strong>静力学と流体静力学の確立：</strong> 著書『平面の釣合について』にて「てこの原理」を公理系から幾何学的に演繹し、重心（質量中心）の概念を創始。さらに『浮体について』では流体中の物体が受ける浮力を定式化し、浮体の安定性（メタセンターの議論に相当）まで考察した。",
-          ],
-          biography:
-            "シチリア島のギリシア植民都市シラクサに天文学者フィディアスの子として生まれ、若き日にエジプトのアレクサンドリアへ遊学してエウクレイデス（ユークリッド）学派の数学者と交流したとされる。帰国後は王ヒエロン2世の庇護のもと研究に没頭。第二次ポエニ戦争でローマ軍がシラクサを包囲した際は、投石機やクレーン（アルキメデスの鉤爪）などの防衛兵器を設計してローマ軍を2年間にわたり苦しめた。紀元前212年の陥落時、砂の上に幾何学図形を描いて思索に耽っていたところをローマ兵に踏み込まれ、「私の円を乱すな（Noli turbare circulos meos）」と言い放って凶刃に倒れたと伝わる。彼の墓には遺言通り「球と外接円柱」の図が刻まれた。",
-          quote: "「私に支点を与えよ。そうすれば地球を動かしてみせよう」",
-        },
-        {
-          id: "newton",
-          rank: "II",
-          name: "アイザック・ニュートン",
-          enName: "Sir Isaac Newton",
-          image: "img/scientists/newton.jpg",
-          birth: "1643年1月4日 [ユリウス暦: 1642年12月25日]",
-          death: "1727年3月31日 [ユリウス暦: 1727年3月20日]（享年84）",
-          fields: ["古典力学", "微分積分学", "光学", "天体力学"],
-          formulaTitle: "運動の第2法則（運動量の時間微分）と万有引力則",
-          formula:
-            "$$\\mathbf{F} = \\frac{\\mathrm{d}\\mathbf{p}}{\\mathrm{d}t}, \\qquad \\mathbf{F}_{12} = -G\\frac{m_1 m_2}{|\\mathbf{r}_{12}|^2}\\hat{\\mathbf{r}}_{12}$$",
-          achievements: [
-            "<strong>流率法（微積分学）と一般化二項定理：</strong> 時間変化する幾何学的量を「流率（Fluxion）」として捉え、微分と積分が互いに逆演算であること（微分積分学の基本定理）を発見。また指数を実数（有理数）に拡張した一般化二項定理 $(1+x)^\\alpha = \\sum_{k=0}^\\infty \\binom{\\alpha}{k}x^k$ により無限級数展開の手法を確立した。",
-            "<strong>『プリンキピア（自然哲学の数学的諸原理）』による古典力学の体系化：</strong> 運動の3法則と万有引力の法則を公理として据え、中心力場における二体問題を解くことでケプラーの惑星運動の3法則を数学的に完全導出。さらに質点の集合としての「球殻定理（球対称な質量分布が外部に及ぼす重力は全質量が中心に集まった質点と等価である）」を証明し、天上の力学と地上の力学を統一した。",
-            "<strong>光学（分光学）とニュートン式反射望遠鏡：</strong> プリズムの実験から、白色光が単色ではなく異なる屈折率（波長）を持つスペクトル光の混合であることを実証。屈折望遠鏡に不可避な色収差を克服するため、凹面鏡を用いた反射望遠鏡を自ら設計・製作した。",
-          ],
-          biography:
-            "イングランドのウールスソープに未熟児として誕生（父は誕生前に死去）。ケンブリッジ大学トリニティ・カレッジ在学中の1665年、ペストの大流行により大学が閉鎖されて故郷に疎開した約1年半の期間（「驚異の年：Annus Mirabilis」）に、微積分・光学・万有引力の着想を一挙に得た。26歳という異例の若さでルーカス教授職に就任。極度の完璧主義と批判を嫌う性格から論文発表をためらいがちだったが、天文学者エドモンド・ハレーの熱心な説得と私費出版の支援により1687年に『プリンキピア』が世に出た。一方、微積分の優先権をめぐるライプニッツとの激しい論争や、王立協会会長としてロバート・フックと対立するなど気難しい一面もあった。後半生は造幣局長官としてイギリスの通貨改鋳と偽造通貨の摘発に辣腕を振るった。",
-          quote:
-            "「私がかなたを見渡せたのだとしたら、それは巨人の肩の上に乗っていたからです」",
-        },
-        {
-          id: "euler",
-          rank: "III",
-          name: "レオンハルト・オイラー",
-          enName: "Leonhard Euler",
-          image: "img/scientists/euler.jpg",
-          birth: "1707年4月15日（スイス・バーゼル）",
-          death: "1783年9月18日（ロシア・サンクトペテルブルク / 享年76）",
-          fields: ["解析学", "数論", "位相幾何学", "流体力学・剛体力学"],
-          formulaTitle:
-            "オイラーの公式・オイラー＝ラグランジュ方程式・バーゼル問題",
-          formula:
-            "$$e^{i\\theta} = \\cos\\theta + i\\sin\\theta, \\qquad \\frac{\\partial L}{\\partial q_i} - \\frac{\\mathrm{d}}{\\mathrm{d}t}\\left(\\frac{\\partial L}{\\partial \\dot{q}_i}\\right) = 0, \\qquad \\zeta(2) = \\sum_{n=1}^{\\infty}\\frac{1}{n^2} = \\frac{\\pi^2}{6}$$",
-          achievements: [
-            "<strong>解析学の近代化と複素関数論：</strong> 指数関数と三角関数を複素数領域で結びつける「オイラーの公式」を発見し、数学で最も美しいとされる等式 $e^{i\\pi} + 1 = 0$ を導いた。関数記号 $f(x)$、自然対数の底 $e$、虚数単位 $i$、円周率 $\\pi$、総和記号 $\\Sigma$ など、現代数学の標準的な記法の多くはオイラーが定着させたものである。",
-            "<strong>バーゼル問題の解決と解析的整数論の創始：</strong> 平方数の逆数和を求めるバーゼル問題を $\\frac{\\sin x}{x}$ の無限乗積展開を用いて鮮やかに解決。さらに素数に関する「オイラー積」 $\\zeta(s) = \\sum_{n=1}^\\infty n^{-s} = \\prod_{p:\\text{prime}}(1-p^{-s})^{-1}$ を発見し、リーマン予想へと繋がる解析的整数論の礎を築いた。",
-            "<strong>変分法・剛体力学・流体力学の定式化：</strong> 汎関数の極値を求める「オイラー＝ラグランジュ方程式」を導出し解析力学の基礎を確立。物理学においても、剛体の回転運動を記述する「オイラーの運動方程式」やオイラー角、理想流体の運動方程式（オイラー方程式）など、質点系を超えた連続体・剛体の力学をすべて書き下した。また「ケーニヒスベルクの橋の問題」を解決しグラフ理論・トポロジーを創始した。",
-          ],
-          biography:
-            "スイスのバーゼルに牧師の子として生まれ、ヨハン・ベルヌーイに数学の才を見出される。サンクトペテルブルク帝国アカデミーとベルリン・アカデミーを舞台に活躍し、人類史上最も多くの論文を執筆した数学者として知られる（全集『Opera Omnia』は70巻を超える）。30代で右目の視力を失い、60代には白内障により完全に失明したが、驚異的な暗算能力と記憶力によって口述筆記で研究を続け、失明後のほうが年間論文数が増えたという逸話を持つ。権威を振りかざすことのない極めて温厚で謙虚な人格者であり、13人の子どもをもうけ、孫を膝に乗せながら最高難度の数学論文を口述していたという。最期は天王星の軌道計算について議論した後、脳卒中により「私は死ぬ」と呟いて息を引き取った（文字通り「計算するのをやめ、生きるのをやめた」）。",
-          quote:
-            "「オイラーを読め、オイラーを読め、彼は我々すべての師だ」（ピエール＝シモン・ラプラスの言葉）",
-        },
-        {
-          id: "gauss",
-          rank: "IV",
-          name: "カール・フリードリヒ・ガウス",
-          enName: "Johann Carl Friedrich Gauß",
-          image: "img/scientists/gauss.jpg",
-          birth: "1777年4月30日（ブラウンシュヴァイク）",
-          death: "1855年2月23日（ゲッティンゲン / 享年77）",
-          fields: ["整数論", "微分幾何学", "電磁気学", "天体力学・統計学"],
-          formulaTitle:
-            "平方剰余の相互法則・Theorema Egregium・ガウスの発散定理",
-          formula:
-            "$$\\left(\\frac{p}{q}\\right)\\left(\\frac{q}{p}\\right) = (-1)^{\\frac{p-1}{2}\\frac{q-1}{2}}, \\qquad \\iint_S \\mathbf{E}\\cdot\\mathrm{d}\\mathbf{S} = \\frac{1}{\\varepsilon_0}\\iiint_V \\rho\\,\\mathrm{d}V$$",
-          achievements: [
-            "<strong>正17角形の作図可能性と『算術研究（Disquisitiones Arithmeticae）』：</strong> 19歳のとき、円分多項式のガロア理論的構造の先駆けとなる考察から、フェルマー素数 $F_n = 2^{2^n}+1$ に対応する正17角形が定規とコンパスのみで作図可能であることを証明。24歳で出版した『算術研究』では合同式 $\\equiv$ を導入し、代数学の基本定理の厳密な証明や「平方剰余の相互法則」の証明を与え、整数論を体系的な学問へと昇華させた。",
-            "<strong>微分幾何学と驚異の定理（Theorema Egregium）：</strong> 曲面の研究において、第1基本形式（計量テンソル $g_{ij}$）のみから決定される「ガウス曲率 $K$」が、曲面を伸縮させずに曲げても不変な内在的量（Intrinsic invariant）であることを証明。これは後に弟子リーマンによって高次元多様体（リーマン幾何学）へ拡張され、アインシュタインの一般相対性理論の数学的基盤となった。",
-            "<strong>最小二乗法・ガウス分布と電磁気学：</strong> 1801年に発見直後見失われた小惑星ケレスの軌道を、独自に開発した「最小二乗法」と誤差論（正規分布＝ガウス分布）を駆使して正確に予測し全欧州に衝撃を与えた。物理学でもウェーバーと共同で電磁気学や地磁気を研究し、ベクトル解析の「ガウスの発散定理（ガウスの法則）」を確立した。",
-          ],
-          biography:
-            "ドイツの貧しいレンガ職人の家庭に生まれるが、3歳で父親の給与計算の誤りを指摘し、小学校では1から100までの和を等差数列の対称性から瞬時に4秒で求めて教師を驚愕させた。フェルディナント公爵の奨学金を得てゲッティンゲン大学へ進学。生涯のほとんどをゲッティンゲン天文台長として過ごした。「熟した果実しか世に出さない（Pauca sed matura：少なく、しかし熟したものを）」を信条とする極端な完璧主義者であり、非ユークリッド幾何学（双曲幾何学）や楕円関数の二重周期性など、他の数学者が数十年後に発表して名声を得る発見を、すでに若き日の日記の中で独力で完成させていながら公表しなかったことが没後の遺稿調査で判明している。後年、ソフィー・ジェルマンやアイゼンシュタイン、リーマンといった才能を高く評価した。",
-          quote: "「数学は科学の女王であり、整数論は数学の女王である」",
-        },
-        {
-          id: "faraday",
-          rank: "V",
-          name: "マイケル・ファラデー",
-          enName: "Michael Faraday",
-          image: "img/scientists/faraday.jpg",
-          birth: "1791年9月22日（ロンドン近郊ニューイントン・バッツ）",
-          death: "1867年8月25日（ハンプトン・コート / 享年75）",
-          fields: ["電磁気学", "電気化学", "実験物理学"],
-          formulaTitle: "ファラデーの電磁誘導の法則・電気分解の法則",
-          formula:
-            "$$\\mathcal{E} = -\\frac{\\mathrm{d}\\Phi_B}{\\mathrm{d}t} = -\\frac{\\mathrm{d}}{\\mathrm{d}t}\\iint_S \\mathbf{B}\\cdot\\mathrm{d}\\mathbf{S}, \\qquad m = \\frac{It}{F}\\cdot\\frac{M}{z}$$",
-          achievements: [
-            "<strong>電磁誘導の発見と発電機・電動機の原理確立：</strong> エルステッドによる「電流の磁気作用」の逆過程として、磁束の時間変化が誘導起電力を生み出す「電磁誘導（1831年）」を発見。また、単極誘導発電機（ファラデーの円盤）や世界初の電磁回転装置（モーターの原型）を製作し、現代の電力文明の直接的な基礎を作った。",
-            "<strong>「場（Field）」の概念と力線の提唱：</strong> 当時の主流であったニュートン力学的な「遠隔作用論（空間を飛び越えて瞬時に力が働くという考え）」を否定し、空間そのものが電場・磁場という物理的実体（電気力線・磁気力線の歪み）として力を媒介するという**近接作用論**を提唱。高度な数式を使わずに直観されたこの概念が、物理学のパラダイムを根底から変革した。",
-            "<strong>磁気光学効果（ファラデー効果）と電気化学・反磁性：</strong> 磁場中を通過する直線偏光の偏光面が回転する「ファラデー効果」を発見し、**光と電磁気現象が本質的に結びついている**ことを初めて実験的に示した。さらに電気分解の定量法則の発見（陽極・陰極・イオン等の用語も考案）、ベンゼンの単離、反磁性の発見、ファラデーケージ（静電遮蔽）など、実験科学史上類を見ない業績を残した。",
-          ],
-          biography:
-            "鍛冶屋の息子として貧困の中で育ち、小学校程度の教育しか受けられなかったため高度な数学（微積分など）を生涯習得しなかった。14歳から製本屋の見習いとして働きながら、製本のために持ち込まれる科学書をむさぼり読んで独学。王立研究所のハンフリー・デービー卿の講演録を美しく製本して送ったことで実験助手に採用され、科学者としての道を歩み始めた。名声を得た後も、ナイトの爵位や王立協会会長への就任要請を「私はただのマイケル・ファラデーのままでいたい」とすべて固辞。晩年は毎年クリスマスに子どもたちへ科学の楽しさを伝える「ロウソクの科学」の講演を行い、私欲や権威と無縁の清廉な生涯を送った。アインシュタインは書斎にニュートン、マクスウェルと並べてファラデーの肖像画を飾っていた。",
-          quote: "「想像力なきところに、いかなる科学的発見も存在し得ない」",
-        },
-        {
-          id: "maxwell",
-          rank: "VI",
-          name: "ジェームズ・クラーク・マクスウェル",
-          enName: "James Clerk Maxwell",
-          image: "img/scientists/maxwell.jpg",
-          birth: "1831年6月13日（スコットランド・エディンバラ）",
-          death: "1879年11月5日（ケンブリッジ / 享年48）",
-          fields: ["電磁気学", "統計力学・熱力学", "光学"],
-          formulaTitle: "マクスウェル方程式（微分形）と電磁波の波動方程式",
-          formula:
-            "$$\\nabla\\cdot\\mathbf{E}=\\frac{\\rho}{\\varepsilon_0},\\quad \\nabla\\cdot\\mathbf{B}=0,\\quad \\nabla\\times\\mathbf{E}=-\\frac{\\partial\\mathbf{B}}{\\partial t},\\quad \\nabla\\times\\mathbf{B}=\\mu_0\\mathbf{J}+\\mu_0\\varepsilon_0\\frac{\\partial\\mathbf{E}}{\\partial t}$$",
-          achievements: [
-            "<strong>変位電流の導入とマクスウェル方程式による電磁気学の統一：</strong> アンペールの法則 $\\nabla\\times\\mathbf{B}=\\mu_0\\mathbf{J}$ が非定常状態において電荷保存則（連続の式 $\\nabla\\cdot\\mathbf{J} + \\partial_t\\rho = 0$）と矛盾することを見抜き、電場の時間変化項である「変位電流 $\\varepsilon_0\\frac{\\partial\\mathbf{E}}{\\partial t}$」を導入。これにより電気・磁気・光学の全現象を単一の連立偏微分方程式系に統合した。",
-            "<strong>電磁波の予言と光の電磁波説：</strong> 真空中のマクスウェル方程式から波動方程式 $\\left(\\nabla^2 - \\mu_0\\varepsilon_0\\frac{\\partial^2}{\\partial t^2}\\right)\\mathbf{E} = 0$ を導出し、その伝播速度 $c = \\frac{1}{\\sqrt{\\mu_0\\varepsilon_0}}$ が実験的に知られていた光速と驚くべき精度で一致することを示した。「光とは電磁場の横波である」というこの結論は、力学のガリレイ変換に対する非対称性を内包しており、後に特殊相対性理論を生む直接の契機となった。",
-            "<strong>気体分子運動論（マクスウェル＝ボルツマン分布）と熱力学：</strong> 気体分子の速度を確率統計的に扱い、速度分布関数 $f(v) \\propto v^2 \\exp\\left(-\\frac{mv^2}{2k_BT}\\right)$ を導出して統計力学を創始。熱力学の第2法則と情報（エントロピー）の本質を問う思考実験「マクスウェルの悪魔」や、熱力学関数の偏微分関係式「マクスウェルの関係式」、土星の環が微小な粒子の集合であることの力学的証明、三原色による世界初のカラー写真撮影など、その業績は驚異的な広がりを持つ。",
-          ],
-          biography:
-            "スコットランドの名門貴族の家系に生まれ、14歳で最初の数学論文を発表した神童。エディンバラ大学を経てケンブリッジ大学トリニティ・カレッジを次席（セカンド・ラングラー）で卒業。数学を解しなかったファラデーの『電気実験研究』を徹底的に読み込み、ファラデーの直観した「力線」や「場」の概念こそが数学的真理であると確信して見事なベクトル・微分方程式へと翻訳した。ケンブリッジ大学キャヴェンディッシュ研究所の初代所長として実験物理学の体制を整え、ヘンリー・キャヴェンディッシュの未発表遺稿の整理・出版にも尽力したが、母と同じ腹部のがんにより48歳の若さで早世した。彼の予言した電磁波がハインリヒ・ヘルツの実験によって実証されたのは、彼の死から9年後の1888年のことである。",
-          quote:
-            "「ファラデーの手法は、数学的記号で表されてこそいないが、最も高次な意味で真に数学的であった」",
-        },
-        {
-          id: "curie",
-          rank: "VII",
-          name: "マリ・キュリー",
-          enName: "Marie Skłodowska-Curie",
-          image: "img/scientists/curie.jpg",
-          birth: "1867年11月7日（ポーランド・ワルシャワ）",
-          death: "1934年7月4日（フランス・サンセルモズ / 享年66）",
-          fields: ["放射線物理学", "放射化学", "原子核物理学"],
-          formulaTitle:
-            "放射性崩壊の微分方程式とラジウム ($^{226}_{88}\\mathrm{Ra}$) のα崩壊",
-          formula:
-            "$$\\frac{\\mathrm{d}N}{\\mathrm{d}t} = -\\lambda N \\implies N(t) = N_0 e^{-\\lambda t}, \\qquad {}^{226}_{88}\\mathrm{Ra} \\longrightarrow {}^{222}_{86}\\mathrm{Rn} + {}^{4}_{2}\\mathrm{He}$$",
-          achievements: [
-            "<strong>「放射能（Radioactivity）」の概念確立と原子の不変性の打破：</strong> アンリ・ベクレルが発見したウラン塩からの未知の放射線について、夫ピエールが開発したピエゾ電気（圧電効果）を用いた微小電流電位計で精密測定を実施。放射線の強度が化合物の化学状態や温度・圧力に一切依存せず、**ウラン原子の数のみに比例する原子固有の性質（原子内部の現象）**であることを突き止め、ドルトン以来の「分割不可能で不変な原子」という古典的原子観を覆した。",
-            "<strong>新元素ポロニウム（$\\mathrm{Po}$）とラジウム（$\\mathrm{Ra}$）の発見・単離：</strong> ピッチブレンド（閃ウラン鉱）が純粋なウラン以上の強い放射線を発することに着目し、数トンに及ぶ鉱石残渣から分別結晶法を繰り返す過酷な化学処理を経て、1898年にポロニウム（84番元素）とラジウム（88番元素）を発見。さらに金属ラジウムの単離と原子量の精密決定に成功した。",
-            "<strong>異なる2分野（物理学賞・化学賞）でのノーベル賞受賞：</strong> 1903年に放射能の研究でノーベル物理学賞、1911年にラジウムおよびポロニウムの発見と単離でノーベル化学賞を受賞。科学部門で異なる2分野のノーベル賞を受賞した史上唯一の人物である。",
-          ],
-          biography:
-            "ロシア帝国統治下のポーランド・ワルシャワに教師の娘（旧姓マリア・スクウォドフスカ）として生まれる。当時ポーランドでは女性の大学進学が認められておらず、姉の学費を稼ぐため数年間住み込みの家庭教師として働いた後、24歳でパリのソルボンヌ大学へ留学。屋根裏部屋で寒さと飢えに耐えながら物理と数学の学位を首席・次席で取得した。物性物理学者ピエール・キュリーと結婚し二人三脚で研究を進めるが、1906年にピエールが馬車の事故で急死。深い悲しみを乗り越え、ソルボンヌ大学史上初の女性教授として夫の講座を引き継いだ。第一次世界大戦中はX線装置を積んだ医療車両「プティ・キュリー」を自ら運転して戦場を駆け回り、100万人以上の負傷兵の診断に貢献。また、精製に成功した超高価なラジウムの特許を「科学は全人類のものである」として取得せず無償で公開した。長年の放射線被曝による再生不良性貧血のため66歳で逝去。彼女の実験ノートは現在も強い放射線を放っており、鉛の箱に保管されている。",
-          quote:
-            "「人生において恐れるべきものは何もない。ただ理解すべきものがあるだけである」",
-        },
-        {
-          id: "einstein",
-          rank: "VIII",
-          name: "アルベルト・アインシュタイン",
-          enName: "Albert Einstein",
-          image: "img/scientists/einstein.jpg",
-          birth: "1879年3月14日（ドイツ・ウルム）",
-          death: "1955年4月18日（アメリカ・プリンストン / 享年76）",
-          fields: ["理論物理学", "相対性理論", "量子論・統計力学"],
-          formulaTitle:
-            "アインシュタインの場の方程式・相対論的エネルギー＝運動量関係式",
-          formula:
-            "$$R_{\\mu\\nu} - \\frac{1}{2}g_{\\mu\\nu}R + \\Lambda g_{\\mu\\nu} = \\frac{8\\pi G}{c^4}T_{\\mu\\nu}, \\qquad E^2 = (pc)^2 + (m_0 c^2)^2$$",
-          achievements: [
-            "<strong>1905年「奇跡の年（Annus Mirabilis）」の3大業績：</strong> ①**光量子仮説**（エネルギー $E=h\\nu$ を持つ粒子としての光）により光電効果を理論的に解明し量子力学の扉を開いた（1921年ノーベル物理学賞受賞理由）。②**ブラウン運動の理論**（拡散係数に関するアインシュタインの関係式 $D = \\mu k_B T$）を定式化し、ジャン・ペランの実験を通じて「原子・分子の実在」を決定づけた。③**特殊相対性理論**により、相対性原理と光速度不変の原理からローレンツ変換を導き、絶対時間・絶対空間を否定して質量とエネルギーの等価性 $E=m_0 c^2$ を導出した。",
-            "<strong>一般相対性理論（1915–1916年）と重力場の幾何学化：</strong> 慣性質量と重力質量の等価性（等価原理）を出発点とし、重力を「質量・エネルギー運動量テンソル $T_{\\mu\\nu}$ による4次元リーマン時空（計量テンソル $g_{\\mu\\nu}$）の曲率（リッチテンソル $R_{\\mu\\nu}$）」として記述するアインシュタイン方程式を完成させた。水星の近日点移動の厳密な説明、重力レンズ効果、重力赤方偏移、重力波、そして現代宇宙論（膨張宇宙・ブラックホール）のすべてがこの方程式から導かれた。",
-            "<strong>量子統計と誘導放出：</strong> 結晶の比熱に関するデバイモデルの先駆けとなる固体の量子比熱理論、レーザーの原理となる「誘導放出（A係数・B係数）」の理論、およびサティエンドラ・ナート・ボースと共に整数スピン粒子の統計「ボース＝アインシュタイン凝縮（BEC）」を予言した。",
-          ],
-          biography:
-            "南ドイツのウルムに生まれ、スイスのチューリッヒ連邦工科大学（ETH）を卒業。大学卒業時は教授と折り合いが悪くアカデミアの職を得られなかったため、ベルンのスイス特許庁で3級審査官として働きながら、業務後の思索だけで1905年の革命的論文群を書き上げた。その後チューリッヒ大学やベルリン大学教授を歴任し、1919年のエディントンによる皆既日食観測で一般相対性理論の予言（太陽重力による光の湾曲）が実証されると世界的な名声を得た。ユダヤ系であったため1933年のナチス政権成立に伴いアメリカへ亡命し、プリンストン高等研究所に所属。後半生は量子力学の確率解釈（コペンハーゲン解釈）に対してボーアと歴史的な論争（EPRパラドックス等）を繰り広げ、重力と電磁気力を統合する「統一場理論」の構築に最期まで挑み続けた。",
-          quote:
-            "「大切なのは、疑問を持ち続けることをやめないことだ。好奇心には、それ自体が存在する理由がある」",
-        },
-        {
-          id: "noether",
-          rank: "IX",
-          name: "エミー・ネーター",
-          enName: "Amalie Emmy Noether",
-          image: "img/scientists/noether.jpg",
-          birth: "1882年3月23日（ドイツ・エアランゲン）",
-          death: "1935年4月14日（アメリカ・ブリンマー / 享年53）",
-          fields: ["抽象代数学", "数理物理学", "不変式論"],
-          formulaTitle: "ネーターの定理（連続対称性と保存カレントの対応）",
-          formula:
-            "$$\\delta S = 0 \\implies \\partial_\\mu j^\\mu = 0, \\qquad j^\\mu = \\frac{\\partial \\mathcal{L}}{\\partial (\\partial_\\mu \\phi_a)}\\delta\\phi_a - \\mathcal{L}\\,\\delta x^\\mu$$",
-          achievements: [
-            "<strong>ネーターの定理（1918年）による現代物理学の礎石：</strong> 「系の作用 $S = \\int \\mathcal{L}\\,\\mathrm{d}^4x$ が連続的な変換群（リー群）のもとで不変（対称）であるとき、それに対応する保存量（ネーター・カレント $j^\\mu$）が必ず存在する」ことを厳密に証明した。これにより、**時間並進対称性 $\\iff$ エネルギー保存則**、**空間並進対称性 $\\iff$ 運動量保存則**、**空間回転対称性 $\\iff$ 角運動量保存則**、**$U(1)$ ゲージ対称性 $\\iff$ 電荷保存則**という物理学の根幹をなす対応関係が一挙に解明された。",
-            "<strong>一般相対性理論におけるエネルギー保存問題の解決：</strong> 1915年にアインシュタインとヒルベルトが一般相対性理論を完成させた際、一般座標変換不変性のもとで局所的なエネルギー保存則がどう成り立つのかという深刻なパラドックスが生じた。ヒルベルトに招かれたネーターは、無限次元群の不変性（ネーターの第2定理）を証明することで、ゲージ対称性を持つ理論における恒等式（ビアンキ恒等式に対応）の本質を完全に解明した。",
-            "<strong>抽象代数学（環論・イデアル論）の革命：</strong> 1921年の論文『環におけるイデアル論』において、具体的な数値や多項式の計算から離れ、公理的な「昇鎖条件（Ascending Chain Condition）」を満たす環（今日**ネーター環**と呼ばれる）の上でイデアルの準素分解定理を証明。現代の代数幾何学やホモロジー代数学の言語そのものを創り上げた。",
-          ],
-          biography:
-            "代数幾何学者マックス・ネーターの娘としてドイツのエアランゲンに生まれる。当時のドイツでは女性の大学入学が制限されており、聴講生として授業を受けた後に試験を突破して博士号を取得。その後7年間にわたり無給でエアランゲン大学にて研究と講義の代講を続けた。1915年、彼女の才能に惚れ込んだダフィット・ヒルベルトとフェリックス・クラインによってゲッティンゲン大学に招かれるが、哲学部の保守派教授陣が「女性を私講師にするなど、帰還した兵士が女の足元で学ぶことになる」と猛反対。これに対しヒルベルトが「ここは大学であって公衆浴場ではない、性別が何の問題になるのか！」と一喝したのは科学史上の名言として知られる。無給や非常勤の待遇にも一切腐ることなく、常に快活で、弟子たち（「ネーター・ボーイズ」）に惜しみなくアイデアを与え続けた。1933年にナチスにより大学を追われアメリカのブリンマー大学へ移るが、その2年後に腫瘍の手術後の合併症により53歳で急逝。アインシュタインはニューヨーク・タイムズ紙に寄せた追悼文で彼女を「女性の高等教育が始まって以来、最も偉大で創造的な数学の天才」と讃えた。",
-          quote:
-            "「私の手法は、まさに働き方であり考え方なのです。だからこそ、あらゆる場所に浸透していくのです」",
-        },
-        {
-          id: "dirac",
-          rank: "X",
-          name: "ポール・ディラック",
-          enName: "Paul Adrien Maurice Dirac",
-          image: "img/scientists/dirac.jpg",
-          birth: "1902年8月8日（イギリス・ブリストル）",
-          death: "1984年10月20日（アメリカ・タラハシー / 享年82）",
-          fields: ["量子力学", "場の量子論", "相対論的量子力学"],
-          formulaTitle:
-            "ディラック方程式と正準量子化（ポアソン括弧と交換関係）",
-          formula:
-            "$$(i\\gamma^\\mu \\partial_\\mu - m)\\psi = 0 \\quad (\\{\\gamma^\\mu, \\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}I_4), \\qquad [\\hat{q}, \\hat{p}] = i\\hbar$$",
-          achievements: [
-            "<strong>相対論的量子力学（ディラック方程式）と反物質の予言（1928年）：</strong> シュレーディンガー方程式が非相対論的（時間に1階、空間に2階微分）であり、クライン＝ゴルドン方程式が負の確率密度を生じる問題を克服するため、時空の微分に関して1次のローレンツ共変な波動方程式を導出。係数が $4\\times 4$ 行列（クリフォード代数 $\\{\\gamma^\\mu, \\gamma^\\nu\\}=2\\eta^{\\mu\\nu}$）となる4成分スピノル $\\psi$ を導入したことで、アドホックな仮定なしに**電子のスピン $1/2$ と異常磁気モーメント（$g=2$）が相対論的要請から自然に導かれる**ことを示した。さらに負エネルギー解の考察（ディラックの海）から、電子と同じ質量で正の電荷を持つ反粒子「**陽電子（Positron）**」の存在を予言し、1932年にアンダーソンによって実験的に発見された。",
-            "<strong>量子力学の数学的統一（変換理論とブラ・ケット記法）：</strong> ハイゼンベルクの行列力学とシュレーディンガーの波動力学が、ヒルベルト空間上の状態ベクトル $|\\psi\\rangle$（ケット）と双対ベクトル $\\langle\\phi|$（ブラ）の異なる基底表現に過ぎないことを証明。また解析力学のポアソン括弧 $\\{A, B\\}_{\\text{PB}}$ を量子力学の交換子 $\\frac{1}{i\\hbar}[\\hat{A}, \\hat{B}]$ に対応させる**正準量子化**の手続きや、超関数の先駆けとなる「ディラックのデルタ関数 $\\delta(x)$」を導入した。",
-            "<strong>場の量子論（QED）・経路積分の着想・磁気単極子：</strong> 電磁場の量子化を行い「場の量子論」を創始。さらに古典的作用 $S$ が量子力学の位相因子 $\\exp(iS/\\hbar)$ として遷移振幅に寄与することを指摘し、後のファインマンによる「経路積分（Path Integral）定式化」の直接の種を蒔いた。また、宇宙に磁気モノポール（磁荷 $g$）が1つでも存在すれば、量子力学の一価性から電荷 $e$ が必然的に量子化される（$eg = 2\\pi n \\hbar$）という驚くべきトポロジカルな議論を展開した。",
-          ],
-          biography:
-            "イギリスのブリストルに、スイス人の厳格なフランス語教師の父とイギリス人の母の間に生まれる。幼少期、父から「食卓ではフランス語以外で話してはならない」と強制されたため、フランス語がうまく話せないディラックは極端に無口な少年となり、その寡黙さと文字通りの厳密な言葉遣いは生涯のトレードマークとなった（同僚たちが彼の話す頻度を『1時間に1ディラック＝1語』という単位にしたほど）。ブリストル大学で電気工学を学んだ後、ケンブリッジ大学で理論物理学に転向し、わずか30歳でニュートンと同じルーカス教授職に就任、31歳でシュレーディンガーと共にノーベル物理学賞を受賞した。「物理法則は数学的な美しさを持たねばならない」という強い美学を貫き、その著書『量子力学（The Principles of Quantum Mechanics）』は、一切の無駄を削ぎ落とした究極の論理美の結晶として今なお物理学徒のバイブルとなっている。",
-          quote: "「神は極めて高度な数学を用いて宇宙を創られた」",
-        },
-      ];
-
-      // =========================================================================
-      // 画像がまだフォルダに入っていないときに表示する「肖像画風SVG」の自動生成
-      // =========================================================================
+      const D = [{"id": "archimedes", "name": "アルキメデス", "en": "Archimedes of Syracuse", "img": "img/scientists/archimedes.jpg", "fields": ["数学", "古典力学", "流体静力学"], "ftitle": "取り尽くし法による放物線切片の求積・浮力の原理", "formula": "$$S = \\sum_{n=0}^{\\infty} \\frac{A}{4^n} = \\frac{4}{3}A, \\qquad F_{\\text{buoyancy}} = \\rho_{\\text{fluid}} V_{\\text{displaced}} g$$", "ach": ["<strong>取り尽くし法（Method of Exhaustion）と積分法の先駆：</strong> ニュートンやライプニッツに約2000年先駆け、無限小の概念を用いた「方法（The Method）」によって放物線の切片の面積が内接三角形の $4/3$ 倍になること、および球の体積と表面積が外接円柱の $2/3$ 倍になること（$V=\\frac{4}{3}\\pi r^3, S=4\\pi r^2$）を厳密な二重帰謬法（背理法）で証明した。", "<strong>円周率 $\\pi$ の厳密な上下界評価：</strong> 円に内接・外接する正96角形の周長を計算し、$3 + \\frac{10}{71} < \\pi < 3 + \\frac{1}{7}$ （小数で $3.1408 < \\pi < 3.1429$）という極めて精度の高い不等式を導出した。", "<strong>静力学と流体静力学の確立：</strong> 著書『平面の釣合について』にて「てこの原理」を公理系から幾何学的に演繹し、重心（質量中心）の概念を創始。さらに『浮体について』では流体中の物体が受ける浮力を定式化し、浮体の安定性（メタセンターの議論に相当）まで考察した。"], "born": "紀元前287年頃（後世の記述「享年約75歳」からの推定）", "died": "紀元前212年（シラクサ陥落の年）", "place": "シラクサ（シチリア島）", "note": "当時は独立した古代ギリシア人の都市国家（王ヒエロン2世の治下）。現在はイタリア共和国シチリア州。", "face": "プルタルコス『マルケルス伝』によれば、幾何学に没頭すると食事も身支度も忘れ、浴場へ連れて行かれても床に図形を描き続けたという。実用の機械より純粋な幾何学を高く評価し、墓には「球と外接円柱」を刻ませたと伝わる。「私の円を乱すな」の有名な台詞は後世の定型句で、確実な原文は確認できない。", "q": [{"lang": "el", "orig": "δός μοι (φησί) ποῦ στῶ καὶ κινῶ τὴν γῆν", "ja": "私に立つ場所を与えよ、そうすれば地球を動かしてみせよう", "src": "パッポス『数学集成』第8巻（4世紀）。アルキメデスの没後約500年後の記録", "kind": "伝承"}, {"lang": "el", "orig": "εὕρηκα", "ja": "見つけた！", "src": "ウィトルウィウス『建築十書』第9巻（前1世紀）。王冠の純度を浮力で見破った逸話の中の叫び", "kind": "伝承"}]}, {"id": "newton", "name": "アイザック・ニュートン", "en": "Sir Isaac Newton", "img": "img/scientists/newton.jpg", "fields": ["古典力学", "微分積分学", "光学", "天体力学"], "ftitle": "運動の第2法則（運動量の時間微分）と万有引力則", "formula": "$$\\mathbf{F} = \\frac{\\mathrm{d}\\mathbf{p}}{\\mathrm{d}t}, \\qquad \\mathbf{F}_{12} = -G\\frac{m_1 m_2}{|\\mathbf{r}_{12}|^2}\\hat{\\mathbf{r}}_{12}$$", "ach": ["<strong>流率法（微積分学）と一般化二項定理：</strong> 時間変化する幾何学的量を「流率（Fluxion）」として捉え、微分と積分が互いに逆演算であること（微分積分学の基本定理）を発見。また指数を実数（有理数）に拡張した一般化二項定理 $(1+x)^\\alpha = \\sum_{k=0}^\\infty \\binom{\\alpha}{k}x^k$ により無限級数展開の手法を確立した。", "<strong>『プリンキピア（自然哲学の数学的諸原理）』による古典力学の体系化：</strong> 運動の3法則と万有引力の法則を公理として据え、中心力場における二体問題を解くことでケプラーの惑星運動の3法則を数学的に完全導出。さらに質点の集合としての「球殻定理（球対称な質量分布が外部に及ぼす重力は全質量が中心に集まった質点と等価である）」を証明し、天上の力学と地上の力学を統一した。", "<strong>光学（分光学）とニュートン式反射望遠鏡：</strong> プリズムの実験から、白色光が単色ではなく異なる屈折率（波長）を持つスペクトル光の混合であることを実証。屈折望遠鏡に不可避な色収差を克服するため、凹面鏡を用いた反射望遠鏡を自ら設計・製作した。"], "born": "1643年1月4日（グレゴリオ暦）／1642年12月25日（当時の英国の暦＝ユリウス暦）", "died": "1727年3月31日（グレゴリオ暦）／3月20日（ユリウス暦）・84歳", "place": "ウールスソープ（リンカンシャー）", "note": "当時はイングランド王国。現在はイギリス（連合王国）のイングランド。", "face": "極度に内向的で批判を嫌い、フックやライプニッツとの優先権争いでは激しく反撃した。一方で造幣局長官としては職務に熱心で、偽造犯の摘発にも自ら当たった。生涯独身。", "q": [{"lang": "en", "orig": "If I have seen further it is by standing on ye sholders of Giants.", "ja": "私がより遠くを見たのだとすれば、それは巨人たちの肩の上に立っていたからです", "src": "ロバート・フック宛て書簡 1675/76年2月5日（当時の暦）", "kind": "一次"}, {"lang": "la", "orig": "Hypotheses non fingo.", "ja": "私は仮説を作らない", "src": "『プリンキピア』第2版（1713）「一般的注解」", "kind": "一次"}, {"lang": "en", "orig": "I do not know what I may appear to the world, but to myself I seem to have been only like a boy playing on the sea-shore, and diverting myself in now and then finding a smoother pebble or a prettier shell than ordinary, whilst the great ocean of truth lay all undiscovered before me.", "ja": "世間に私がどう見えているかは知らないが、自分では、浜辺で遊ぶ少年のようなものだったと思う。ときどき普通よりなめらかな小石や美しい貝殻を見つけて喜んでいる間にも、真理の大海は未発見のまま目の前に広がっていた", "src": "J. スペンス『逸話集』が伝える晩年の言葉（D. ブルースター『ニュートン伝』1855年に収録）", "kind": "記録"}]}, {"id": "euler", "name": "レオンハルト・オイラー", "en": "Leonhard Euler", "img": "img/scientists/euler.jpg", "fields": ["解析学", "数論", "位相幾何学", "流体力学・剛体力学"], "ftitle": "オイラーの公式・オイラー＝ラグランジュ方程式・バーゼル問題", "formula": "$$e^{i\\theta} = \\cos\\theta + i\\sin\\theta, \\qquad \\frac{\\partial L}{\\partial q_i} - \\frac{\\mathrm{d}}{\\mathrm{d}t}\\left(\\frac{\\partial L}{\\partial \\dot{q}_i}\\right) = 0, \\qquad \\zeta(2) = \\sum_{n=1}^{\\infty}\\frac{1}{n^2} = \\frac{\\pi^2}{6}$$", "ach": ["<strong>解析学の近代化と複素関数論：</strong> 指数関数と三角関数を複素数領域で結びつける「オイラーの公式」を発見し、数学で最も美しいとされる等式 $e^{i\\pi} + 1 = 0$ を導いた。関数記号 $f(x)$、自然対数の底 $e$、虚数単位 $i$、円周率 $\\pi$、総和記号 $\\Sigma$ など、現代数学の標準的な記法の多くはオイラーが定着させたものである。", "<strong>バーゼル問題の解決と解析的整数論の創始：</strong> 平方数の逆数和を求めるバーゼル問題を $\\frac{\\sin x}{x}$ の無限乗積展開を用いて鮮やかに解決。さらに素数に関する「オイラー積」 $\\zeta(s) = \\sum_{n=1}^\\infty n^{-s} = \\prod_{p:\\text{prime}}(1-p^{-s})^{-1}$ を発見し、リーマン予想へと繋がる解析的整数論の礎を築いた。", "<strong>変分法・剛体力学・流体力学の定式化：</strong> 汎関数の極値を求める「オイラー＝ラグランジュ方程式」を導出し解析力学の基礎を確立。物理学においても、剛体の回転運動を記述する「オイラーの運動方程式」やオイラー角、理想流体の運動方程式（オイラー方程式）など、質点系を超えた連続体・剛体の力学をすべて書き下した。また「ケーニヒスベルクの橋の問題」を解決しグラフ理論・トポロジーを創始した。"], "born": "1707年4月15日", "died": "1783年9月18日（76歳）・サンクトペテルブルク", "place": "バーゼル", "note": "当時は都市国家バーゼルを含むスイス盟約者団（旧スイス連邦）。現在はスイス連邦バーゼル＝シュタット州。主な活動拠点はロシア帝国（サンクトペテルブルク）とプロイセン王国（ベルリン）。", "face": "温厚で謙虚な人柄とされ、13人の子（成人したのは5人）に囲まれて研究した。右目は30代で、左目も晩年に視力を失ったが、口述と弟子の筆記で執筆を続けた。", "q": [{"lang": "la", "orig": "quoniam mundi universi fabrica est perfectissima atque a creatore sapientissimo absoluta, nihil omnino in mundo contingit, in quo non maximi minimive ratio quaepiam eluceat.", "ja": "宇宙の構造は最も完全で、最も賢明な創造主によって仕上げられたのだから、宇宙には、何らかの極大または極小の法則が現れていないことは何一つ起こらない", "src": "『極大・極小の性質をもつ曲線を見出す方法』（Methodus inveniendi, 1744）付録1", "kind": "一次"}, {"lang": "fr", "orig": "Je meurs", "ja": "私は死ぬ", "src": "N. フス『オイラー追悼文』（1783）が伝える最期の言葉", "kind": "記録"}]}, {"id": "gauss", "name": "カール・フリードリヒ・ガウス", "en": "Johann Carl Friedrich Gauß", "img": "img/scientists/gauss.jpg", "fields": ["整数論", "微分幾何学", "電磁気学", "天体力学・統計学"], "ftitle": "平方剰余の相互法則・Theorema Egregium・ガウスの発散定理", "formula": "$$\\left(\\frac{p}{q}\\right)\\left(\\frac{q}{p}\\right) = (-1)^{\\frac{p-1}{2}\\frac{q-1}{2}}, \\qquad \\iint_S \\mathbf{E}\\cdot\\mathrm{d}\\mathbf{S} = \\frac{1}{\\varepsilon_0}\\iiint_V \\rho\\,\\mathrm{d}V$$", "ach": ["<strong>正17角形の作図可能性と『算術研究（Disquisitiones Arithmeticae）』：</strong> 19歳のとき、円分多項式のガロア理論的構造の先駆けとなる考察から、フェルマー素数 $F_n = 2^{2^n}+1$ に対応する正17角形が定規とコンパスのみで作図可能であることを証明。24歳で出版した『算術研究』では合同式 $\\equiv$ を導入し、代数学の基本定理の厳密な証明や「平方剰余の相互法則」の証明を与え、整数論を体系的な学問へと昇華させた。", "<strong>微分幾何学と驚異の定理（Theorema Egregium）：</strong> 曲面の研究において、第1基本形式（計量テンソル $g_{ij}$）のみから決定される「ガウス曲率 $K$」が、曲面を伸縮させずに曲げても不変な内在的量（Intrinsic invariant）であることを証明。これは後に弟子リーマンによって高次元多様体（リーマン幾何学）へ拡張され、アインシュタインの一般相対性理論の数学的基盤となった。", "<strong>最小二乗法・ガウス分布と電磁気学：</strong> 1801年に発見直後見失われた小惑星ケレスの軌道を、独自に開発した「最小二乗法」と誤差論（正規分布＝ガウス分布）を駆使して正確に予測し全欧州に衝撃を与えた。物理学でもウェーバーと共同で電磁気学や地磁気を研究し、ベクトル解析の「ガウスの発散定理（ガウスの法則）」を確立した。"], "born": "1777年4月30日", "died": "1855年2月23日（77歳）・ゲッティンゲン", "place": "ブラウンシュヴァイク", "note": "当時はブラウンシュヴァイク＝ヴォルフェンビュッテル公国（神聖ローマ帝国内）。現在はドイツ連邦共和国ニーダーザクセン州。", "face": "完璧主義で、「Pauca sed matura（少なく、しかし熟したものを）」を座右の銘にしたとされる。未発表の成果が多く、その理由は書簡からもうかがえる。", "q": [{"lang": "de", "orig": "Die Mathematik ist die Königin der Wissenschaften und die Arithmetik ist die Königin der Mathematik.", "ja": "数学は科学の女王であり、算術（整数論）は数学の女王である", "src": "ザルトリウス・フォン・ヴァルタースハウゼン『ガウス追想』（1856）が伝える談話", "kind": "記録"}, {"lang": "de", "orig": "ich das Geschrei der Böotier scheue", "ja": "ボイオティア人（愚か者たち）の騒ぎが怖いのだ", "src": "ベッセル宛て書簡 1829年1月27日（非ユークリッド幾何学を公表しない理由として）", "kind": "一次"}, {"lang": "de", "orig": "Es ist nicht das Wissen, sondern das Lernen, nicht das Besitzen, sondern das Erwerben, nicht das Da-Seyn, sondern das Hinkommen, was den größten Genuß gewährt.", "ja": "最大の喜びを与えるのは、知識ではなく学ぶこと、所有ではなく手に入れること、そこに在ることではなくそこへ至ることである", "src": "ファルカシュ・ボヤイ宛て書簡 1808年9月2日", "kind": "一次"}]}, {"id": "faraday", "name": "マイケル・ファラデー", "en": "Michael Faraday", "img": "img/scientists/faraday.jpg", "fields": ["電磁気学", "電気化学", "実験物理学"], "ftitle": "ファラデーの電磁誘導の法則・電気分解の法則", "formula": "$$\\mathcal{E} = -\\frac{\\mathrm{d}\\Phi_B}{\\mathrm{d}t} = -\\frac{\\mathrm{d}}{\\mathrm{d}t}\\iint_S \\mathbf{B}\\cdot\\mathrm{d}\\mathbf{S}, \\qquad m = \\frac{It}{F}\\cdot\\frac{M}{z}$$", "ach": ["<strong>電磁誘導の発見と発電機・電動機の原理確立：</strong> エルステッドによる「電流の磁気作用」の逆過程として、磁束の時間変化が誘導起電力を生み出す「電磁誘導（1831年）」を発見。また、単極誘導発電機（ファラデーの円盤）や世界初の電磁回転装置（モーターの原型）を製作し、現代の電力文明の直接的な基礎を作った。", "<strong>「場（Field）」の概念と力線の提唱：</strong> 当時の主流であったニュートン力学的な「遠隔作用論（空間を飛び越えて瞬時に力が働くという考え）」を否定し、空間そのものが電場・磁場という物理的実体（電気力線・磁気力線の歪み）として力を媒介するという<strong>近接作用論</strong>を提唱。高度な数式を使わずに直観されたこの概念が、物理学のパラダイムを根底から変革した。", "<strong>磁気光学効果（ファラデー効果）と電気化学・反磁性：</strong> 磁場中を通過する直線偏光の偏光面が回転する「ファラデー効果」を発見し、<strong>光と電磁気現象が本質的に結びついている</strong>ことを初めて実験的に示した。さらに電気分解の定量法則の発見（陽極・陰極・イオン等の用語も考案）、ベンゼンの単離、反磁性の発見、ファラデーケージ（静電遮蔽）など、実験科学史上類を見ない業績を残した。"], "born": "1791年9月22日", "died": "1867年8月25日（75歳）・ハンプトン・コート", "place": "ニューイントン・バッツ（当時はサリー州）", "note": "当時はグレートブリテン王国、現在はイギリス（連合王国）。町は現在ロンドンの市街地（サザーク区）に含まれる。", "face": "鍛冶屋の家に生まれ、製本屋の徒弟をしながら独学した。高度な数学は用いなかったが、実験と直観で「場」の考えに至った。敬虔なサンデマン派の信徒で、栄誉への欲は薄く、王立協会会長への就任を辞退したと伝わる。", "q": [{"lang": "en", "orig": "Nothing is too wonderful to be true, if it be consistent with the laws of nature", "ja": "自然の法則と矛盾しないのなら、どんなに驚くべきことでも、真実でありえないということはない", "src": "実験ノート 1849年3月19日（B. ジョーンズ『ファラデー伝』1870に収録）", "kind": "一次"}, {"lang": "en", "orig": "There is no better, there is no more open door by which you can enter into the study of natural philosophy than by considering the physical phenomena of a candle.", "ja": "自然哲学の研究へ入るのに、ろうそくの物理現象を考えること以上に良い、開かれた入口はない", "src": "王立研究所のクリスマス講演『ロウソクの科学』第1講（1860–61年講演の記録、W. クルックス編）", "kind": "記録"}]}, {"id": "maxwell", "name": "ジェームズ・クラーク・マクスウェル", "en": "James Clerk Maxwell", "img": "img/scientists/maxwell.jpg", "fields": ["電磁気学", "統計力学・熱力学", "光学"], "ftitle": "マクスウェル方程式（微分形）と電磁波の波動方程式", "formula": "$$\\nabla\\cdot\\mathbf{E}=\\frac{\\rho}{\\varepsilon_0},\\quad \\nabla\\cdot\\mathbf{B}=0,\\quad \\nabla\\times\\mathbf{E}=-\\frac{\\partial\\mathbf{B}}{\\partial t},\\quad \\nabla\\times\\mathbf{B}=\\mu_0\\mathbf{J}+\\mu_0\\varepsilon_0\\frac{\\partial\\mathbf{E}}{\\partial t}$$", "ach": ["<strong>変位電流の導入とマクスウェル方程式による電磁気学の統一：</strong> アンペールの法則 $\\nabla\\times\\mathbf{B}=\\mu_0\\mathbf{J}$ が非定常状態において電荷保存則（連続の式 $\\nabla\\cdot\\mathbf{J} + \\partial_t\\rho = 0$）と矛盾することを見抜き、電場の時間変化項である「変位電流 $\\varepsilon_0\\frac{\\partial\\mathbf{E}}{\\partial t}$」を導入。これにより電気・磁気・光学の全現象を単一の連立偏微分方程式系に統合した。", "<strong>電磁波の予言と光の電磁波説：</strong> 真空中のマクスウェル方程式から波動方程式 $\\left(\\nabla^2 - \\mu_0\\varepsilon_0\\frac{\\partial^2}{\\partial t^2}\\right)\\mathbf{E} = 0$ を導出し、その伝播速度 $c = \\frac{1}{\\sqrt{\\mu_0\\varepsilon_0}}$ が実験的に知られていた光速と驚くべき精度で一致することを示した。「光とは電磁場の横波である」というこの結論は、力学のガリレイ変換に対する非対称性を内包しており、後に特殊相対性理論を生む直接の契機となった。", "<strong>気体分子運動論（マクスウェル＝ボルツマン分布）と熱力学：</strong> 気体分子の速度を確率統計的に扱い、速度分布関数 $f(v) \\propto v^2 \\exp\\left(-\\frac{mv^2}{2k_BT}\\right)$ を導出して統計力学を創始。熱力学の第2法則と情報（エントロピー）の本質を問う思考実験「マクスウェルの悪魔」や、熱力学関数の偏微分関係式「マクスウェルの関係式」、土星の環が微小な粒子の集合であることの力学的証明、三原色による世界初のカラー写真撮影など、その業績は驚異的な広がりを持つ。"], "born": "1831年6月13日", "died": "1879年11月5日（48歳）・ケンブリッジ", "place": "エディンバラ（スコットランド）", "note": "当時はグレートブリテン及びアイルランド連合王国の一部。現在はイギリスのスコットランド。", "face": "ユーモアを好み、折に触れて詩を書いた。敬虔なキリスト教徒で、ファラデーの直観を数学で裏づけることに生涯の仕事を見いだした。妻との間に子はなく、48歳で亡くなった。", "q": [{"lang": "en", "orig": "we can scarcely avoid the inference that light consists in the transverse undulations of the same medium which is the cause of electric and magnetic phenomena.", "ja": "光は、電気・磁気の現象を引き起こすのと同じ媒質の横波である、という結論を、ほとんど避けることができない", "src": "『物理的力線について』第3部（Philosophical Magazine, 1862）", "kind": "一次"}, {"lang": "en", "orig": "his method of conceiving the phenomena was also a mathematical one, though not exhibited in the conventional form of mathematical symbols.", "ja": "（ファラデーの）現象のとらえ方もまた数学的なものであった。ただし、通常の数学記号の形では示されていなかったのである", "src": "『電気磁気論』序文（1873）", "kind": "一次"}]}, {"id": "einstein", "name": "アルベルト・アインシュタイン", "en": "Albert Einstein", "img": "img/scientists/einstein.jpg", "fields": ["理論物理学", "相対性理論", "量子論・統計力学"], "ftitle": "アインシュタインの場の方程式・相対論的エネルギー＝運動量関係式", "formula": "$$R_{\\mu\\nu} - \\frac{1}{2}g_{\\mu\\nu}R + \\Lambda g_{\\mu\\nu} = \\frac{8\\pi G}{c^4}T_{\\mu\\nu}, \\qquad E^2 = (pc)^2 + (m_0 c^2)^2$$", "ach": ["<strong>1905年「奇跡の年（Annus Mirabilis）」の3大業績：</strong> ①<strong>光量子仮説</strong>（エネルギー $E=h\\nu$ を持つ粒子としての光）により光電効果を理論的に解明し量子力学の扉を開いた（1921年ノーベル物理学賞受賞理由）。②<strong>ブラウン運動の理論</strong>（拡散係数に関するアインシュタインの関係式 $D = \\mu k_B T$）を定式化し、ジャン・ペランの実験を通じて「原子・分子の実在」を決定づけた。③<strong>特殊相対性理論</strong>により、相対性原理と光速度不変の原理からローレンツ変換を導き、絶対時間・絶対空間を否定して質量とエネルギーの等価性 $E=m_0 c^2$ を導出した。", "<strong>一般相対性理論（1915–1916年）と重力場の幾何学化：</strong> 慣性質量と重力質量の等価性（等価原理）を出発点とし、重力を「質量・エネルギー運動量テンソル $T_{\\mu\\nu}$ による4次元リーマン時空（計量テンソル $g_{\\mu\\nu}$）の曲率（リッチテンソル $R_{\\mu\\nu}$）」として記述するアインシュタイン方程式を完成させた。水星の近日点移動の厳密な説明、重力レンズ効果、重力赤方偏移、重力波、そして現代宇宙論（膨張宇宙・ブラックホール）のすべてがこの方程式から導かれた。", "<strong>量子統計と誘導放出：</strong> 結晶の比熱に関するデバイモデルの先駆けとなる固体の量子比熱理論、レーザーの原理となる「誘導放出（A係数・B係数）」の理論、およびサティエンドラ・ナート・ボースと共に整数スピン粒子の統計「ボース＝アインシュタイン凝縮（BEC）」を予言した。"], "born": "1879年3月14日", "died": "1955年4月18日（76歳）・プリンストン（米国）", "place": "ウルム", "note": "当時はドイツ帝国内のヴュルテンベルク王国。現在はドイツ連邦共和国バーデン＝ヴュルテンベルク州。", "face": "反権威的でユーモアを好み、ヴァイオリンを愛した。ユダヤ系であったため1933年にナチス政権を逃れて渡米し、晩年まで統一場理論に取り組んだ。量子力学の確率解釈には終生懐疑的だった。", "q": [{"lang": "de", "orig": "Jedenfalls bin ich überzeugt, daß der nicht würfelt.", "ja": "とにかく、あの方（神）はサイコロを振らない、と私は確信している", "src": "マックス・ボルン宛て書簡 1926年12月4日", "kind": "一次"}, {"lang": "en", "orig": "The important thing is not to stop questioning. Curiosity has its own reason for existing.", "ja": "大切なのは、問うことをやめないことだ。好奇心には、それ自体が存在する理由がある", "src": "『ライフ』誌 1955年5月2日号（W. ミラーによる取材記事）", "kind": "記録"}, {"lang": "en", "orig": "Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.", "ja": "想像力は知識よりも重要だ。知識には限りがある。想像力は世界を包み込む", "src": "G. S. ヴィーレックによるインタビュー（『サタデー・イブニング・ポスト』1929年10月26日）", "kind": "記録"}]}, {"id": "dirac", "name": "ポール・ディラック", "en": "Paul Adrien Maurice Dirac", "img": "img/scientists/dirac.jpg", "fields": ["量子力学", "場の量子論", "相対論的量子力学"], "ftitle": "ディラック方程式と正準量子化（ポアソン括弧と交換関係）", "formula": "$$(i\\gamma^\\mu \\partial_\\mu - m)\\psi = 0 \\quad (\\{\\gamma^\\mu, \\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}I_4), \\qquad [\\hat{q}, \\hat{p}] = i\\hbar$$", "ach": ["<strong>相対論的量子力学（ディラック方程式）と反物質の予言（1928年）：</strong> シュレーディンガー方程式が非相対論的（時間に1階、空間に2階微分）であり、クライン＝ゴルドン方程式が負の確率密度を生じる問題を克服するため、時空の微分に関して1次のローレンツ共変な波動方程式を導出。係数が $4\\times 4$ 行列（クリフォード代数 $\\{\\gamma^\\mu, \\gamma^\\nu\\}=2\\eta^{\\mu\\nu}$）となる4成分スピノル $\\psi$ を導入したことで、アドホックな仮定なしに<strong>電子のスピン $1/2$ と異常磁気モーメント（$g=2$）が相対論的要請から自然に導かれる</strong>ことを示した。さらに負エネルギー解の考察（ディラックの海）から、電子と同じ質量で正の電荷を持つ反粒子「<strong>陽電子（Positron）</strong>」の存在を予言し、1932年にアンダーソンによって実験的に発見された。", "<strong>量子力学の数学的統一（変換理論とブラ・ケット記法）：</strong> ハイゼンベルクの行列力学とシュレーディンガーの波動力学が、ヒルベルト空間上の状態ベクトル $|\\psi\\rangle$（ケット）と双対ベクトル $\\langle\\phi|$（ブラ）の異なる基底表現に過ぎないことを証明。また解析力学のポアソン括弧 $\\{A, B\\}_{\\text{PB}}$ を量子力学の交換子 $\\frac{1}{i\\hbar}[\\hat{A}, \\hat{B}]$ に対応させる<strong>正準量子化</strong>の手続きや、超関数の先駆けとなる「ディラックのデルタ関数 $\\delta(x)$」を導入した。", "<strong>場の量子論（QED）・経路積分の着想・磁気単極子：</strong> 電磁場の量子化を行い「場の量子論」を創始。さらに古典的作用 $S$ が量子力学の位相因子 $\\exp(iS/\\hbar)$ として遷移振幅に寄与することを指摘し、後のファインマンによる「経路積分（Path Integral）定式化」の直接の種を蒔いた。また、宇宙に磁気モノポール（磁荷 $g$）が1つでも存在すれば、量子力学の一価性から電荷 $e$ が必然的に量子化される（$eg = 2\\pi n \\hbar$）という驚くべきトポロジカルな議論を展開した。"], "born": "1902年8月8日", "died": "1984年10月20日（82歳）・タラハシー（米国）", "place": "ブリストル", "note": "当時も現在もイギリスで、国名の変更はない（父はスイス出身）。", "face": "極めて寡黙で、言葉を厳密に使う人として知られた（逸話の多くは同僚の回想）。物理学の理論には数学的な美しさが必要だという信念を生涯貫いた。", "q": [{"lang": "en", "orig": "God is a mathematician of a very high order, and He used very advanced mathematics in constructing the universe.", "ja": "神は非常に高度な数学者であり、宇宙を造るのに極めて高度な数学を用いた", "src": "スコット講演「数学と物理学の関係」（Proc. Royal Society of Edinburgh, 1939）", "kind": "一次"}, {"lang": "en", "orig": "it is more important to have beauty in one's equations than to have them fit experiment.", "ja": "方程式に美しさがあることのほうが、実験に合わせることよりも重要である", "src": "『サイエンティフィック・アメリカン』1963年5月号「物理学者の自然像の発展」", "kind": "一次"}]}];
+      const LN = {el:'古代ギリシア語',la:'ラテン語',en:'英語',de:'ドイツ語',fr:'フランス語'};
+      const KN = {'一次':['k1','本人の著作・書簡'],'記録':['k2','本人の発言の記録'],'伝承':['','後世の伝承・真偽に議論あり']};
       function createFallbackSvg(enName, rank) {
         const initials = enName
           .split(" ")
@@ -673,85 +457,56 @@
         return "data:image/svg+xml;utf8," + encodeURIComponent(svg);
       }
 
-      // =========================================================================
-      // 画面の描画
-      // =========================================================================
-      const tocEl = document.getElementById("toc");
-      const containerEl = document.getElementById("scientists-container");
-
-      SCIENTISTS.forEach((s) => {
-        // 目次ボタンの追加
-        const tocLink = document.createElement("a");
-        tocLink.href = `#${s.id}`;
-        tocLink.className = "toc-btn";
-        tocLink.textContent = `${s.rank}. ${s.name}`;
-        tocEl.appendChild(tocLink);
-
-        // カード本体の作成
-        const article = document.createElement("article");
-        article.className = "scientist-card";
-        article.id = s.id;
-
-        const tagsHtml = s.fields
-          .map((f) => `<span class="tag">${f}</span>`)
-          .join("");
-        const achievementsHtml = s.achievements
-          .map((a) => `<li>${a}</li>`)
-          .join("");
-        const fallbackSrc = createFallbackSvg(s.enName, s.rank);
-
-        article.innerHTML = `
-          <div class="card-inner">
-            <div class="profile-col">
-              <div class="rank-badge">PHILOSOPHER ${s.rank}</div>
-              <div class="portrait-frame">
-                <img
-                  src="${s.image}"
-                  alt="${s.name}の肖像"
-                  onerror="this.onerror=null; this.src='${fallbackSrc}';"
-                />
-              </div>
-              <div class="dates-box">
-                <div class="dates-row">
-                  <span class="dates-label">生誕</span>
-                  <span>${s.birth}</span>
-                </div>
-                <div class="dates-row">
-                  <span class="dates-label">死去</span>
-                  <span>${s.death}</span>
-                </div>
-              </div>
-              <div class="file-hint">📁 ${s.image}</div>
-            </div>
-
-            <div class="content-col">
-              <div class="name-header">
-                <div class="field-tags">${tagsHtml}</div>
-                <h2 class="name-jp">${s.name}</h2>
-                <p class="name-en">${s.enName}</p>
-              </div>
-
-              <div class="formula-box">
-                <div class="formula-title">【象徴的定理・基本方程式】 ${s.formulaTitle}</div>
-                <div class="formula-content">${s.formula}</div>
-              </div>
-
-              <h3 class="section-heading">主要な発見・定理・科学史的功績</h3>
-              <ul class="achievements-list">
-                ${achievementsHtml}
-              </ul>
-
-              <h3 class="section-heading">その生涯と人物像</h3>
-              <p class="desc-text">${s.biography}</p>
-
-              <div class="quote-box">
-                ${s.quote}
-              </div>
+      const toc = document.getElementById('toc'), root = document.getElementById('scientists-container');
+      const R = ['I','II','III','IV','V','VI','VII','VIII'];
+      function showQ(i, n) {
+        const s = D[i], len = s.q.length, k = (n + len) % len, q = s.q[k], kd = KN[q.kind];
+        const b = document.getElementById('bub-' + s.id);
+        b.dataset.n = k;
+        b.querySelector('.q-body').innerHTML =
+          `<div class="bub-lang">原文（${LN[q.lang]}）</div><div class="q-orig" lang="${q.lang}">“${q.orig}”</div>
+           <div class="q-ja">「${q.ja}」</div>
+           <div class="q-src"><span class="q-kind ${kd[0]}">${q.kind}</span>${kd[1]}／出典：${q.src}</div>`;
+        b.querySelector('.q-count').textContent = `${k + 1} / ${len}`;
+      }
+      D.forEach((s, i) => {
+        const a = document.createElement('a');
+        a.href = '#' + s.id; a.className = 'toc-btn'; a.textContent = `${R[i]}. ${s.name}`; toc.appendChild(a);
+        const el = document.createElement('article');
+        el.className = 'scientist-card'; el.id = s.id;
+        el.innerHTML = `
+          <div class="stage">
+            <div class="portrait-frame"><img src="${s.img}" alt="${s.name}の肖像" onerror="this.onerror=null;this.src='${createFallbackSvg(s.en, R[i])}';" /></div>
+            <div class="bubble" id="bub-${s.id}" data-n="0">
+              <div class="q-body"></div>
+              <div class="q-nav"><button type="button" aria-label="前のセリフ">◀</button><span class="q-count"></span><button type="button" aria-label="次のセリフ">次のセリフ ▶</button></div>
             </div>
           </div>
-        `;
-
-        containerEl.appendChild(article);
+          <div class="info">
+            <div class="profile-col">
+              <div class="rank-badge">DOCTOR ${R[i]}</div>
+              <div class="dates-box">
+                <div class="dates-row"><span class="dates-label">生誕</span><span>${s.born}</span></div>
+                <div class="dates-row"><span class="dates-label">没</span><span>${s.died}</span></div>
+                <div class="dates-row"><span class="dates-label">出身</span><span>${s.place}</span></div>
+              </div>
+              <div class="origin-note">※ ${s.note}</div>
+            </div>
+            <div class="content-col">
+              <div class="name-header"><div class="field-tags">${s.fields.map(f => `<span class="tag">${f}</span>`).join('')}</div>
+                <h2 class="name-jp">${s.name}</h2><p class="name-en">${s.en}</p></div>
+              <h3 class="section-heading">主な功績</h3>
+              <ul class="achievements-list">${s.ach.map(x => `<li>${x}</li>`).join('')}</ul>
+              <div class="formula-box"><div class="formula-title">【定理・法則・代表的な数式】 ${s.ftitle}</div><div class="formula-content">${s.formula}</div></div>
+              <h3 class="section-heading">素顔</h3>
+              <p class="desc-text">${s.face}</p>
+            </div>
+          </div>`;
+        root.appendChild(el);
+        const bt = el.querySelectorAll('.q-nav button');
+        bt[0].onclick = () => showQ(i, +el.querySelector('.bubble').dataset.n - 1);
+        bt[1].onclick = () => showQ(i, +el.querySelector('.bubble').dataset.n + 1);
+        showQ(i, 0);
       });
     </script>
   </body>
