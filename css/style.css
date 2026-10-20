@@ -217,3 +217,326 @@ body {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+
+/* ================= 古い羊皮紙の本 ================= */
+:root {
+  --flip-duration: 0.9s; /* ページをめくる速さ（book.js の FLIP_MS と同じ長さに） */
+}
+
+/* 机の上のような暗い背景 */
+#scene-5 {
+  background: radial-gradient(ellipse at center, #5b3e29 0%, #2b1a10 75%);
+}
+
+/* 本をひらく・とじるときの動き（部屋の場面と同じ「近づく／下がる」） */
+#scene-4 .scene-stage { --zoom-origin: 80% 70%; } /* 読みかけの本のあたり */
+.approach-to .book-wrap {
+  animation: grow-in var(--zoom-duration) ease-out forwards;
+}
+.retreat-from .book-wrap {
+  animation: shrink-away var(--zoom-duration) ease-in forwards;
+}
+
+/* 本の外側（革の表紙）。幅は book.js が付ける book-spread / book-single で決まる */
+.book-wrap {
+  --ink: #3a2616;
+  position: relative;
+  container-type: inline-size; /* ページ内の文字を、本の幅に合わせて拡大縮小する */
+  box-sizing: border-box;
+  border: 2px solid #24130a;
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse at 30% 15%, rgba(255, 255, 255, 0.1), transparent 55%),
+    linear-gradient(135deg, #6b3f22, #4a2915 60%, #36200f);
+  box-shadow: 0 2.5vmin 6vmin rgba(0, 0, 0, 0.6);
+}
+
+/* 見開き（広い画面） */
+.book-wrap.book-spread {
+  width: min(94vw, calc((100vh - 170px) * 1.333), 1100px);
+  width: min(94vw, calc((100dvh - 170px) * 1.333), 1100px);
+  aspect-ratio: 4 / 3;
+}
+
+/* 1ページずつ（スマホなど縦長・狭い画面） */
+.book-wrap.book-single {
+  width: min(92vw, calc((100vh - 170px) * 0.667), 520px);
+  width: min(92vw, calc((100dvh - 170px) * 0.667), 520px);
+  aspect-ratio: 2 / 3;
+}
+
+.book {
+  position: absolute;
+  inset: 2.4cqw;
+  perspective: 220cqw; /* ページがめくれるときの奥行き */
+}
+
+/* 紙（葉）：背骨を軸に、ぐるりとめくれる */
+.leaf {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform var(--flip-duration) cubic-bezier(0.45, 0.05, 0.25, 1);
+}
+.book-spread .leaf { left: 50%; width: 50%; }
+.book-single .leaf { left: 0; width: 100%; }
+
+.leaf.flipped { transform: rotateY(-180deg); }
+
+/* 1ページ表示では、めくり終わった紙は見えなくする */
+.book-single .leaf.flipped {
+  visibility: hidden;
+  transition:
+    transform var(--flip-duration) cubic-bezier(0.45, 0.05, 0.25, 1),
+    visibility 0s linear var(--flip-duration);
+}
+
+/* 作り直し中は動かさない */
+.no-anim .leaf,
+.no-anim .leaf.flipped {
+  transition: none !important;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.face.back { transform: rotateY(180deg); }
+
+/* ---------- 羊皮紙のページ ---------- */
+.page {
+  --u: 0.5cqw; /* ページ幅の1％（見開き） */
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  color: var(--ink);
+  font-family: "Zen Kurenaido", "Klee", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  background-color: #e8d3a0;
+  background-image:
+    /* ざらざらした紙の質感 */
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.28  0 0 0 0 0.12  0 0 0 0.55 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"),
+    /* 日に焼けたムラ・しみ */
+    radial-gradient(ellipse at 20% 15%, rgba(255, 247, 215, 0.9), transparent 60%),
+    radial-gradient(ellipse at 85% 90%, rgba(160, 110, 50, 0.45), transparent 55%),
+    radial-gradient(ellipse at 72% 30%, rgba(190, 140, 70, 0.25), transparent 40%);
+  /* ふちの黒ずみ */
+  box-shadow: inset 0 0 calc(7 * var(--u)) rgba(120, 75, 25, 0.55);
+}
+.book-single .page { --u: 1cqw; } /* 1ページ表示では、ページ幅＝本の幅 */
+
+.page-right { padding: calc(8 * var(--u)) calc(7 * var(--u)) calc(6 * var(--u)) calc(10 * var(--u)); }
+.page-left  { padding: calc(8 * var(--u)) calc(10 * var(--u)) calc(6 * var(--u)) calc(7 * var(--u)); }
+
+/* 背骨のそばの影 */
+.page::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.page-right::after {
+  background: linear-gradient(to right, rgba(60, 30, 10, 0.38), rgba(60, 30, 10, 0) 9%);
+}
+.page-left::after {
+  background: linear-gradient(to left, rgba(60, 30, 10, 0.38), rgba(60, 30, 10, 0) 9%);
+}
+
+/* ---------- 表紙のページ ---------- */
+.title-page,
+.end-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-frame {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border: 4px double rgba(90, 50, 20, 0.65);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(4 * var(--u));
+  text-align: center;
+}
+
+/* 筆記体の英字 */
+.title-script {
+  margin: 0;
+  font-family: "Pinyon Script", "Snell Roundhand", "Apple Chancery", "Brush Script MT", cursive;
+  font-size: calc(11 * var(--u));
+  line-height: 1.1;
+  color: #5b2a14;
+}
+
+/* 表紙の英語の一文（筆記体） */
+.title-story {
+  max-width: 88%;
+  font-size: calc(5.8 * var(--u));
+  line-height: 1.35;
+  text-wrap: balance;
+}
+
+/* 飾り罫（線の真ん中にひし形） */
+.flourish {
+  position: relative;
+  width: 45%;
+  border-top: 2px solid rgba(90, 50, 20, 0.6);
+}
+.flourish::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: calc(2 * var(--u));
+  height: calc(2 * var(--u));
+  background: #7a3b1c;
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* ---------- 本の一覧ページ ---------- */
+.entry-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2ページ目からの見出し（ページの上） */
+.page-head {
+  margin: 0 0 calc(2.5 * var(--u));
+  padding-bottom: calc(1.8 * var(--u));
+  text-align: center;
+  font-weight: normal;
+  font-size: calc(5.2 * var(--u));
+  letter-spacing: 0.12em;
+  color: #5b2a14;
+  border-bottom: 3px double rgba(90, 50, 20, 0.55);
+}
+
+.entries {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: calc(14 * var(--u)) 1fr calc(6 * var(--u));
+  column-gap: calc(1.5 * var(--u));
+  align-items: center;
+  padding: calc(1.2 * var(--u)) 0;
+  border-bottom: 1px solid rgba(90, 60, 30, 0.25);
+  transform: rotate(var(--tilt, 0deg)); /* 手書きっぽい、ほんのわずかな傾き */
+}
+
+.entry-no {
+  font-family: "IM Fell English", "Zen Kurenaido", serif;
+  font-size: calc(3.8 * var(--u));
+  color: #7a3b1c;
+}
+
+.entry-title {
+  font-size: calc(4.4 * var(--u));
+  line-height: 1.35;
+}
+
+.page-no {
+  margin: calc(1.5 * var(--u)) 0 0;
+  text-align: center;
+  font-family: "Pinyon Script", "Snell Roundhand", cursive;
+  font-size: calc(4.4 * var(--u));
+  color: rgba(58, 38, 22, 0.75);
+}
+
+/* 「読んだ」チェック：インクで書いた四角に、赤いチェック */
+.check {
+  position: relative;
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  width: max(16px, calc(4.4 * var(--u)));
+  height: max(16px, calc(4.4 * var(--u)));
+  padding: 0;
+  border: 2px solid var(--ink);
+  border-radius: 18% 10% 20% 12% / 12% 20% 10% 18%;
+  background: transparent;
+  cursor: pointer;
+}
+/* 指でも押しやすいように、見た目より広く反応させる */
+.check::before {
+  content: "";
+  position: absolute;
+  inset: -55%;
+}
+.check::after {
+  content: "";
+  position: absolute;
+  left: 30%;
+  top: -22%;
+  width: 32%;
+  height: 74%;
+  border-right: 3px solid #8b1a1a;
+  border-bottom: 3px solid #8b1a1a;
+  transform: rotate(40deg) scale(0);
+  opacity: 0;
+  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+}
+.check.on::after {
+  transform: rotate(40deg) scale(1);
+  opacity: 1;
+}
+
+/* ---------- ページをめくるボタン ---------- */
+.book-controls {
+  position: absolute;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+.nav-inline {
+  position: static;
+  transform: none;
+  padding: 8px 16px;
+  font-size: 15px;
+}
+
+.book-page-info {
+  min-width: 4.5em;
+  text-align: center;
+  font-size: 14px;
+  color: #e8d3a0;
+}
+
+.nav-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.nav-btn:disabled:hover {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+}
+
+/* 「動きを減らす」設定のときは、ページはすぐに切り替わる */
+@media (prefers-reduced-motion: reduce) {
+  .leaf,
+  .leaf.flipped,
+  .book-single .leaf.flipped {
+    transition: none !important;
+  }
+}
