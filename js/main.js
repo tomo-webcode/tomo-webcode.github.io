@@ -20,6 +20,12 @@ function changeScene(sceneId, effect) {
   const next = document.getElementById(sceneId);
   if (!next || next === current || isTransitioning) return;
 
+  // テーブルのシーン（scene-3）に入るときは、猫を座った状態に戻しておく
+  if (sceneId === "scene-3") {
+    const stage3 = next.querySelector(".scene-stage");
+    if (stage3) stage3.classList.remove("cat-belly");
+  }
+
   // 「動きを減らす」設定のPCでは演出なしで切り替える
   const reduceMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
@@ -80,6 +86,16 @@ document.querySelectorAll("[data-scene]").forEach((button) => {
 
 // 本のボタン
 document.getElementById("book-btn").addEventListener("click", checkPassword);
+
+// 猫のボタン（クリックするたびに「座る ⇔ へそ天」を切り替える）
+const catBtn = document.getElementById("cat-btn");
+if (catBtn) {
+  catBtn.addEventListener("click", () => {
+    const stage = catBtn.closest(".scene-stage");
+    const isBelly = stage.classList.toggle("cat-belly");
+    catBtn.title = isBelly ? "猫を起こす" : "猫をなでる";
+  });
+}
 
 // 画像の縦横比をステージに伝える（クリック範囲のずれ防止）
 document.querySelectorAll(".scene-image").forEach((img) => {

@@ -55,7 +55,17 @@
     <!-- ３：ケーキのテーブル（拡大）のシーン -->
     <div id="scene-3" class="scene-container">
       <div class="scene-stage">
-        <img src="img/3-cake-table.png" alt="ケーキのテーブル" class="scene-image" />
+        <!-- ふだんの猫（座っている画像） -->
+        <img src="img/3-cake-table.jpeg" alt="ケーキのテーブル" class="scene-image" />
+        <!-- へそ天の猫（上に重ねておく画像） -->
+        <img src="img/3-cake-table2.jpeg" alt="へそ天の猫" class="scene-image cat-belly-image" />
+        <!-- 猫をクリックする透明なボタン -->
+        <button
+          class="click-area"
+          id="cat-btn"
+          style="top: 45%; left: 74%; width: 23%; height: 48%"
+          title="猫をなでる"
+        ></button>
       </div>
       <button class="nav-btn" data-scene="scene-2" data-effect="retreat">
         一歩下がって部屋を見渡す
