@@ -93,13 +93,22 @@
         <img src="img/4-couch.png" alt="ソファ" class="scene-image" />
 
         <!-- ★追加：額縁の右端（長男）をクリックして科学者ページへ -->
-        <a
-          href="scientists.html"
+        <button
+          type="button"
           class="click-area"
           id="son-btn"
           style="top: 5%; left: 29%; width: 8%; height: 22%"
-          title="科学者たちの肖像画廊へ"
-        ></a>
+          title="大博士の部屋へ"
+        ></button>
+
+        <!-- 額縁の左端（長女）をクリックしてアニメ＆漫画の部屋へ -->
+        <button
+          type="button"
+          class="click-area"
+          id="daughter-btn"
+          style="top: 5%; left: 17%; width: 8%; height: 22%"
+          title="アニメ＆漫画の部屋へ"
+        ></button>
 
         <button
           class="click-area"
@@ -138,6 +147,31 @@
 
     <!-- 振り向くときに重ねる白いフェード用 -->
     <div id="flash-overlay"></div>
+
+    <script>
+      // 長女の部屋：額縁の左端から合言葉で入室
+      document.getElementById("daughter-btn")?.addEventListener("click", function () {
+        const answer = window.prompt("あなたの好きなものは？");
+        if (answer === null) return;
+        const normalized = answer.trim().replace(/\s+/g, "");
+        if (["アニメ", "漫画", "まんが", "マンガ", "アニメや漫画", "アニメと漫画", "アニメ・漫画"].includes(normalized)) {
+          window.location.href = "anime.html";
+        } else {
+          window.alert("あなたの好みにはあわないから、またね～ばいばい");
+        }
+      });
+
+      // 大博士の部屋：ソファの部屋から合言葉で入室
+      document.getElementById("son-btn")?.addEventListener("click", function () {
+        const answer = window.prompt("大ちゃんの後ろについている人は誰でしょう？");
+        if (answer === null) return;
+        if (answer.trim() === "大博士") {
+          window.location.href = "scientists.html";
+        } else {
+          window.alert("違いま～す！");
+        }
+      });
+    </script>
 
     <script src="js/books.js"></script>
     <script src="js/book.js"></script>
