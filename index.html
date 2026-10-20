@@ -7,6 +7,13 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
     <title>My Hideaway</title>
+    <!-- 本のページ用の文字（筆記体・手書き風） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Pinyon+Script&family=Zen+Kurenaido&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
@@ -71,9 +78,26 @@
       </button>
     </div>
 
+    <!-- ５：古い羊皮紙の本（合言葉のあとに開く） -->
+    <div id="scene-5" class="scene-container book-scene">
+      <div id="book-wrap" class="book-wrap">
+        <div id="book" class="book"></div>
+      </div>
+      <button class="nav-btn nav-back" data-scene="scene-4" data-effect="retreat">
+        本を閉じる
+      </button>
+      <div class="book-controls">
+        <button id="book-prev" class="nav-btn nav-inline" type="button">‹ 前のページ</button>
+        <span id="book-page-info" class="book-page-info"></span>
+        <button id="book-next" class="nav-btn nav-inline" type="button">次のページ ›</button>
+      </div>
+    </div>
+
     <!-- 振り向くときに重ねる白いフェード用 -->
     <div id="flash-overlay"></div>
 
+    <script src="js/books.js"></script>
+    <script src="js/book.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

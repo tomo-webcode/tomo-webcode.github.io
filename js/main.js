@@ -57,12 +57,16 @@ function changeScene(sceneId, effect) {
   next.classList.add("active");
 }
 
-// 合言葉のチェック
+// 合言葉のチェック（正解なら本の画面へ）
 function checkPassword() {
-  const password = prompt("秘密の部屋の鍵（合言葉）を入力してください：");
-  if (password === "（削除）") {
-    alert("カチャッ…（この先の内面の部屋は、これから作ります！）");
-  } else if (password !== null && password !== "") {
+  const input = prompt("秘密の部屋の鍵（合言葉）を入力してください：");
+  if (input === null || input === "") return;
+
+  // 全角・半角や、大文字・小文字の違いは気にしない（スマホで打ちやすいように）
+  const normalized = input.normalize("NFKC").trim().toUpperCase();
+  if (normalized === "（削除）") {
+    changeScene("scene-5", "approach");
+  } else {
     alert("合言葉が違います。本は静かに閉じられたままです。");
   }
 }
