@@ -9,7 +9,7 @@ function playFlash() {
   overlay.addEventListener(
     "animationend",
     () => overlay.classList.remove("flash"),
-    { once: true }
+    { once: true },
   );
 }
 
@@ -28,7 +28,7 @@ function changeScene(sceneId, effect) {
 
   // 「動きを減らす」設定のPCでは演出なしで切り替える
   const reduceMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
+    "(prefers-reduced-motion: reduce)",
   ).matches;
 
   if (effect && current && !reduceMotion) {
@@ -80,7 +80,7 @@ function checkPassword() {
 // data-scene を持つボタンを押したら、そのシーンへ移動
 document.querySelectorAll("[data-scene]").forEach((button) => {
   button.addEventListener("click", () =>
-    changeScene(button.dataset.scene, button.dataset.effect)
+    changeScene(button.dataset.scene, button.dataset.effect),
   );
 });
 
@@ -103,7 +103,7 @@ document.querySelectorAll(".scene-image").forEach((img) => {
     if (img.naturalWidth && img.naturalHeight) {
       img.parentElement.style.setProperty(
         "--ratio",
-        img.naturalWidth / img.naturalHeight
+        img.naturalWidth / img.naturalHeight,
       );
     }
   };
@@ -113,3 +113,11 @@ document.querySelectorAll(".scene-image").forEach((img) => {
     img.addEventListener("load", applyRatio);
   }
 });
+
+// URLに #scene-4 などが付いている場合は、最初からそのシーンを開く
+if (window.location.hash) {
+  const targetId = window.location.hash.substring(1);
+  if (document.getElementById(targetId)) {
+    changeScene(targetId);
+  }
+}
