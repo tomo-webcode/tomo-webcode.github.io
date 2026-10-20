@@ -147,33 +147,7 @@
 
     <!-- 振り向くときに重ねる白いフェード用 -->
     <div id="flash-overlay"></div>
-
-    <script>
-      // 長女の部屋：額縁の左端から合言葉で入室
-      document.getElementById("daughter-btn")?.addEventListener("click", function () {
-        const answer = window.prompt("あなたの好きなものは？");
-        if (answer === null) return;
-        const normalized = answer.trim().replace(/\s+/g, "");
-        if (["アニメ", "漫画", "まんが", "マンガ", "アニメや漫画", "アニメと漫画", "アニメ・漫画"].includes(normalized)) {
-          window.location.href = "anime.html";
-        } else {
-          window.alert("あなたの好みにはあわないから、またね～ばいばい");
-        }
-      });
-
-      // 大博士の部屋：ソファの部屋から合言葉で入室
-      document.getElementById("son-btn")?.addEventListener("click", function () {
-        const answer = window.prompt("大ちゃんの後ろについている人は誰でしょう？");
-        if (answer === null) return;
-        if (answer.trim() === "大博士") {
-          window.location.href = "scientists.html";
-        } else {
-          window.alert("違いま～す！");
-        }
-      });
-    </script>
-
-    <script src="js/books.js"></script>
+<script src="js/books.js"></script>
     <script src="js/book.js"></script>
     <script src="js/main.js"></script>
   
@@ -226,5 +200,18 @@
     return false;
   }
 </script>
+
+<script id="hideaway-gate-listeners">
+  document.getElementById("daughter-btn")?.addEventListener("click", function (event) {
+    event.preventDefault();
+    enterAnime();
+  });
+
+  document.getElementById("son-btn")?.addEventListener("click", function (event) {
+    event.preventDefault();
+    enterScientists();
+  });
+</script>
+
 </body>
 </html>
