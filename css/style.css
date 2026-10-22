@@ -1,7 +1,7 @@
 /* 演出の長さ（ここを変えると速さが変わります） */
 :root {
-  --turn-duration: 1.4s; /* 振り向く（白くなって、白から現れる） */
-  --zoom-duration: 0.8s; /* 近づく・下がる */
+  --turn-duration: 0.8s; /* ← ここを 1.4s から 0.8s くらいに減らしてみてください */
+  --zoom-duration: 0.8s;
 }
 
 html,
