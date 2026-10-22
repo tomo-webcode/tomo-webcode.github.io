@@ -719,10 +719,10 @@ body {
 
 /* ★追加：左に振り向く時の動き */
 .turn-left-from {
-  animation: turnLeftOut 0.7s ease-in-out forwards;
+  animation: turnLeftOut 0.2s ease-in-out forwards;
 }
 .turn-left-to {
-  animation: turnLeftIn 0.7s ease-in-out forwards;
+  animation: turnLeftIn 0.2s ease-in-out forwards;
 }
 
 @keyframes turnLeftOut {
