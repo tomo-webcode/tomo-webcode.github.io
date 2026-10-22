@@ -7,11 +7,9 @@
   }
 </script>
 
-
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>大博士の独り言 | 古今東西の偉大なる科学者8人</title>
+    <title>大博士の独り言 | 古今東西の偉大なる科学者13人</title>
     <!-- フォントの読み込み -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,7 +27,7 @@
           ],
           displayMath: [
             ["$$", "$$"],
-            ["\\[", "\\]"],
+            ["[", "]"],
           ],
         },
       };
@@ -556,16 +554,16 @@
       <p class="header-en">SOLILOQUIES OF THE GREAT DOCTORS</p>
       <h1>大博士の独り言</h1>
       <p class="header-desc">
-        数理の言葉で自然の法則を書き記した8人の大博士たち。<br />写真から立ちのぼる吹き出しは、本人が実際に書き残した（または言ったと記録された）言葉の原文と出典です。
+        数理の言葉で自然の法則を書き記した13人の大博士たち。<br />写真から立ちのぼる吹き出しは、本人が実際に書き残した（または言ったと記録された）言葉の原文と出典です。
       </p>
       <nav class="toc-nav" id="toc"></nav>
     </header>
     <main id="scientists-container"></main>
     <p class="legend">
-      【言葉の信頼度】<span class="q-kind k1">一次</span>本人の著作・書簡　<span
+      【言葉の信頼度】<span class="q-kind k1">一次</span>本人の著作・書簡 <span
         class="q-kind k2"
         >記録</span
-      >本人の発言を第三者が記録した資料　<span class="q-kind">伝承</span
+      >本人の発言を第三者が記録した資料 <span class="q-kind">伝承</span
       >後世の伝承（真偽に議論あり）。「原典照合」は、原典またはそれを引く資料で語句を確かめた状況です。原文の綴りや句読点は版により異なります。
     </p>
     <footer><p>My Hideaway — Soliloquies of the Great Doctors</p></footer>
@@ -607,6 +605,45 @@
               src: "ウィトルウィウス『建築十書』第9巻（前1世紀）。王冠の純度を浮力で見破った逸話の中の叫び",
               kind: "伝承",
               chk: "no",
+            },
+          ],
+        },
+        {
+          id: "galileo",
+          name: "ガリレオ・ガリレイ",
+          en: "Galileo Galilei",
+          img: "img/scientists/galileo.jpg",
+          fields: ["天文学", "物理学", "数学"],
+          ftitle:
+            "落体の法則と振り子の等時性 （$s$ は落下距離、$g$ は重力加速度、$t$ は時間、$L$ は振り子の長さ）",
+          formula:
+            "$$s = \\frac{1}{2}gt^2, \\qquad T = 2\\pi\\sqrt{\\frac{L}{g}}$$",
+          ach: [
+            "<strong>近代科学的方法の確立：</strong> 自然現象を数学的な言語で記述し、実験と観測によって理論を検証するという、現代の「科学的方法」の基礎を築き「近代科学の父」と呼ばれる。",
+            "<strong>力学の基礎（落体の法則・慣性の法則）：</strong> 物体の落下速度は質量に依存しないことを実証。また、斜面の実験から慣性の概念に到達し、アリストテレス的な自然観を覆した。",
+            "<strong>望遠鏡による天体観測と地動説の擁護：</strong> 自作の屈折望遠鏡で月面のクレーター、木星の4大衛星（ガリレオ衛星）、金星の満ち欠け、太陽黒点などを発見。コペルニクスの地動説を観測事実から強力に裏付けた。",
+          ],
+          born: "1564年2月15日",
+          died: "1642年1月8日（77歳）・アルチェトリ",
+          place: "ピサ",
+          note: "当時はトスカーナ大公国。現在はイタリア共和国トスカーナ州。",
+          face: "論争を好み、鋭い舌鋒で反対派を論破した。異端審問で地動説の放棄を強要された後も、軟禁状態で力学の集大成『新科学対話』を執筆し、科学の炎を燃やし続けた。",
+          q: [
+            {
+              lang: "it",
+              orig: "E pur si muove",
+              ja: "それでも地球は動く",
+              src: "異端審問の後に呟いたとされる伝承。最古の記録は1757年のジュゼッペ・バレッティの著作など",
+              kind: "伝承",
+              chk: "part",
+            },
+            {
+              lang: "it",
+              orig: "La filosofia è scritta in questo grandissimo libro che continuamente ci sta aperto innanzi a gli occhi (io dico l'universo), ma non si può intendere se prima non s'impara a intender la lingua, e conoscer i caratteri, ne' quali è scritto. Egli è scritto in lingua matematica...",
+              ja: "哲学（自然科学）は、私たちの目の前に常に開かれているこの巨大な書物（つまり宇宙）に書かれている。しかし、まずその言語を理解し、書かれている文字を知ることを学ばなければ、理解することはできない。それは数学の言語で書かれている…",
+              src: "『偽金鑑識官（Il Saggiatore）』（1623年）第6章",
+              kind: "一次",
+              chk: "ok",
             },
           ],
         },
@@ -820,6 +857,76 @@
           ],
         },
         {
+          id: "planck",
+          name: "マックス・プランク",
+          en: "Max Karl Ernst Ludwig Planck",
+          img: "img/scientists/planck.gif",
+          fields: ["熱力学", "量子論", "統計力学"],
+          ftitle:
+            "プランクの放射法則とエネルギー量子仮説 （$h$ はプランク定数）",
+          formula:
+            "$$B_\\nu(T) = \\frac{2h\\nu^3}{c^2}\\frac{1}{e^{h\\nu/k_BT} - 1}, \\qquad E = h\\nu$$",
+          ach: [
+            "<strong>エネルギー量子仮説の提唱と量子論の創始：</strong> 黒体放射のスペクトルを説明するため、光（電磁波）のエネルギーが連続的ではなく、特定の基本単位（量子：$h\\nu$）の整数倍でしか吸収・放出されないという画期的な仮説を導入（1900年）。これが量子力学の幕開けとなった。",
+            "<strong>プランク定数 $h$ の導入：</strong> 自然界の極微のスケールを支配する普遍定数「プランク定数」を発見。アインシュタインやボーアらによるその後の量子論の発展において、最も重要なパラメータとなった。",
+            "<strong>熱力学の発展：</strong> エントロピーの概念を深く探求し、熱力学第二法則の厳密な定式化に貢献。ボルツマンの統計力学的手法を自らの放射法則の理論的基礎に取り入れた。",
+          ],
+          born: "1858年4月23日",
+          died: "1947年10月4日（89歳）・ゲッティンゲン",
+          place: "キール",
+          note: "当時はホルシュタイン公国。のちドイツ帝国、ヴァイマル共和政などを経て、現在はドイツ連邦共和国。",
+          face: "極めて実直で控えめな性格。音楽を愛し、ピアノやチェロを嗜んだ。自身の発見した「量子」という概念が当時の物理学の常識を覆すものであったため、彼自身が最もその意味に戸惑い、保守的な立場から長年その解釈に苦悩した。",
+          q: [
+            {
+              lang: "de",
+              orig: "Eine neue wissenschaftliche Wahrheit pflegt sich nicht in der Weise durchzusetzen, daß ihre Gegner überzeugt werden und sich als belehrt erklären, sondern vielmehr dadurch, daß ihre Gegner allmählich aussterben und daß die heranwachsende Generation von vornherein mit der Wahrheit vertraut gemacht ist.",
+              ja: "新しい科学的真理は、反対者を納得させ、彼らが教えられたと宣言することによって普及するものではない。むしろ、反対者が徐々に死に絶え、成長しつつある世代が最初からその真理に慣れ親しむことによって普及するのだ。",
+              src: "『学問的自伝（Wissenschaftliche Selbstbiographie）』（1948年）",
+              kind: "一次",
+              chk: "ok",
+            },
+          ],
+        },
+        {
+          id: "rutherford",
+          name: "アーネスト・ラザフォード",
+          en: "Ernest Rutherford",
+          img: "img/scientists/rutherford.jpg",
+          fields: ["原子物理学", "核物理学", "放射線物理学"],
+          ftitle:
+            "ラザフォード散乱の公式と放射性崩壊の法則 （$N$ は原子数、$\\lambda$ は崩壊定数）",
+          formula:
+            "$$\\frac{\\mathrm{d}\\sigma}{\\mathrm{d}\\Omega} = \\left(\\frac{zZe^2}{4\\pi\\varepsilon_0 m v^2}\\right)^2 \\frac{1}{\\sin^4(\\theta/2)}, \\qquad N(t) = N_0 e^{-\\lambda t}$$",
+          ach: [
+            "<strong>原子核の発見（有核原子模型）：</strong> ガイガーらとのアルファ線散乱実験を通じて、原子の中心に正の電荷と質量の大部分が集中した極小の「原子核」が存在することを発見（1911年）。トムソンのブドウパン模型を否定し、現代の原子モデルの基礎を確立した。",
+            "<strong>放射能の解明とアルファ線・ベータ線の名付け：</strong> ウランから放出される放射線に透過力の異なる2種類があることを発見し、アルファ線・ベータ線と命名。ソディとともに、放射性元素が崩壊して別の元素に変化する「放射性崩壊の法則」を定式化した。",
+            "<strong>人工的な元素変換（原子核反応）の実現：</strong> 窒素ガスにアルファ線を衝突させることで酸素の同位体と水素原子核（陽子）を生成する実験に成功し（1919年）、人類で初めて人工的な元素変換を行った。",
+          ],
+          born: "1871年8月30日",
+          died: "1937年10月19日（66歳）・ケンブリッジ",
+          place: "ブライトウォーター（ニュージーランド）",
+          note: "当時はイギリス領ニュージーランド。現在はニュージーランド。主な研究はカナダとイギリスで行われた。",
+          face: "大柄で声が大きく、豪放磊落な性格。キャヴェンディッシュ研究所の所長として、チャドウィックやボーアをはじめとする多くの優秀な物理学者を育て上げた。実験物理学者としての並外れた直観を持っていた。",
+          q: [
+            {
+              lang: "en",
+              orig: "All science is either physics or stamp collecting.",
+              ja: "すべての科学は、物理学か切手集めのどちらかである。",
+              src: "J. B. バークス編『Rutherford at Manchester』（1962年）に引用された言葉",
+              kind: "記録",
+              chk: "part",
+            },
+            {
+              lang: "en",
+              orig: "It was quite the most incredible event that has ever happened to me in my life. It was almost as incredible as if you fired a 15-inch shell at a piece of tissue paper and it came back and hit you.",
+              ja: "私の人生で起こった最も信じられない出来事だった。15インチの砲弾をティッシュペーパーに向かって撃ち、それが跳ね返ってきて自分に当たったというのと同じくらい信じられなかった。",
+              src: "アルファ線の大きな後方散乱（原子核の発見）を回顧した際の晩年の言葉",
+              kind: "記録",
+              chk: "part",
+            },
+          ],
+        },
+        {
           id: "einstein",
           name: "アルベルト・アインシュタイン",
           en: "Albert Einstein",
@@ -867,6 +974,45 @@
           ],
         },
         {
+          id: "bohr",
+          name: "ニールス・ボーア",
+          en: "Niels Henrik David Bohr",
+          img: "img/scientists/bohr.jpg",
+          fields: ["量子力学", "原子物理学", "核物理学"],
+          ftitle:
+            "ボーアの量子条件と振動数条件 （$n$ は主量子数、$L$ は角運動量）",
+          formula:
+            "$$L = mvr = n\\frac{h}{2\\pi} = n\\hbar, \\qquad E_{n_i} - E_{n_f} = h\\nu$$",
+          ach: [
+            "<strong>ボーアの原子模型（前期量子論）：</strong> ラザフォードの有核原子模型の不安定性を克服するため、プランクとアインシュタインの量子仮説を導入。電子がエネルギーを放射せずに安定して回る「定常状態」と、軌道間の遷移に伴う光の放出（振動数条件）を提唱し、水素原子のスペクトルを完璧に説明した（1913年）。",
+            "<strong>相補性原理とコペンハーゲン解釈：</strong> 光や電子が「粒子」と「波」という互いに排他的な性質を併せ持ち、観測方法によってどちらかの性質が現れるという「相補性（Complementarity）」を提唱。量子力学の標準的な解釈である「コペンハーゲン解釈」の確立を主導した。",
+            "<strong>原子核の液滴模型と核分裂の理論：</strong> 原子核を非圧縮性の液体のしずくに例える「液滴模型」を提唱。のちにリーゼ・マイトナーらのウラン核分裂の発見を受け、ジョン・ホイーラーと共に核分裂のメカニズムを理論的に解明した。",
+          ],
+          born: "1885年10月7日",
+          died: "1962年11月18日（77歳）・コペンハーゲン",
+          place: "コペンハーゲン",
+          note: "デンマーク王国。コペンハーゲン大学の理論物理学研究所（ニールス・ボーア研究所）は、量子力学創世記における世界の中心地となった。",
+          face: "温和で包容力があり、世界中の若き物理学者たちの精神的父親であった。議論を非常に重視し、アインシュタインとは量子力学の解釈を巡って生涯にわたる深遠な論争を繰り広げた。映画やピンポンを好んだ。",
+          q: [
+            {
+              lang: "en",
+              orig: "Anyone who is not shocked by quantum theory has not understood it.",
+              ja: "量子論にショックを受けない者は、量子論を理解していない。",
+              src: "ヴェルナー・ハイゼンベルクの著書『部分と全体』（1969年）第7章における、1926年頃のボーアの発言記録",
+              kind: "記録",
+              chk: "part",
+            },
+            {
+              lang: "la",
+              orig: "Contraria sunt complementa.",
+              ja: "対立するものは相補的である（Opposites are complementary）",
+              src: "1947年にデンマークの最高勲章「エレファント勲章」を受章した際、自らデザインした紋章のモットー",
+              kind: "一次",
+              chk: "ok",
+            },
+          ],
+        },
+        {
           id: "dirac",
           name: "ポール・ディラック",
           en: "Paul Adrien Maurice Dirac",
@@ -905,6 +1051,45 @@
             },
           ],
         },
+        {
+          id: "feynman",
+          name: "リチャード・ファインマン",
+          en: "Richard Phillips Feynman",
+          img: "img/scientists/feynman.png",
+          fields: ["量子電磁力学", "素粒子物理学", "統計力学"],
+          ftitle:
+            "経路積分とプロパゲーター （$K$ は遷移振幅、$S$ は作用積分）",
+          formula:
+            "$$K(x_b, t_b; x_a, t_a) = \\int \\exp\\left(\\frac{i}{\\hbar}S[x(t)]\\right) \\mathcal{D}x(t)$$",
+          ach: [
+            "<strong>量子電磁力学（QED）の再定式化とファインマン・ダイアグラム：</strong> 朝永振一郎、シュウィンガーとは独立に、量子電磁力学の繰り込み理論を完成。複雑な素粒子の相互作用を視覚的な図形と直感的な計算ルールで記述する「ファインマン・ダイアグラム」を発明し、素粒子物理学の計算手法に革命をもたらした。",
+            "<strong>経路積分（Path Integral）による量子力学の定式化：</strong> ディラックの着想を発展させ、粒子が始点から終点まで移動する「あらゆる可能な経路」の確率振幅（作用積分の位相）を足し合わせることで量子力学を定式化する、全く新しい数学的手法を確立した。",
+            "<strong>超流動の理論とパートン模型：</strong> 液体ヘリウムの超流動現象の微視的メカニズムを理論的に解明。また、高エネルギー衝突実験において陽子内部に存在する点状の構成要素（クォーク）を「パートン」と呼ぶ模型を提唱し、強い相互作用の理解に貢献した。ナノテクノロジーの概念をいち早く提唱したことでも知られる。",
+          ],
+          born: "1918年5月11日",
+          died: "1988年2月15日（69歳）・ロサンゼルス",
+          place: "ニューヨーク（クイーンズ区）",
+          note: "アメリカ合衆国。主にコーネル大学やカリフォルニア工科大学（Caltech）で研究と教育を行った。",
+          face: "権威を嫌い、ボンゴを叩き、金庫破りや絵画を嗜むなど、知的好奇心の赴くままに人生を楽しんだ。教育者としても天才的で、『ファインマン物理学』は世界中の物理学徒のバイブルとなった。晩年はチャレンジャー号爆発事故の調査委員会でも活躍した。",
+          q: [
+            {
+              lang: "en",
+              orig: "What I cannot create, I do not understand.",
+              ja: "自分で創り出せないものは、私は理解していないのだ。",
+              src: "没後、カリフォルニア工科大学の彼のオフィスの黒板に残されていた言葉",
+              kind: "一次",
+              chk: "ok",
+            },
+            {
+              lang: "en",
+              orig: "I think I can safely say that nobody understands quantum mechanics.",
+              ja: "おそらく私は、誰も量子力学を理解していないと安全に言えると思う。",
+              src: "1964年のメッセンジャー講義を書籍化した『物理法則はいかにして成り立つか（The Character of Physical Law）』（1965年）第6章",
+              kind: "一次",
+              chk: "ok",
+            },
+          ],
+        },
       ];
       const LN = {
         el: "古代ギリシア語",
@@ -912,6 +1097,7 @@
         en: "英語",
         de: "ドイツ語",
         fr: "フランス語",
+        it: "イタリア語",
       };
       const CK = {
         ok: "済（二次資料経由）",
@@ -948,7 +1134,10 @@
 
       const toc = document.getElementById("toc"),
         root = document.getElementById("scientists-container");
-      const R = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII"];
+      
+      // 13人分に拡張されたローマ数字
+      const R = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"];
+      
       function showQ(i, n) {
         const s = D[i],
           len = s.q.length,
