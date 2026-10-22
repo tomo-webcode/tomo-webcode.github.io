@@ -122,3 +122,24 @@ if (window.location.hash) {
     changeScene(targetId);
   }
 }
+
+// たまちゃんのダンス部屋の合言葉チェック
+function checkTamamiPassword() {
+  const input = prompt("あなたの一番の推しの名前は？：");
+  if (input === null || input === "") return;
+
+  // 全角・半角や大文字・小文字を統一して判定しやすくする
+  const normalized = input.normalize("NFKC").trim().toLowerCase();
+
+  // 「たまちゃん」「たまみ」「たま」「tama」のいずれかに一致したらダンス部屋へ
+  if (
+    normalized === "たまちゃん" ||
+    normalized === "たまみ" ||
+    normalized === "たま" ||
+    normalized === "tama"
+  ) {
+    window.location.href = "dance.html";
+  } else {
+    alert("うーん、ちょっと違うみたい！もう一度考えてみてね。");
+  }
+}
