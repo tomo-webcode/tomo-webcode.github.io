@@ -87,10 +87,9 @@
       </button>
     </div>
 
-    <!-- 【修正】４：ソファのシーン（元の状態に戻し、次の部屋（シーン6）へのリンクを追加） -->
+    <!-- ４：ソファのシーン -->
     <div id="scene-4" class="scene-container">
       <div class="scene-stage">
-        <!-- 元の画像（重ねる前の、ソファだけのもの） -->
         <img src="img/4-couch.png" alt="ソファ" class="scene-image" />
 
         <!-- 額縁の右端（長男）をクリックして科学者ページへ -->
@@ -111,7 +110,6 @@
           title="アニメ＆漫画の部屋へ"
         ></button>
 
-        <!-- 読みかけの本 -->
         <button
           class="click-area"
           id="book-btn"
@@ -119,7 +117,7 @@
           title="読みかけの本"
         ></button>
       </div>
-      <!-- 【修正】右を向くと、新しく作った次女のメイク・ダンススペース（シーン6）へ移動 -->
+      <!-- ★追加：右を向くと、新しく作った次女のメイク・ダンススペース（シーン6）へ移動 -->
       <button class="nav-btn" data-scene="scene-6" data-effect="turn">
         右手のドレッサーの方を見る
       </button>
@@ -128,9 +126,9 @@
     <!-- ★新設★ ６：ドレッサーとダンススペースのシーン -->
     <div id="scene-6" class="scene-container">
       <div class="scene-stage">
-        <!-- 今回作成した新しい画像 -->
+        <!-- 【修正】拡張子を .jpeg に変更しました -->
         <img
-          src="img/6-dressing-space.png"
+          src="img/6-dressing-space.jpeg"
           alt="メイク道具と姿見"
           class="scene-image"
         />
