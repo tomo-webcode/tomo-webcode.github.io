@@ -119,7 +119,9 @@ body {
 }
 
 @keyframes quick-fade {
-  to { opacity: 0; }
+  to {
+    opacity: 0;
+  }
 }
 
 /* ---------- くるりと振り向く ---------- */
@@ -133,16 +135,42 @@ body {
 }
 
 @keyframes turn-out {
-  0%     { transform: translateX(0); filter: blur(0); opacity: 1; }
-  50%    { transform: translateX(-40%); filter: blur(4px); opacity: 1; }
-  50.01% { opacity: 0; } /* 真っ白になった瞬間に見えなくする */
-  100%   { transform: translateX(-40%); filter: blur(4px); opacity: 0; }
+  0% {
+    transform: translateX(0);
+    filter: blur(0);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-40%);
+    filter: blur(4px);
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  } /* 真っ白になった瞬間に見えなくする */
+  100% {
+    transform: translateX(-40%);
+    filter: blur(4px);
+    opacity: 0;
+  }
 }
 
 @keyframes turn-in {
-  0%   { transform: translateX(40%); filter: blur(4px); opacity: 0; }
-  50%  { transform: translateX(40%); filter: blur(4px); opacity: 0; }
-  100% { transform: translateX(0); filter: blur(0); opacity: 1; }
+  0% {
+    transform: translateX(40%);
+    filter: blur(4px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(40%);
+    filter: blur(4px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    filter: blur(0);
+    opacity: 1;
+  }
 }
 
 /* 白いフェード：しだいに真っ白になり、少し保ってから、ゆっくり晴れていく */
@@ -160,16 +188,28 @@ body {
 }
 
 @keyframes whiteout {
-  0%   { opacity: 0; }
-  45%  { opacity: 1; }
-  55%  { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 /* ---------- 近づく（扉・テーブル） ---------- */
 /* 拡大の中心：廊下は扉、ゲストルームはテーブルのあたり */
-#scene-1 .scene-stage { --zoom-origin: 50% 50%; }
-#scene-2 .scene-stage { --zoom-origin: 40% 70%; }
+#scene-1 .scene-stage {
+  --zoom-origin: 50% 50%;
+}
+#scene-2 .scene-stage {
+  --zoom-origin: 40% 70%;
+}
 
 /* 部屋がテーブルの位置に向かって拡大し、その上にテーブルが浮かび上がる */
 .approach-from .scene-stage {
@@ -184,12 +224,20 @@ body {
 }
 
 @keyframes zoom-away {
-  from { transform: scale(1); }
-  to   { transform: scale(1.8); }
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.8);
+  }
 }
 @keyframes grow-in {
-  from { transform: scale(0.85); }
-  to   { transform: scale(1); }
+  from {
+    transform: scale(0.85);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 /* ---------- 下がる（部屋を見渡す・廊下に戻る） ---------- */
@@ -205,17 +253,29 @@ body {
 }
 
 @keyframes shrink-away {
-  from { transform: scale(1); }
-  to   { transform: scale(0.75); }
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.75);
+  }
 }
 @keyframes settle-back {
-  from { transform: scale(1.25); }
-  to   { transform: scale(1); }
+  from {
+    transform: scale(1.25);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* ================= 古い羊皮紙の本 ================= */
@@ -229,7 +289,9 @@ body {
 }
 
 /* 本をひらく・とじるときの動き（部屋の場面と同じ「近づく／下がる」） */
-#scene-4 .scene-stage { --zoom-origin: 80% 70%; } /* 読みかけの本のあたり */
+#scene-4 .scene-stage {
+  --zoom-origin: 80% 70%;
+} /* 読みかけの本のあたり */
 .approach-to .book-wrap {
   animation: grow-in var(--zoom-duration) ease-out forwards;
 }
@@ -246,7 +308,11 @@ body {
   border: 2px solid #24130a;
   border-radius: 8px;
   background:
-    radial-gradient(ellipse at 30% 15%, rgba(255, 255, 255, 0.1), transparent 55%),
+    radial-gradient(
+      ellipse at 30% 15%,
+      rgba(255, 255, 255, 0.1),
+      transparent 55%
+    ),
     linear-gradient(135deg, #6b3f22, #4a2915 60%, #36200f);
   box-shadow: 0 2.5vmin 6vmin rgba(0, 0, 0, 0.6);
 }
@@ -280,10 +346,18 @@ body {
   transform-style: preserve-3d;
   transition: transform var(--flip-duration) cubic-bezier(0.45, 0.05, 0.25, 1);
 }
-.book-spread .leaf { left: 50%; width: 50%; }
-.book-single .leaf { left: 0; width: 100%; }
+.book-spread .leaf {
+  left: 50%;
+  width: 50%;
+}
+.book-single .leaf {
+  left: 0;
+  width: 100%;
+}
 
-.leaf.flipped { transform: rotateY(-180deg); }
+.leaf.flipped {
+  transform: rotateY(-180deg);
+}
 
 /* 1ページ表示では、めくり終わった紙は見えなくする */
 .book-single .leaf.flipped {
@@ -306,7 +380,9 @@ body {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 }
-.face.back { transform: rotateY(180deg); }
+.face.back {
+  transform: rotateY(180deg);
+}
 
 /* ---------- 羊皮紙のページ ---------- */
 .page {
@@ -315,22 +391,43 @@ body {
   inset: 0;
   box-sizing: border-box;
   color: var(--ink);
-  font-family: "Zen Kurenaido", "Klee", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-family:
+    "Zen Kurenaido", "Klee", "Hiragino Mincho ProN", "Yu Mincho", serif;
   background-color: #e8d3a0;
   background-image:
     /* ざらざらした紙の質感 */
     url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.42  0 0 0 0 0.28  0 0 0 0 0.12  0 0 0 0.55 0'/></filter><rect width='240' height='240' filter='url(%23n)'/></svg>"),
     /* 日に焼けたムラ・しみ */
-    radial-gradient(ellipse at 20% 15%, rgba(255, 247, 215, 0.9), transparent 60%),
-    radial-gradient(ellipse at 85% 90%, rgba(160, 110, 50, 0.45), transparent 55%),
-    radial-gradient(ellipse at 72% 30%, rgba(190, 140, 70, 0.25), transparent 40%);
+    radial-gradient(
+        ellipse at 20% 15%,
+        rgba(255, 247, 215, 0.9),
+        transparent 60%
+      ),
+    radial-gradient(
+      ellipse at 85% 90%,
+      rgba(160, 110, 50, 0.45),
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse at 72% 30%,
+      rgba(190, 140, 70, 0.25),
+      transparent 40%
+    );
   /* ふちの黒ずみ */
   box-shadow: inset 0 0 calc(7 * var(--u)) rgba(120, 75, 25, 0.55);
 }
-.book-single .page { --u: 1cqw; } /* 1ページ表示では、ページ幅＝本の幅 */
+.book-single .page {
+  --u: 1cqw;
+} /* 1ページ表示では、ページ幅＝本の幅 */
 
-.page-right { padding: calc(8 * var(--u)) calc(7 * var(--u)) calc(6 * var(--u)) calc(10 * var(--u)); }
-.page-left  { padding: calc(8 * var(--u)) calc(10 * var(--u)) calc(6 * var(--u)) calc(7 * var(--u)); }
+.page-right {
+  padding: calc(8 * var(--u)) calc(7 * var(--u)) calc(6 * var(--u))
+    calc(10 * var(--u));
+}
+.page-left {
+  padding: calc(8 * var(--u)) calc(10 * var(--u)) calc(6 * var(--u))
+    calc(7 * var(--u));
+}
 
 /* 背骨のそばの影 */
 .page::after {
@@ -340,10 +437,18 @@ body {
   pointer-events: none;
 }
 .page-right::after {
-  background: linear-gradient(to right, rgba(60, 30, 10, 0.38), rgba(60, 30, 10, 0) 9%);
+  background: linear-gradient(
+    to right,
+    rgba(60, 30, 10, 0.38),
+    rgba(60, 30, 10, 0) 9%
+  );
 }
 .page-left::after {
-  background: linear-gradient(to left, rgba(60, 30, 10, 0.38), rgba(60, 30, 10, 0) 9%);
+  background: linear-gradient(
+    to left,
+    rgba(60, 30, 10, 0.38),
+    rgba(60, 30, 10, 0) 9%
+  );
 }
 
 /* ---------- 表紙のページ ---------- */
@@ -370,7 +475,9 @@ body {
 /* 筆記体の英字 */
 .title-script {
   margin: 0;
-  font-family: "Pinyon Script", "Snell Roundhand", "Apple Chancery", "Brush Script MT", cursive;
+  font-family:
+    "Pinyon Script", "Snell Roundhand", "Apple Chancery", "Brush Script MT",
+    cursive;
   font-size: calc(11 * var(--u));
   line-height: 1.1;
   color: #5b2a14;
@@ -489,7 +596,9 @@ body {
   border-bottom: 3px solid #8b1a1a;
   transform: rotate(40deg) scale(0);
   opacity: 0;
-  transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
 }
 .check.on::after {
   transform: rotate(40deg) scale(1);
@@ -558,9 +667,15 @@ body {
 }
 
 @keyframes cat-roll {
-  0%   { transform: scale(1); }
-  45%  { transform: scale(1.015) translateY(2px); }
-  100% { transform: scale(1) translateY(0); }
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.015) translateY(2px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* 猫のボタンの上にマウスを乗せたとき、優しく光る */
@@ -569,7 +684,11 @@ body {
   transition: background 0.3s ease;
 }
 #cat-btn:hover {
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
 }
 
 /* へそ天になったときにふわっと浮かぶ「ごろ〜ん♡」の吹き出し演出 */
@@ -588,10 +707,41 @@ body {
   opacity: 0;
   pointer-events: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
 }
 
 #scene-3 .scene-stage.cat-belly #cat-btn::after {
   opacity: 1;
   transform: translate(-50%, -10px);
+}
+
+/* ★追加：左に振り向く時の動き */
+.turn-left-from {
+  animation: turnLeftOut 0.7s ease-in-out forwards;
+}
+.turn-left-to {
+  animation: turnLeftIn 0.7s ease-in-out forwards;
+}
+
+@keyframes turnLeftOut {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(15%);
+    opacity: 0;
+  }
+}
+@keyframes turnLeftIn {
+  0% {
+    transform: translateX(-15%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }

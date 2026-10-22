@@ -35,7 +35,8 @@ function changeScene(sceneId, effect) {
     isTransitioning = true;
     current.classList.add(`${effect}-from`);
     next.classList.add(`${effect}-to`);
-    if (effect === "turn") playFlash();
+    // ★ "turn-left" の時もフラッシュするように条件を追加します
+    if (effect === "turn" || effect === "turn-left") playFlash();
 
     let finished = false;
     const finish = () => {
