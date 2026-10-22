@@ -126,22 +126,21 @@
     <!-- ★新設★ ６：ドレッサーとダンススペースのシーン -->
     <div id="scene-6" class="scene-container">
       <div class="scene-stage">
-        <!-- 【修正】拡張子を .jpeg に変更しました -->
         <img
           src="img/6-dressing-space.jpeg"
           alt="メイク道具と姿見"
           class="scene-image"
         />
 
-        <!-- ★仕掛け：消えている鏡台（ライト）をクリックすると珠実の部屋（シーン7など）へ -->
+        <!-- ★仕掛け：中央のメイク道具のあたりをクリックすると珠実の部屋へ -->
+        <!-- titleを削除し、範囲をメイク道具の周辺のみに狭めました -->
         <button
           type="button"
           class="click-area"
           id="tamami-room-btn"
-          style="top: 10%; left: 4%; width: 38%; height: 85%"
+          style="top: 55%; left: 12%; width: 20%; height: 15%"
           data-scene="scene-7"
           data-effect="approach"
-          title="鏡のライトを点けて、珠実のダンス部屋へ"
         ></button>
       </div>
       <!-- 左を向くと、元のソファ（シーン4）に戻る -->
