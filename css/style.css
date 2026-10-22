@@ -97,6 +97,7 @@ body {
 
 /* 演出中は、次の場面も表示する */
 .turn-to,
+.turn-left-to,  /* ★ここを追加します */
 .approach-to,
 .retreat-to {
   display: flex;
