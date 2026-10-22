@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>たまちゃんのキラキラ☆ステージ</title>
+  <!-- 可愛い丸ゴシックフォントを読み込みます -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-warm-cream: #f7f6ee;
+      --bg-ivory: #fdfcf7;
+      --ho-pink: #ffa6c1;
+      --ho-pink-dark: #e86d92;
+      --warm-orange: #e05a00;
+      --fresh-green: #38b000;
+      --forest-dark: #143d16;
+      --forest-muted: #425c44;
+      --white: #ffffff;
+      --border-warm: #e4eadf;
+      --font-round: "Zen Maru Gothic", sans-serif;
+      --radius-md: 18px;
+      --radius-lg: 28px;
+      --shadow-warm: 0 14px 35px rgba(20, 61, 22, 0.08);
+    }
+
+    body {
+      background-color: var(--bg-warm-cream);
+      font-family: var(--font-round);
+      color: var(--forest-dark);
+      margin: 0;
+      padding: 40px 20px 80px;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* 左上の戻るボタン */
+    .back-link {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      color: var(--forest-dark);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      border: 2px solid var(--ho-pink);
+      transition: all 0.2s ease;
+      z-index: 100;
+    }
+    .back-link:hover {
+      background: var(--ho-pink);
+      color: var(--white);
+    }
+
+    /* アルバムの枠組み */
+    .tamami-album {
+      width: 100%;
+      max-width: 800px;
+      background: var(--white);
+      border: 4px dashed var(--ho-pink);
+      border-radius: var(--radius-lg);
+      padding: 40px 30px;
+      box-shadow: var(--shadow-warm);
+    }
+
+    /* タイトル周り */
+    .tamami-title {
+      text-align: center;
+      font-size: 1.8rem;
+      color: var(--ho-pink-dark);
+      margin-bottom: 40px;
+      border-bottom: 2px dotted var(--ho-pink);
+      padding-bottom: 15px;
+    }
+    .tamami-title .en {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--warm-orange);
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+    }
+
+    /* 動画リストのレイアウト */
+    .video-list {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+
+    /* 各動画のカード */
+    .video-card {
+      background: var(--bg-ivory);
+      border: 2px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      padding: 25px;
+      position: relative;
+    }
+
+    /* ピック・イベントなどのラベル（バッジ） */
+    .video-badge {
+      position: absolute;
+      top: -14px;
+      left: 20px;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: var(--white);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .badge-event { background: var(--ho-pink-dark); }
+    .badge-pick { background: var(--warm-orange); }
+    .badge-other { background: var(--fresh-green); }
+
+    /* 動画を貼るスペース */
+    .video-player {
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+    .video-player iframe, 
+    .video-player video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+    }
+    .dummy-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #e4eadf;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--forest-muted);
+      font-weight: bold;
+    }
+
+    /* 動画の情報（日付や曲名など） */
+    .video-info h3 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      margin-top: 0;
+    }
+    .video-info ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+    .video-info p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* スマホ表示の時は1列にする */
+    @media (max-width: 768px) {
+      .video-info ul { grid-template-columns: 1fr; }
+      .tamami-album { padding: 30px 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ドレッサーのシーンに戻るボタン -->
+  <a href="index.html#scene-6" class="back-link">◀ 鏡のライトを消して戻る</a>
+
+  <div class="tamami-album">
+    <h1 class="tamami-title">
+      <span class="en">Tamami's Dance Room</span>
+      たまちゃんのキラキラ☆ステージ
+    </h1>
+
+    <div class="video-list">
+      <!-- ① イベント動画 -->
+      <div class="video-card">
+        <span class="video-badge badge-event">イベント</span>
+        <div class="video-player">
+          <div class="dummy-video">ここにYouTubeなどのイベント動画を貼ります</div>
+        </div>
+        <div class="video-info">
+          <h3>〇〇ダンスフェスティバル</h3>
+          <ul>
+            <li><strong>日付：</strong> 2026年10月10日</li>
+            <li><strong>学年：</strong> 小学3年生</li>
+            <li><strong>曲名：</strong> キラキラ☆ダンス</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ② ピック動画 -->
+      <div class="video-card">
+        <span class="video-badge badge-pick">ピック</span>
+        <div class="video-player">
+          <div class="dummy-video">ここにピックの動画を貼ります</div>
+        </div>
+        <div class="video-info">
+          <h3>いつもの練習ピック</h3>
+          <ul>
+            <li><strong>日付：</strong> 2026年9月15日</li>
+            <li><strong>学年：</strong> 小学3年生</li>
+            <li><strong>曲名：</strong> ステップアップ</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ③ その他の動画 -->
+      <div class="video-card">
+        <span class="video-badge badge-other">その他</span>
+        <div class="video-player">
+          <div class="dummy-video">ここにその他の動画を貼ります</div>
+        </div>
+        <div class="video-info">
+          <h3>お家でストレッチ</h3>
+          <p>毎日お風呂上がりに頑張っている、柔軟体操の様子です。体がとっても柔らかくなりました！</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
