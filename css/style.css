@@ -717,31 +717,49 @@ body {
   transform: translate(-50%, -10px);
 }
 
-/* ★追加：左に振り向く時の動き */
+/* ★修正：左に振り向く時の動き（右を向く時と完全に同じ設定・逆向き） */
 .turn-left-from {
-  animation: turnLeftOut 0.2s ease-in-out forwards;
+  animation: turn-left-out var(--turn-duration) ease-in-out both;
 }
 .turn-left-to {
-  animation: turnLeftIn 0.2s ease-in-out forwards;
+  animation: turn-left-in var(--turn-duration) ease-in-out both;
 }
 
-@keyframes turnLeftOut {
+@keyframes turn-left-out {
   0% {
     transform: translateX(0);
+    filter: blur(0);
     opacity: 1;
   }
+  50% {
+    transform: translateX(40%);
+    filter: blur(4px);
+    opacity: 1;
+  }
+  50.01% {
+    opacity: 0;
+  } /* 真っ白になった瞬間に見えなくする */
   100% {
-    transform: translateX(15%);
+    transform: translateX(40%);
+    filter: blur(4px);
     opacity: 0;
   }
 }
-@keyframes turnLeftIn {
+
+@keyframes turn-left-in {
   0% {
-    transform: translateX(-15%);
+    transform: translateX(-40%);
+    filter: blur(4px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateX(-40%);
+    filter: blur(4px);
     opacity: 0;
   }
   100% {
     transform: translateX(0);
+    filter: blur(0);
     opacity: 1;
   }
 }
