@@ -87,12 +87,13 @@
       </button>
     </div>
 
-    <!-- ４：ソファのシーン -->
+    <!-- 【修正】４：ソファのシーン（元の状態に戻し、次の部屋（シーン6）へのリンクを追加） -->
     <div id="scene-4" class="scene-container">
       <div class="scene-stage">
+        <!-- 元の画像（重ねる前の、ソファだけのもの） -->
         <img src="img/4-couch.png" alt="ソファ" class="scene-image" />
 
-        <!-- ★追加：額縁の右端（長男）をクリックして科学者ページへ -->
+        <!-- 額縁の右端（長男）をクリックして科学者ページへ -->
         <button
           type="button"
           class="click-area"
@@ -110,6 +111,7 @@
           title="アニメ＆漫画の部屋へ"
         ></button>
 
+        <!-- 読みかけの本 -->
         <button
           class="click-area"
           id="book-btn"
@@ -117,8 +119,36 @@
           title="読みかけの本"
         ></button>
       </div>
-      <button class="nav-btn" data-scene="scene-2" data-effect="turn">
-        くるりと後ろを振り向く
+      <!-- 【修正】右を向くと、新しく作った次女のメイク・ダンススペース（シーン6）へ移動 -->
+      <button class="nav-btn" data-scene="scene-6" data-effect="turn">
+        右手のドレッサーの方を見る
+      </button>
+    </div>
+
+    <!-- ★新設★ ６：ドレッサーとダンススペースのシーン -->
+    <div id="scene-6" class="scene-container">
+      <div class="scene-stage">
+        <!-- 今回作成した新しい画像 -->
+        <img
+          src="img/6-dressing-space.png"
+          alt="メイク道具と姿見"
+          class="scene-image"
+        />
+
+        <!-- ★仕掛け：消えている鏡台（ライト）をクリックすると珠実の部屋（シーン7など）へ -->
+        <button
+          type="button"
+          class="click-area"
+          id="tamami-room-btn"
+          style="top: 10%; left: 4%; width: 38%; height: 85%"
+          data-scene="scene-7"
+          data-effect="approach"
+          title="鏡のライトを点けて、珠実のダンス部屋へ"
+        ></button>
+      </div>
+      <!-- 左を向くと、元のソファ（シーン4）に戻る -->
+      <button class="nav-btn" data-scene="scene-4" data-effect="turn">
+        左手のソファの方を振り返る
       </button>
     </div>
 
@@ -147,71 +177,81 @@
 
     <!-- 振り向くときに重ねる白いフェード用 -->
     <div id="flash-overlay"></div>
-<script src="js/books.js"></script>
+    <script src="js/books.js"></script>
     <script src="js/book.js"></script>
     <script src="js/main.js"></script>
-  
 
+    <script id="hideaway-gates">
+      async function hideawaySha256(text) {
+        const normalized = text.normalize("NFKC").trim();
+        const bytes = new TextEncoder().encode(normalized);
+        const digest = await crypto.subtle.digest("SHA-256", bytes);
+        return [...new Uint8Array(digest)]
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
 
-<script id="hideaway-gates">
-  async function hideawaySha256(text) {
-    const normalized = text.normalize("NFKC").trim();
-    const bytes = new TextEncoder().encode(normalized);
-    const digest = await crypto.subtle.digest("SHA-256", bytes);
-    return [...new Uint8Array(digest)]
-      .map(b => b.toString(16).padStart(2, "0"))
-      .join("");
-  }
+      async function enterScientists() {
+        const answer = prompt("大ちゃんの後ろについている人は誰でしょう？");
+        if (answer === null) return false;
 
-  async function enterScientists() {
-    const answer = prompt("大ちゃんの後ろについている人は誰でしょう？");
-    if (answer === null) return false;
+        const hash = await hideawaySha256(answer);
+        const correctHash =
+          "879cf198bfb55d6b9d5f7123b11be6eb52e16c1f6cccc1c7adde329e18f7529d";
 
-    const hash = await hideawaySha256(answer);
-    const correctHash = "879cf198bfb55d6b9d5f7123b11be6eb52e16c1f6cccc1c7adde329e18f7529d";
+        if (hash === correctHash) {
+          sessionStorage.setItem("hideaway_scientists_key", "ok");
+          window.location.href = "scientists.html";
+        } else {
+          alert("違いま～す！");
+        }
+        return false;
+      }
 
-    if (hash === correctHash) {
-      sessionStorage.setItem("hideaway_scientists_key", "ok");
-      window.location.href = "scientists.html";
-    } else {
-      alert("違いま～す！");
-    }
-    return false;
-  }
+      async function enterAnime() {
+        const answer = prompt("あなたの好きなものは？");
+        if (answer === null) return false;
 
-  async function enterAnime() {
-    const answer = prompt("あなたの好きなものは？");
-    if (answer === null) return false;
+        const normalized = answer
+          .normalize("NFKC")
+          .trim()
+          .replace(/[・･、,。!！?？\s]/g, "");
 
-    const normalized = answer.normalize("NFKC").trim()
-      .replace(/[・･、,。!！?？\s]/g, "");
+        const parts = [
+          normalized,
+          ...normalized.split(/や|と|＆|&|または/),
+        ].filter(Boolean);
+        const hashes = await Promise.all(parts.map(hideawaySha256));
+        const allowedHashes = [
+          "77affb05948a7dacda062e8e1a3ce008f1c3e1ed4b7f1f5ecfb515d47879b9f2",
+          "8447fb0532d16687bebe7947f907803697130be1fd667f3d938626dbae1d2250",
+          "0728628c3446ecfcd5b5238a5bcd58c59ccc6f7ceabb2dd00ebc5d9c9b3a39ad",
+        ];
 
-    const parts = [normalized, ...normalized.split(/や|と|＆|&|または/)]
-      .filter(Boolean);
-    const hashes = await Promise.all(parts.map(hideawaySha256));
-    const allowedHashes = ["77affb05948a7dacda062e8e1a3ce008f1c3e1ed4b7f1f5ecfb515d47879b9f2", "8447fb0532d16687bebe7947f907803697130be1fd667f3d938626dbae1d2250", "0728628c3446ecfcd5b5238a5bcd58c59ccc6f7ceabb2dd00ebc5d9c9b3a39ad"];
+        if (hashes.some((h) => allowedHashes.includes(h))) {
+          sessionStorage.setItem("hideaway_anime_key", "ok");
+          window.location.href = "anime.html";
+        } else {
+          alert("あなたの好みにはあわないから、またね～ばいばい");
+        }
+        return false;
+      }
+    </script>
 
-    if (hashes.some(h => allowedHashes.includes(h))) {
-      sessionStorage.setItem("hideaway_anime_key", "ok");
-      window.location.href = "anime.html";
-    } else {
-      alert("あなたの好みにはあわないから、またね～ばいばい");
-    }
-    return false;
-  }
-</script>
+    <script id="hideaway-gate-listeners">
+      document
+        .getElementById("daughter-btn")
+        ?.addEventListener("click", function (event) {
+          event.preventDefault();
+          enterAnime();
+        });
 
-<script id="hideaway-gate-listeners">
-  document.getElementById("daughter-btn")?.addEventListener("click", function (event) {
-    event.preventDefault();
-    enterAnime();
-  });
-
-  document.getElementById("son-btn")?.addEventListener("click", function (event) {
-    event.preventDefault();
-    enterScientists();
-  });
-</script>
-
-</body>
+      document
+        .getElementById("son-btn")
+        ?.addEventListener("click", function (event) {
+          event.preventDefault();
+          enterScientists();
+        });
+    </script>
+  </body>
 </html>
