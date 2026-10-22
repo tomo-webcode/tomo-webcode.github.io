@@ -123,7 +123,7 @@
       </button>
     </div>
 
-    <!-- ★新設★ ６：ドレッサーとダンススペースのシーン -->
+    <!-- ６：ドレッサーとダンススペースのシーン -->
     <div id="scene-6" class="scene-container">
       <div class="scene-stage">
         <img
@@ -132,13 +132,14 @@
           class="scene-image"
         />
 
-        <!-- ★仕掛け：中央のメイク道具のあたりをクリックすると dance.html へ移動 -->
+        <!-- ★修正：クリックするとパスワード入力画面が出るようにする -->
         <button
           type="button"
           class="click-area"
           id="tamami-room-btn"
-          style="top: 55%; left: 12%; width: 20%; height: 15%"
-          onclick="window.location.href = 'dance.html'"
+          style="top: 55%; left: 12%; width: 20%; height: 18%"
+          onclick="checkTamamiPassword()"
+          title="たまちゃんのステージへ"
         ></button>
       </div>
       <!-- 左を向くと、元のソファ（シーン4）に戻る -->
