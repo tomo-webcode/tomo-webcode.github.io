@@ -103,13 +103,12 @@
         margin-bottom: 6px;
       }
 
-      /* 動画リスト */
+      /* 動画リスト（カード同士の間隔をゆったり空ける） */
       .video-list {
         display: flex;
         flex-direction: column;
-        gap: 40px;
+        gap: 50px; /* ★ここを広げて間隔をしっかりあけます */
       }
-
       /* 各動画のカード */
       .video-card {
         background: var(--bg-ivory);
@@ -132,12 +131,16 @@
         color: var(--white);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
+      /* ピック・イベント・練習風景・その他のラベル（バッジ） */
       .badge-event {
         background: var(--ho-pink-dark);
       }
       .badge-pick {
         background: var(--warm-orange);
       }
+      .badge-practice {
+        background: #2b6cb0;
+      } /* ★追加：練習風景用（落ち着いたブルー） */
       .badge-other {
         background: var(--fresh-green);
       }
