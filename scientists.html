@@ -1285,8 +1285,19 @@
               <h3 class="section-heading">主な功績</h3>
               <ul class="achievements-list">${s.ach.map((x) => `<li>${x}</li>`).join("")}</ul>
               <div class="formula-box"><div class="formula-title">【定理・法則・代表的な数式】 ${s.ftitle}</div><div class="formula-content">${s.formula}</div></div>
-              <h3 class="section-heading">素顔</h3>
+             <h3 class="section-heading">素顔</h3>
               <p class="desc-text">${s.face}</p>
+
+              ${
+                japanInfo
+                  ? `
+              <h3 class="section-heading">Ties to Japan</h3>
+              <p class="desc-text">${japanInfo.desc}</p>
+              <div class="q-src" style="margin-top: 4px; padding-top: 4px; border-top: none;">出典：${japanInfo.src}</div>
+              `
+                  : ""
+              }
+              
             </div>
           </div>`;
         root.appendChild(el);
