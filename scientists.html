@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="ja">
   <head>
-<script>
-  if (sessionStorage.getItem("hideaway_scientists_key") !== "ok") {
-    window.location.replace("index.html#scene-4");
-  }
-</script>
+    <script>
+      if (sessionStorage.getItem("hideaway_scientists_key") !== "ok") {
+        window.location.replace("index.html#scene-4");
+      }
+    </script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -546,11 +546,60 @@
           padding: 16px 18px 28px;
         }
       }
+
+      /* ★ 上に戻るボタン ★ */
+      .scroll-top-btn {
+        position: fixed;
+        bottom: 28px;
+        right: 28px;
+        z-index: 99;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        padding: 10px 18px;
+        background: rgba(22, 18, 14, 0.88);
+        color: var(--gold);
+        border: 1px solid var(--border-gold);
+        border-radius: 30px;
+        font-family: "Cinzel", "Noto Serif JP", serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(15px);
+        transition: all 0.3s ease;
+      }
+
+      /* スクロール時に表示される状態 */
+      .scroll-top-btn.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      /* ホバー時の効果 */
+      .scroll-top-btn:hover {
+        background: var(--gold);
+        color: var(--bg-dark);
+        box-shadow: 0 8px 25px rgba(200, 157, 84, 0.4);
+        transform: translateY(-3px);
+      }
     </style>
   </head>
   <body>
     <header>
-      <a href="index.html#scene-4" class="back-link" onclick="sessionStorage.removeItem('hideaway_scientists_key')">‹ ソファの部屋へ戻る</a>
+      <a
+        href="index.html#scene-4"
+        class="back-link"
+        onclick="sessionStorage.removeItem('hideaway_scientists_key')"
+        >‹ ソファの部屋へ戻る</a
+      >
       <p class="header-en">SOLILOQUIES OF THE GREAT DOCTORS</p>
       <h1>大博士の独り言</h1>
       <p class="header-desc">
@@ -560,13 +609,20 @@
     </header>
     <main id="scientists-container"></main>
     <p class="legend">
-      【言葉の信頼度】<span class="q-kind k1">一次</span>本人の著作・書簡 <span
-        class="q-kind k2"
-        >記録</span
-      >本人の発言を第三者が記録した資料 <span class="q-kind">伝承</span
+      【言葉の信頼度】<span class="q-kind k1">一次</span>本人の著作・書簡
+      <span class="q-kind k2">記録</span>本人の発言を第三者が記録した資料
+      <span class="q-kind">伝承</span
       >後世の伝承（真偽に議論あり）。「原典照合」は、原典またはそれを引く資料で語句を確かめた状況です。原文の綴りや句読点は版により異なります。
     </p>
     <footer><p>My Hideaway — Soliloquies of the Great Doctors</p></footer>
+    <!-- ★ 上に戻るボタン ★ -->
+    <a
+      href="#"
+      id="scrollTopBtn"
+      class="scroll-top-btn"
+      aria-label="ページ上部へ戻る"
+      >▲ TOP</a
+    >
     <script>
       const D = [
         {
@@ -616,8 +672,7 @@
           fields: ["天文学", "物理学", "数学"],
           ftitle:
             "落体の法則（等加速度運動） （$s$ は落下距離、$g$ は重力加速度、$t$ は時間）",
-          formula:
-            "$$s = \\frac{1}{2}gt^2$$",
+          formula: "$$s = \\frac{1}{2}gt^2$$",
           ach: [
             "<strong>近代科学的方法の確立：</strong> 自然現象を数学的な言語で記述し、実験と観測によって理論を検証するという、現代の「科学的方法」の基礎を築き「近代科学の父」と呼ばれる。",
             "<strong>力学の基礎（落体の法則・慣性の法則）：</strong> 物体の落下速度は質量に依存しないことを実証。また、斜面の実験から慣性の概念に到達し、アリストテレス的な自然観を覆した。",
@@ -1057,8 +1112,7 @@
           en: "Richard Phillips Feynman",
           img: "img/scientists/feynman.png",
           fields: ["量子電磁力学", "素粒子物理学", "統計力学"],
-          ftitle:
-            "経路積分とプロパゲーター （$K$ は遷移振幅、$S$ は作用積分）",
+          ftitle: "経路積分とプロパゲーター （$K$ は遷移振幅、$S$ は作用積分）",
           formula:
             "$$K(x_b, t_b; x_a, t_a) = \\int \\exp\\left(\\frac{i}{\\hbar}S[x(t)]\\right) \\mathcal{D}x(t)$$",
           ach: [
@@ -1134,10 +1188,24 @@
 
       const toc = document.getElementById("toc"),
         root = document.getElementById("scientists-container");
-      
+
       // 13人分に拡張されたローマ数字
-      const R = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII"];
-      
+      const R = [
+        "I",
+        "II",
+        "III",
+        "IV",
+        "V",
+        "VI",
+        "VII",
+        "VIII",
+        "IX",
+        "X",
+        "XI",
+        "XII",
+        "XIII",
+      ];
+
       function showQ(i, n) {
         const s = D[i],
           len = s.q.length,
@@ -1202,6 +1270,26 @@
         () =>
           window.MathJax && MathJax.typesetPromise && MathJax.typesetPromise(),
       );
+      // ★ 上に戻るボタンのスクロール制御 ★
+      const scrollTopBtn = document.getElementById("scrollTopBtn");
+
+      // スクロール位置に応じてボタンを表示/非表示
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 400) {
+          scrollTopBtn.classList.add("show");
+        } else {
+          scrollTopBtn.classList.remove("show");
+        }
+      });
+
+      // クリック時にスムーズに上まで戻る
+      scrollTopBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      });
     </script>
   </body>
 </html>
