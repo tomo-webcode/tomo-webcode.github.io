@@ -121,6 +121,14 @@
       <button class="nav-btn" data-scene="scene-6" data-effect="turn">
         右手のドレッサーの方を見る
       </button>
+      <!-- 後ろを振り向くと、ダイニングが見える部屋（シーン2）に戻る -->
+      <button
+        class="nav-btn nav-back"
+        data-scene="scene-2"
+        data-effect="turn-left"
+      >
+        ダイニングの方を振り返る
+      </button>
     </div>
 
     <!-- ６：ドレッサーとダンススペースのシーン -->
@@ -139,7 +147,7 @@
           id="tamami-room-btn"
           style="top: 55%; left: 12%; width: 20%; height: 18%"
           onclick="checkTamamiPassword()"
-          title="たまちゃんのステージへ"
+          aria-label="たまちゃんのステージへ"
         ></button>
       </div>
       <!-- 左を向くと、元のソファ（シーン4）に戻る -->
