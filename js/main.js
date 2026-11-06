@@ -124,20 +124,24 @@ if (window.location.hash) {
 }
 
 // たまちゃんのダンス部屋の合言葉チェック
-function checkTamamiPassword() {
+async function checkTamamiPassword() {
   const input = prompt("あなたの一番の推しの名前は？：");
   if (input === null || input === "") return;
 
   // 全角・半角や大文字・小文字を統一して判定しやすくする
   const normalized = input.normalize("NFKC").trim().toLowerCase();
 
-  // 正解ならダンス部屋へ
-  if (
-    normalized === "（削除）" ||
-    normalized === "（削除）" ||
-    normalized === "（削除）" ||
-    normalized === "（削除）"
-  ) {
+  // 正解のSHA-256ハッシュ（hideawaySha256 は index.html で定義）
+  const hash = await hideawaySha256(normalized);
+  const allowedHashes = [
+    "1259f2bbdd93c42241675d9433ab219213371c0c8f4a6f40c9a2a192a30ff090",
+    "1162316e6063843bbdb6d768aa9d81b6b8f2bc28533b3553adf2adb2b0fa4164",
+    "3b2d322c499f277d53c2955a14dd0d2f9b9ac2593639d8abc15237a3a4bd53e7",
+    "473ec7ab1e08600fc028c71f335d7741d724301ab433d3e884319b204a510c0d",
+  ];
+
+  if (allowedHashes.includes(hash)) {
+    sessionStorage.setItem("hideaway_dance_key", "ok");
     window.location.href = "dance.html";
   } else {
     alert("うーん、ちょっと違うみたい！もう一度考えてみてね。");

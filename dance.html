@@ -1,6 +1,12 @@
 <!doctype html>
 <html lang="ja">
   <head>
+    <script>
+      if (sessionStorage.getItem("hideaway_dance_key") !== "ok") {
+        window.location.replace("index.html#scene-6");
+      }
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>たまちゃんのキラキラ☆ステージ</title>
@@ -239,7 +245,12 @@
   </head>
   <body>
     <!-- ドレッサー（シーン6）に戻るボタン -->
-    <a href="index.html#scene-6" class="back-link">◀ 鏡の間に戻る</a>
+    <a
+      href="index.html#scene-6"
+      class="back-link"
+      onclick="sessionStorage.removeItem('hideaway_dance_key')"
+      >◀ 鏡の間に戻る</a
+    >
 
     <div class="tamami-album">
       <h1 class="tamami-title">
@@ -260,12 +271,10 @@
             ></iframe>
           </div>
           <div class="video-info">
-            <h3>Jazz 初級銀賞の動画</h3>
+            <h3>Jazz 初級 銀賞の動画</h3>
             <p class="silver-message">🎉 初級クラスで初めて銀賞をとれた、記念すべき動画です！</p>
             <ul>
-              <li>
-                <strong>日時：</strong> 令和8年11月第1週
-              </li>
+              <li><strong>日付：</strong> 令和8年11月第1週</li>
               <li><strong>学年：</strong> 小学5年生</li>
               <li><strong>クラス：</strong> Jazz 初級</li>
             </ul>
@@ -285,11 +294,9 @@
             ></iframe>
           </div>
           <div class="video-info">
-            <h3>Jazz 初級練習風景</h3>
+            <h3>Jazz 初級 練習風景</h3>
             <ul>
-              <li>
-                <strong>日時：</strong> 令和8年11月第1週
-              </li>
+              <li><strong>日付：</strong> 令和8年11月第1週</li>
               <li><strong>学年：</strong> 小学5年生</li>
               <li><strong>クラス：</strong> Jazz 初級</li>
             </ul>
@@ -309,11 +316,9 @@
             ></iframe>
           </div>
           <div class="video-info">
-            <h3>Jazz 初級練習風景</h3>
+            <h3>Jazz 初級 練習風景</h3>
             <ul>
-              <li>
-                <strong>日時：</strong> 令和8年11月第1週
-              </li>
+              <li><strong>日付：</strong> 令和8年11月第1週</li>
               <li><strong>学年：</strong> 小学5年生</li>
               <li><strong>クラス：</strong> Jazz 初級</li>
             </ul>
@@ -333,11 +338,9 @@
             ></iframe>
           </div>
           <div class="video-info">
-            <h3>Jazz 初級練習風景</h3>
+            <h3>Jazz 初級 練習風景</h3>
             <ul>
-              <li>
-                <strong>日時：</strong> 令和8年10月第4週
-              </li>
+              <li><strong>日付：</strong> 令和8年10月第4週</li>
               <li><strong>学年：</strong> 小学5年生</li>
               <li><strong>クラス：</strong> Jazz 初級</li>
             </ul>
@@ -357,11 +360,9 @@
             ></iframe>
           </div>
           <div class="video-info">
-            <h3>Jazz 初級練習風景</h3>
+            <h3>Jazz 初級 練習風景</h3>
             <ul>
-              <li>
-                <strong>日時：</strong> 令和8年10月第4週
-              </li>
+              <li><strong>日付：</strong> 令和8年10月第4週</li>
               <li><strong>学年：</strong> 小学5年生</li>
               <li><strong>クラス：</strong> Jazz 初級</li>
             </ul>
