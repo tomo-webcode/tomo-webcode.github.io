@@ -65,13 +65,18 @@ function changeScene(sceneId, effect) {
 }
 
 // 合言葉のチェック（正解なら本の画面へ）
-function checkPassword() {
+async function checkPassword() {
   const input = prompt("秘密の本を開く合言葉を入力してください：");
   if (input === null || input === "") return;
 
   // 全角・半角や、大文字・小文字の違いは気にしない（スマホで打ちやすいように）
   const normalized = input.normalize("NFKC").trim().toUpperCase();
-  if (normalized === "（削除）") {
+  // 正解のSHA-256ハッシュと照合（hideawaySha256 は index.html で定義）
+  const hash = await hideawaySha256(normalized);
+  if (
+    hash === "4d5923b70078370fdb860f6b85bb6cf94d1d1506f04ca137d362558c459c32dd"
+  ) {
+    sessionStorage.setItem("hideaway_book_key", "ok");
     changeScene("scene-5", "approach");
   } else {
     alert("合言葉が違います。本は静かに閉じられたままです。");
@@ -118,7 +123,11 @@ document.querySelectorAll(".scene-image").forEach((img) => {
 // URLに #scene-4 などが付いている場合は、最初からそのシーンを開く
 if (window.location.hash) {
   const targetId = window.location.hash.substring(1);
-  if (document.getElementById(targetId)) {
+  // 本のシーンは、合言葉を通っていなければURLからは開かない
+  const isLockedBook =
+    targetId === "scene-5" &&
+    sessionStorage.getItem("hideaway_book_key") !== "ok";
+  if (document.getElementById(targetId) && !isLockedBook) {
     changeScene(targetId);
   }
 }
